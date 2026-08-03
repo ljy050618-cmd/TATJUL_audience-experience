@@ -15,6 +15,7 @@ roster-body
 
 <main class="roster-page">
 
+    <!-- 1. 페이지 제목 -->
     <section class="roster-heading">
 
         <p class="roster-document-code">
@@ -26,7 +27,7 @@ roster-body
         </h1>
 
         <p class="roster-description">
-            등록된 학생은 배정된 반의 명부에 기록됩니다.
+            등록 후 배정된 반과 재학생 명부를 확인할 수 있습니다.
         </p>
 
         <div class="roster-total">
@@ -38,62 +39,7 @@ roster-body
     </section>
 
 
-    <section class="class-register">
-
-        {% for class_number in range(1, 7) %}
-
-            {% set class_students =
-                students
-                | selectattr(
-                    "class_number",
-                    "equalto",
-                    class_number
-                )
-                | list
-            %}
-
-            <div class="class-register-row">
-
-                <div class="class-register-label">
-                    <span class="class-number">
-                        {{ class_number }}
-                    </span>
-
-                    <span class="class-unit">
-                        반
-                    </span>
-                </div>
-
-
-                <div class="class-student-list">
-
-                    {% if class_students %}
-
-                        {% for student in class_students %}
-
-                            <span class="registered-student-name">
-                                {{ student.nickname }}
-                            </span>
-
-                        {% endfor %}
-
-                    {% else %}
-
-                        <span class="class-empty">
-                            등록 학생 없음
-                        </span>
-
-                    {% endif %}
-
-                </div>
-
-            </div>
-
-        {% endfor %}
-
-    </section>
-
-
+    <!-- 2. 닉네임 입력 및 로그인 영역 -->
     <section class="student-access-section">
 
         <div class="access-title">
@@ -201,6 +147,82 @@ roster-body
         <p class="privacy-notice">
             실명, 전화번호 등 개인정보는 입력하지 마세요.
         </p>
+
+    </section>
+
+
+    <!-- 3. 반별 재학생 명부 -->
+    <section class="class-register-section">
+
+        <div class="class-register-heading">
+
+            <p class="section-code">
+                CLASS ASSIGNMENT
+            </p>
+
+            <h2>
+                반별 등록 현황
+            </h2>
+
+        </div>
+
+
+        <div class="class-register">
+
+            {% for class_number in range(1, 7) %}
+
+                {% set class_students =
+                    students
+                    | selectattr(
+                        "class_number",
+                        "equalto",
+                        class_number
+                    )
+                    | list
+                %}
+
+                <div class="class-register-row">
+
+                    <div class="class-register-label">
+
+                        <span class="class-number">
+                            {{ class_number }}
+                        </span>
+
+                        <span class="class-unit">
+                            반
+                        </span>
+
+                    </div>
+
+
+                    <div class="class-student-list">
+
+                        {% if class_students %}
+
+                            {% for student in class_students %}
+
+                                <span class="registered-student-name">
+                                    {{ student.nickname }}
+                                </span>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <span class="class-empty">
+                                등록 학생 없음
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
 
     </section>
 

@@ -2,7 +2,12 @@
 
 
 {% block title %}
-학생 기록지 — {{ student.nickname }}
+{{ student.nickname }} — 학생 개인 기록지
+{% endblock %}
+
+
+{% block body_class %}
+record-body
 {% endblock %}
 
 
@@ -10,109 +15,113 @@
 
 <main class="record-page">
 
-    <article class="record-card">
+    <section class="record-sheet">
 
-        <header class="record-header">
+        <header class="record-sheet-header">
 
-            <div class="record-emblem">
-                S
+            <div class="record-title-wrap">
+
+                <div class="record-emblem">
+                    S
+                </div>
+
+                <div class="record-title-block">
+                    <p class="record-school-en">
+                        SALEM ACADEMY
+                    </p>
+
+                    <h1>
+                        학생 개인 기록지
+                    </h1>
+                </div>
+
             </div>
 
-
-            <div class="record-heading">
-
-                <p>
-                    SALEM ACADEMY
-                </p>
-
-                <h1>
-                    학생 개인 기록지
-                </h1>
-
-            </div>
-
-
-            <span class="confidential">
+            <div class="record-confidential">
                 CONFIDENTIAL
-            </span>
+            </div>
 
         </header>
 
 
-        <div class="record-code">
-
-            <span>
-                OFFICIAL STUDENT RECORD
-            </span>
-
-            <span>
-                SA-{{ "%04d"|format(student.id) }}
-            </span>
-
+        <div class="record-meta-line">
+            <span>OFFICIAL STUDENT RECORD</span>
+            <span>SA-0053</span>
         </div>
 
 
-        <dl class="record-information">
+        <section class="record-table">
 
             <div class="record-row">
-
-                <dt>
+                <div class="record-label">
                     이름
-                </dt>
+                </div>
 
-                <dd>
+                <div class="record-value">
                     {{ student.nickname }}
-                </dd>
-
+                </div>
             </div>
 
 
             <div class="record-row">
-
-                <dt>
+                <div class="record-label">
                     소속
-                </dt>
+                </div>
 
-                <dd>
-                    세일럼 고교
-                    {{ student.class_number }}반
-                </dd>
-
+                <div class="record-value">
+                    세일럼 고교 {{ student.class_number }}반
+                </div>
             </div>
 
 
-            <div class="record-row result-row">
-
-                <dt>
+            <div class="record-row">
+                <div class="record-label">
                     공동체 유형 결과
-                </dt>
+                </div>
 
-                <dd>
-
+                <div class="record-value record-result-main">
                     {% if student.result_type %}
-
                         {{ student.result_type }}
-
                     {% else %}
-
-                        <span class="pending-result">
-                            미기록
-                        </span>
-
+                        미기록
                     {% endif %}
-
-                </dd>
-
+                </div>
             </div>
 
-        </dl>
+        </section>
 
 
-        {% if not student.result_type %}
+        {% if student.result_type %}
 
-            <section class="survey-entry">
+            <section class="record-completed-panel">
 
-                <p class="section-code">
+                <p class="record-completed-kicker">
+                    COMMUNITY PROFILE RECORDED
+                </p>
+
+                <h2>
+                    {{ student.result_type }}
+                </h2>
+
+                <p class="record-completed-description">
+                    공동체 유형 조사가 완료되어
+                    학생 기록에 보존되었습니다.
+                </p>
+
+                <a
+                    href="{{ url_for('survey_result') }}"
+                    class="record-main-button"
+                >
+                    유형 설명 보기
+                </a>
+
+            </section>
+
+        {% else %}
+
+            <section class="record-pending-panel">
+
+                <p class="record-pending-kicker">
                     REQUIRED ASSESSMENT
                 </p>
 
@@ -121,38 +130,16 @@
                     완료되지 않았습니다.
                 </h2>
 
-                <p>
-                    공동체의 질서가 흔들리는 상황에서
-                    학생이 보이는 판단과 행동을 기록합니다.
+                <p class="record-pending-description">
+                    공동체의 질서가 흔들리는 상황에서 학생이 보이는
+                    판단과 행동을 기록합니다.
                 </p>
 
                 <a
                     href="{{ url_for('survey_intro') }}"
-                    class="primary-button"
+                    class="record-main-button"
                 >
                     조사하러 가기
-                </a>
-
-            </section>
-
-        {% else %}
-
-            <section class="survey-entry">
-
-                <p class="section-code">
-                    ASSESSMENT COMPLETE
-                </p>
-
-                <h2>
-                    공동체 유형 조사가<br>
-                    완료되었습니다.
-                </h2>
-
-                <a
-                    href="{{ url_for('survey_intro') }}"
-                    class="secondary-button"
-                >
-                    조사 안내 다시 보기
                 </a>
 
             </section>
@@ -162,18 +149,20 @@
 
         <footer class="record-footer">
 
-            <p>
-                본 기록은 세일럼 고교 학생관리규정에 따라
-                보존됩니다.
+            <p class="record-footer-note">
+                본 기록은 세일럼 고교 학생관리규정에 따라 보존됩니다.
             </p>
 
-            <a href="{{ url_for('logout') }}">
+            <a
+                href="{{ url_for('logout') }}"
+                class="record-close-link"
+            >
                 기록 열람 종료
             </a>
 
         </footer>
 
-    </article>
+    </section>
 
 </main>
 

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+공동체 유형 조사 {{ question_number }}
+{% endblock %}
+
+
+{% block body_class %}
+survey-body
+{% endblock %}
+
+
+{% block content %}
+
+<main class="survey-question-page">
+
+    <section class="survey-question-card">
+
+        <header class="survey-question-header">
+
+            <div>
+                <p class="survey-eyebrow">
+                    COMMUNITY EXAMINATION
+                </p>
+
+                <p class="survey-progress-number">
+                    {{ question_number }}
+                    /
+                    {{ total_questions }}
+                </p>
+            </div>
+
+            <span class="survey-student-name">
+                {{ student.nickname }}
+            </span>
+
+        </header>
+
+
+        <div class="survey-progress-track">
+
+            <span
+                style="width: {{ progress }}%;"
+            ></span>
+
+        </div>
+
+
+        <div class="survey-situation">
+
+            <span>
+                갈등 상황
+            </span>
+
+            <p>
+                {{ question.situation }}
+            </p>
+
+        </div>
+
+
+        <h1>
+            {{ question.question }}
+        </h1>
+
+
+        {% if error %}
+
+            <p class="survey-error">
+                {{ error }}
+            </p>
+
+        {% endif %}
+
+
+        <form method="post">
+
+            <div class="survey-option-list">
+
+                {% for option in question.options %}
+
+                    <label class="survey-option">
+
+                        <input
+                            type="radio"
+                            name="answer"
+                            value="{{ option.dimension }}"
+                        >
+
+                        <span class="survey-option-marker">
+                            {{ loop.index }}
+                        </span>
+
+                        <span class="survey-option-text">
+                            {{ option.text }}
+                        </span>
+
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="survey-navigation">
+
+                {% if question_number > 1 %}
+
+                    <a
+                        href="{{ url_for(
+                            'survey_question',
+                            question_number=(
+                                question_number - 1
+                            )
+                        ) }}"
+                        class="survey-back-button"
+                    >
+                        이전 문항
+                    </a>
+
+                {% else %}
+
+                    <span></span>
+
+                {% endif %}
+
+
+                <button
+                    type="submit"
+                    class="survey-next-button"
+                >
+                    {% if question_number == total_questions %}
+                        결과 확인
+                    {% else %}
+                        다음 문항
+                    {% endif %}
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}

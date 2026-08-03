@@ -2050,3 +2050,2293 @@ body.roster-body {
         padding: 24px 18px;
     }
 }
+
+.class-register-section {
+    margin-top: 52px;
+}
+
+.class-register-heading {
+    margin-bottom: 20px;
+}
+
+.class-register-heading h2 {
+    margin: 7px 0 0;
+
+    color: #e7e2da;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+}
+
+/* =========================================
+   공동체 유형 조사
+   ========================================= */
+
+body.survey-body,
+body.survey-result-body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(117, 35, 48, 0.12),
+            transparent 34%
+        ),
+        #101115;
+
+    color: #ece8e1;
+}
+
+.survey-intro-page,
+.survey-question-page,
+.survey-result-page {
+    width: min(720px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 72px 0 100px;
+}
+
+.survey-intro-card,
+.survey-question-card,
+.survey-result-card {
+    padding: clamp(26px, 5vw, 52px);
+
+    background: #191a1f;
+
+    border:
+        1px solid
+        rgba(221, 213, 200, 0.14);
+
+    box-shadow:
+        0 28px 70px
+        rgba(0, 0, 0, 0.36);
+}
+
+.survey-eyebrow {
+    margin: 0 0 15px;
+
+    color: #9b8b73;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.survey-intro-card h1,
+.survey-result-card h1 {
+    margin: 0;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(30px, 7vw, 48px);
+    line-height: 1.18;
+    letter-spacing: -0.05em;
+}
+
+.survey-intro-lead {
+    margin: 22px 0 0;
+
+    color: #aaa59d;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.survey-intro-information {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    margin-top: 34px;
+
+    border-top:
+        1px solid
+        rgba(221, 213, 200, 0.14);
+
+    border-bottom:
+        1px solid
+        rgba(221, 213, 200, 0.14);
+}
+
+.survey-intro-information div {
+    padding: 21px 10px;
+
+    text-align: center;
+
+    border-right:
+        1px solid
+        rgba(221, 213, 200, 0.14);
+}
+
+.survey-intro-information div:last-child {
+    border-right: 0;
+}
+
+.survey-intro-information span {
+    display: block;
+
+    color: #77746f;
+
+    font-size: 10px;
+}
+
+.survey-intro-information strong {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #ded8cf;
+
+    font-size: 13px;
+}
+
+.survey-notice {
+    margin: 29px 0;
+
+    color: #89857f;
+
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.survey-notice p {
+    margin: 5px 0;
+}
+
+.survey-start-button,
+.survey-next-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 50px;
+    padding: 0 27px;
+
+    background: #d8d0c2;
+    border: 0;
+
+    color: #17181b;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.survey-question-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.survey-progress-number {
+    margin: 0;
+
+    color: #ddd7cd;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 18px;
+}
+
+.survey-student-name {
+    color: #85817a;
+    font-size: 11px;
+}
+
+.survey-progress-track {
+    height: 3px;
+    margin: 18px 0 38px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+}
+
+.survey-progress-track span {
+    display: block;
+
+    height: 100%;
+
+    background: #a6987f;
+
+    transition: width 0.3s ease;
+}
+
+.survey-situation {
+    padding: 18px 20px;
+
+    background: #131419;
+
+    border-left: 2px solid #877a66;
+}
+
+.survey-situation span {
+    color: #887d6a;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+}
+
+.survey-situation p {
+    margin: 8px 0 0;
+
+    color: #aaa69f;
+
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+.survey-question-card h1 {
+    margin: 30px 0 26px;
+
+    color: #eee9e1;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(21px, 5vw, 29px);
+    font-weight: 600;
+    line-height: 1.55;
+    letter-spacing: -0.04em;
+}
+
+.survey-option-list {
+    display: grid;
+    gap: 11px;
+}
+
+.survey-option {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    align-items: center;
+    gap: 13px;
+
+    min-height: 67px;
+    padding: 12px 17px;
+
+    background: #202126;
+
+    border:
+        1px solid
+        rgba(218, 210, 197, 0.12);
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        transform 0.15s ease;
+}
+
+.survey-option:hover {
+    background: #24252a;
+    border-color:
+        rgba(218, 210, 197, 0.28);
+
+    transform: translateY(-1px);
+}
+
+.survey-option input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.survey-option-marker {
+    display: grid;
+    place-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    border:
+        1px solid
+        rgba(218, 210, 197, 0.24);
+
+    color: #aaa296;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+.survey-option-text {
+    color: #d5d0c8;
+
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.survey-option:has(input:checked) {
+    background: #2b2927;
+    border-color: #a7967b;
+}
+
+.survey-option:has(input:checked)
+.survey-option-marker {
+    background: #d8d0c2;
+    border-color: #d8d0c2;
+
+    color: #17181b;
+}
+
+.survey-navigation,
+.result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 13px;
+
+    margin-top: 30px;
+}
+
+.survey-back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+    padding: 0 23px;
+
+    background: transparent;
+
+    border:
+        1px solid
+        rgba(218, 210, 197, 0.18);
+
+    color: #aaa49a;
+
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.survey-error {
+    color: #d79898;
+
+    font-size: 12px;
+}
+
+.survey-result-owner {
+    margin: 0 0 8px;
+
+    color: #8d8982;
+
+    font-size: 12px;
+}
+
+.result-character-card {
+    margin-top: 32px;
+    padding: 24px;
+
+    background: #131419;
+
+    border-left: 3px solid #95866f;
+}
+
+.result-character-card span {
+    display: block;
+
+    color: #817b72;
+
+    font-size: 10px;
+}
+
+.result-character-card strong {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #eee7dd;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 25px;
+}
+
+.result-character-card p {
+    margin: 15px 0 0;
+
+    color: #a6a199;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.result-score-section {
+    margin-top: 39px;
+}
+
+.result-score-section h2 {
+    margin: 0 0 23px;
+
+    color: #dcd7cf;
+
+    font-size: 17px;
+}
+
+.result-score-row {
+    margin-top: 20px;
+}
+
+.result-score-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.result-score-title strong {
+    display: block;
+
+    color: #d9d4cc;
+
+    font-size: 13px;
+}
+
+.result-score-title span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #77746f;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.result-score-title b {
+    color: #c8bba6;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.result-score-track,
+.record-score-track {
+    height: 7px;
+    margin-top: 10px;
+
+    overflow: hidden;
+
+    background: #292a2f;
+}
+
+.result-score-track span,
+.record-score-track span {
+    display: block;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #81745f,
+            #c9bda9
+        );
+}
+
+.result-disclaimer {
+    margin: 36px 0 0;
+
+    color: #706e69;
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+
+/* 개인 기록지의 결과 요약 */
+
+.record-result-summary {
+    margin-top: 22px;
+    padding: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border-left: 2px solid #887b66;
+}
+
+.record-result-type {
+    margin: 0;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.record-result-character {
+    margin: 10px 0 0;
+
+    color: #85817a;
+
+    font-size: 11px;
+}
+
+.record-result-character strong {
+    margin-left: 5px;
+
+    color: #c8bda9;
+}
+
+.record-score-list {
+    margin: 27px 0;
+}
+
+.record-score-row {
+    margin-top: 15px;
+}
+
+.record-score-heading {
+    display: flex;
+    justify-content: space-between;
+
+    color: #aaa49b;
+
+    font-size: 11px;
+}
+
+.record-score-heading strong {
+    color: #cfc5b4;
+}
+
+.record-unrecorded {
+    margin: 21px 0 27px;
+    padding: 23px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+}
+
+.record-unrecorded strong {
+    color: #827d75;
+
+    font-size: 18px;
+}
+
+.record-unrecorded p {
+    margin: 10px 0 0;
+
+    color: #78756f;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.record-primary-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 50px;
+
+    background: #d6cec0;
+
+    color: #17181b;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+@media (max-width: 600px) {
+    .survey-intro-page,
+    .survey-question-page,
+    .survey-result-page {
+        width: calc(100% - 20px);
+        padding-top: 42px;
+    }
+
+    .survey-intro-information {
+        grid-template-columns: 1fr;
+    }
+
+    .survey-intro-information div {
+        border-right: 0;
+        border-bottom:
+            1px solid
+            rgba(221, 213, 200, 0.12);
+    }
+
+    .survey-intro-information div:last-child {
+        border-bottom: 0;
+    }
+
+    .survey-option {
+        grid-template-columns: 27px 1fr;
+        padding: 11px 13px;
+    }
+
+    .survey-option-text {
+        font-size: 12px;
+    }
+
+    .survey-navigation,
+    .result-actions {
+        align-items: stretch;
+    }
+
+    .survey-back-button,
+    .survey-next-button {
+        flex: 1;
+        padding: 0 13px;
+    }
+}
+
+/* =========================================
+   개인 학생 기록 페이지
+   반드시 style.css 맨 아래에 둘 것
+   ========================================= */
+
+body.record-body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(123, 31, 47, 0.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 255, 255, 0.03),
+            transparent 20%
+        ),
+        linear-gradient(
+            180deg,
+            #0d0e12 0%,
+            #12141a 100%
+        ) !important;
+
+    color: #ece7de;
+}
+
+.record-page {
+    width: min(760px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 56px 0 90px;
+}
+
+.record-paper {
+    position: relative;
+
+    padding: 34px 30px 28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(25, 26, 31, 0.98) 0%,
+            rgba(18, 19, 24, 0.98) 100%
+        );
+
+    border:
+        1px solid
+        rgba(220, 212, 198, 0.14);
+
+    box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.38),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.record-paper::before {
+    content: "";
+
+    position: absolute;
+    inset: 12px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.04);
+
+    pointer-events: none;
+}
+
+.record-paper-header {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding-bottom: 24px;
+    margin-bottom: 26px;
+
+    border-bottom:
+        1px solid
+        rgba(220, 212, 198, 0.12);
+}
+
+.record-heading-block {
+    min-width: 0;
+}
+
+.record-code {
+    margin: 0 0 12px;
+
+    color: #9a8c75;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.record-paper-header h1 {
+    margin: 0;
+
+    color: #f0ebe3;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1.18;
+}
+
+.record-status {
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+    padding: 0 14px;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    border:
+        1px solid
+        rgba(220, 212, 198, 0.12);
+
+    color: #d9d1c4;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.record-information-card {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+
+    margin-bottom: 34px;
+}
+
+.record-info-row {
+    padding: 18px 20px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid
+        rgba(220, 212, 198, 0.10);
+}
+
+.record-info-label {
+    display: block;
+
+    color: #8e887f;
+
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+.record-info-value {
+    display: block;
+    margin-top: 8px;
+
+    color: #f0ebe3;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.community-record {
+    position: relative;
+    z-index: 1;
+}
+
+.record-section-label {
+    margin: 0 0 10px;
+
+    color: #9a8c75;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.community-record h2 {
+    margin: 0 0 22px;
+
+    color: #f0ebe3;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.record-result-summary {
+    padding: 26px 28px;
+    margin-bottom: 28px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03),
+            rgba(255, 255, 255, 0.015)
+        );
+
+    border-left: 3px solid #8f8168;
+}
+
+.record-result-type {
+    margin: 0;
+
+    color: #efe8de;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+}
+
+.record-result-character {
+    margin: 14px 0 0;
+
+    color: #969087;
+
+    font-size: 13px;
+}
+
+.record-result-character strong {
+    margin-left: 6px;
+
+    color: #c7baa6;
+
+    font-weight: 700;
+}
+
+.record-score-list {
+    margin: 0 0 30px;
+}
+
+.record-score-row {
+    margin-top: 18px;
+}
+
+.record-score-row:first-child {
+    margin-top: 0;
+}
+
+.record-score-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: #dad4c9;
+
+    font-size: 13px;
+}
+
+.record-score-heading strong {
+    color: #f0ebe3;
+    font-size: 13px;
+}
+
+.record-score-track {
+    width: 100%;
+    height: 10px;
+
+    overflow: hidden;
+
+    background: #2a2d34;
+}
+
+.record-score-track span {
+    display: block;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #91836d 0%,
+            #d5cabb 100%
+        );
+}
+
+.record-unrecorded {
+    padding: 24px 26px;
+    margin-bottom: 28px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+}
+
+.record-unrecorded strong {
+    display: block;
+
+    color: #d7d0c4;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.record-unrecorded p {
+    margin: 12px 0 0;
+
+    color: #8e887f;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.record-primary-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 74px;
+    padding: 0 24px;
+
+    background: #d3cabd;
+
+    color: #131417;
+
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.record-primary-link:hover {
+    transform: translateY(-1px);
+    opacity: 0.96;
+}
+
+.record-footer {
+    position: relative;
+    z-index: 1;
+
+    margin-top: 20px;
+}
+
+.record-logout-link {
+    color: #f0ebe3;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.record-logout-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .record-page {
+        width: calc(100% - 20px);
+        padding-top: 34px;
+    }
+
+    .record-paper {
+        padding: 24px 18px 22px;
+    }
+
+    .record-paper-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .record-information-card {
+        grid-template-columns: 1fr;
+    }
+
+    .record-info-value {
+        font-size: 24px;
+    }
+
+    .record-result-type {
+        font-size: 30px;
+    }
+
+    .record-primary-link {
+        min-height: 62px;
+        font-size: 15px;
+    }
+}
+
+/* =========================================
+   학생 개인 기록지
+   ========================================= */
+
+body.record-body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% 8%,
+            rgba(114, 25, 42, 0.16),
+            transparent 25%
+        ),
+        linear-gradient(
+            180deg,
+            #090b10 0%,
+            #0d1015 100%
+        ) !important;
+
+    color: #ece7df;
+}
+
+.record-page {
+    width: min(1080px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 72px 0 96px;
+}
+
+.record-sheet {
+    position: relative;
+
+    padding: 16px;
+
+    border: 1px solid rgba(144, 111, 64, 0.45);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(22, 18, 26, 0.96) 0%,
+            rgba(14, 12, 18, 0.98) 100%
+        );
+
+    box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.record-sheet::before {
+    content: "";
+
+    position: absolute;
+    inset: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
+    pointer-events: none;
+}
+
+.record-sheet-header {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    padding: 26px 24px 30px;
+}
+
+.record-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.record-emblem {
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #b79049;
+
+    color: #c8a55d;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.record-title-block {
+    min-width: 0;
+}
+
+.record-school-en {
+    margin: 0 0 10px;
+
+    color: #c8a55d;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.record-sheet-header h1 {
+    margin: 0;
+
+    color: #f1ebe2;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(34px, 4vw, 54px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.05em;
+}
+
+.record-confidential {
+    padding-top: 34px;
+
+    color: #d04757;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.record-meta-line {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 24px;
+    padding: 18px 0 16px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+    color: #9f98a4;
+
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
+.record-table {
+    position: relative;
+    z-index: 1;
+
+    margin: 34px 24px 0;
+}
+
+.record-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+
+    min-height: 104px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.record-label {
+    color: #b1abb4;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.record-value {
+    color: #f0ebe2;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(24px, 3vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.record-result-main {
+    color: #bfb7c2;
+}
+
+.record-pending-panel,
+.record-result-panel {
+    position: relative;
+    z-index: 1;
+
+    margin: 44px 24px 0;
+    padding: 40px 28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(55, 11, 24, 0.28) 0%,
+            rgba(32, 11, 21, 0.18) 100%
+        );
+
+    border: 1px solid rgba(119, 22, 41, 0.45);
+}
+
+.record-pending-kicker,
+.record-result-kicker {
+    margin: 0 0 16px;
+
+    text-align: center;
+
+    color: #c2a15b;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.record-pending-panel h2 {
+    margin: 0;
+
+    text-align: center;
+
+    color: #f1ebe2;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(34px, 4vw, 58px);
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.05em;
+}
+
+.record-pending-description {
+    margin: 26px 0 0;
+
+    text-align: center;
+
+    color: #a79fa8;
+
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+.record-main-button {
+    width: 210px;
+    min-height: 76px;
+    margin: 36px auto 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #a8263c;
+
+    color: #ffffff;
+
+    font-size: 19px;
+    font-weight: 800;
+    text-decoration: none;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.record-main-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.96;
+}
+
+.record-result-summary {
+    margin-bottom: 28px;
+
+    text-align: left;
+}
+
+.record-result-summary h2 {
+    margin: 0;
+
+    color: #f1ebe2;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(30px, 4vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+}
+
+.record-result-character {
+    margin: 14px 0 0;
+
+    color: #b3aab5;
+
+    font-size: 15px;
+}
+
+.record-result-character strong {
+    margin-left: 8px;
+    color: #d8c1a2;
+}
+
+.record-bars {
+    margin-top: 28px;
+}
+
+.record-bar-row {
+    margin-top: 18px;
+}
+
+.record-bar-row:first-child {
+    margin-top: 0;
+}
+
+.record-bar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 10px;
+
+    color: #ddd7ce;
+
+    font-size: 14px;
+}
+
+.record-bar-top strong {
+    color: #f1ebe2;
+}
+
+.record-bar-track {
+    width: 100%;
+    height: 10px;
+
+    overflow: hidden;
+
+    background: #2d3038;
+}
+
+.record-bar-track span {
+    display: block;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d1c6b7 0%,
+            #8f7f68 100%
+        );
+}
+
+.record-footer {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    margin: 44px 24px 0;
+    padding: 28px 0 6px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.record-footer-note {
+    margin: 0;
+
+    color: #8f8895;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.record-close-link {
+    flex-shrink: 0;
+
+    color: #d2c39f;
+
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.record-close-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+    .record-page {
+        width: calc(100% - 18px);
+        padding-top: 36px;
+    }
+
+    .record-sheet {
+        padding: 10px;
+    }
+
+    .record-sheet::before {
+        inset: 10px;
+    }
+
+    .record-sheet-header {
+        flex-direction: column;
+        gap: 14px;
+        padding: 20px 14px 22px;
+    }
+
+    .record-title-wrap {
+        gap: 14px;
+    }
+
+    .record-emblem {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+    }
+
+    .record-confidential {
+        padding-top: 0;
+        align-self: flex-end;
+    }
+
+    .record-meta-line {
+        margin: 0 14px;
+        font-size: 10px;
+    }
+
+    .record-table {
+        margin: 24px 14px 0;
+    }
+
+    .record-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+
+        min-height: auto;
+        padding: 18px 0;
+    }
+
+    .record-label {
+        font-size: 14px;
+    }
+
+    .record-value {
+        font-size: 28px;
+    }
+
+    .record-pending-panel,
+    .record-result-panel {
+        margin: 30px 14px 0;
+        padding: 28px 18px;
+    }
+
+    .record-pending-panel h2 {
+        font-size: 36px;
+    }
+
+    .record-main-button {
+        width: 100%;
+        min-height: 64px;
+        font-size: 17px;
+    }
+
+    .record-footer {
+        flex-direction: column;
+        align-items: flex-start;
+
+        margin: 30px 14px 0;
+        padding-top: 20px;
+    }
+}
+
+/* =========================================
+   공동체 유형 결과 보고서
+   ========================================= */
+
+body.survey-result-body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 14% 6%,
+            rgba(110, 23, 40, 0.15),
+            transparent 27%
+        ),
+        linear-gradient(
+            180deg,
+            #090b0f,
+            #101118
+        ) !important;
+
+    color: #eee8df;
+}
+
+.profile-result-page {
+    width: min(900px, calc(100% - 30px));
+    margin: 0 auto;
+    padding: 64px 0 100px;
+}
+
+.profile-result-sheet {
+    padding: clamp(25px, 5vw, 48px);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(24, 21, 28, 0.98),
+            rgba(15, 14, 20, 0.99)
+        );
+
+    border:
+        1px solid
+        rgba(164, 126, 70, 0.35);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.4);
+}
+
+.profile-result-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding-bottom: 22px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+}
+
+.profile-result-code,
+.profile-result-document {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.17em;
+}
+
+.profile-result-code {
+    color: #c5a35e;
+    font-weight: 800;
+}
+
+.profile-result-document {
+    margin-top: 8px;
+    color: #7e7881;
+}
+
+.profile-result-header > span {
+    color: #b74354;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+}
+
+.profile-result-intro {
+    padding: 38px 0 34px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+}
+
+.profile-result-owner {
+    margin: 0 0 13px;
+
+    color: #8f8991;
+    font-size: 12px;
+}
+
+.profile-result-intro h1 {
+    margin: 0;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(38px, 7vw, 68px);
+    line-height: 1.16;
+    letter-spacing: -0.06em;
+}
+
+.profile-character-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 22px;
+
+    color: #928b94;
+    font-size: 12px;
+}
+
+.profile-character-line strong {
+    color: #d3b98e;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 19px;
+}
+
+.profile-result-summary {
+    max-width: 650px;
+    margin: 19px 0 0;
+
+    color: #aaa3aa;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.profile-score-section {
+    padding-top: 34px;
+}
+
+.profile-section-heading p {
+    margin: 0;
+
+    color: #a99068;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.profile-section-heading h2 {
+    margin: 8px 0 0;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 24px;
+}
+
+.profile-score-list {
+    margin-top: 29px;
+}
+
+.profile-score-row {
+    margin-top: 24px;
+}
+
+.profile-score-row:first-child {
+    margin-top: 0;
+}
+
+.profile-score-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.profile-score-label strong {
+    display: block;
+
+    color: #e5dfd6;
+    font-size: 13px;
+}
+
+.profile-score-label span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #77737a;
+
+    font-size: 10px;
+}
+
+.profile-score-label b {
+    color: #d5c4a8;
+    font-size: 14px;
+}
+
+.profile-score-track {
+    height: 9px;
+    margin-top: 11px;
+
+    overflow: hidden;
+
+    background: #292c33;
+}
+
+.profile-score-track span {
+    display: block;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8f8069,
+            #d4c7b4
+        );
+}
+
+.other-profile-button {
+    width: 100%;
+    min-height: 60px;
+    margin-top: 40px;
+
+    background: transparent;
+
+    border:
+        1px solid
+        rgba(211, 188, 148, 0.35);
+
+    color: #d8c8ad;
+
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* 카드 덱 */
+
+.profile-deck-section {
+    scroll-margin-top: 30px;
+    margin-top: 48px;
+    padding: 40px 0 10px;
+}
+
+.profile-deck-section[hidden] {
+    display: none;
+}
+
+.profile-deck-heading {
+    text-align: center;
+}
+
+.profile-deck-heading p {
+    margin: 0;
+
+    color: #ad9161;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+}
+
+.profile-deck-heading h2 {
+    margin: 10px 0 0;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(27px, 5vw, 42px);
+}
+
+.profile-deck-heading span {
+    display: block;
+    margin-top: 12px;
+
+    color: #7e7980;
+    font-size: 11px;
+}
+
+.profile-deck {
+    position: relative;
+
+    height: 500px;
+    margin-top: 22px;
+
+    overflow: hidden;
+
+    touch-action: pan-y;
+}
+
+.profile-card-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+.profile-tarot-card {
+    --card-distance: 0;
+    --card-absolute-distance: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: min(250px, 60vw);
+    aspect-ratio: 0.66;
+
+    padding: 24px 19px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(148, 37, 57, 0.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            165deg,
+            #23151d,
+            #100f15 68%
+        );
+
+    border:
+        1px solid
+        rgba(198, 157, 89, 0.72);
+
+    color: #eee6da;
+
+    font: inherit;
+    text-align: center;
+
+    cursor: pointer;
+
+    transform:
+        translate(
+            calc(
+                -50% +
+                var(--card-distance) * 132px
+            ),
+            calc(
+                -50% +
+                var(--card-absolute-distance) * 17px
+            )
+        )
+        rotate(
+            calc(
+                var(--card-distance) * 8deg
+            )
+        )
+        scale(
+            calc(
+                1 -
+                var(--card-absolute-distance) * 0.12
+            )
+        );
+
+    opacity:
+        calc(
+            1 -
+            var(--card-absolute-distance) * 0.2
+        );
+
+    transition:
+        transform 0.42s cubic-bezier(
+            0.2,
+            0.7,
+            0.2,
+            1
+        ),
+        opacity 0.35s ease,
+        filter 0.35s ease;
+
+    box-shadow:
+        0 25px 50px
+        rgba(0, 0, 0, 0.42);
+}
+
+.profile-tarot-card::before {
+    content: "";
+
+    position: absolute;
+    inset: 10px;
+
+    border:
+        1px solid
+        rgba(198, 157, 89, 0.28);
+
+    pointer-events: none;
+}
+
+.profile-tarot-card.is-active {
+    filter: none;
+
+    box-shadow:
+        0 35px 70px rgba(0, 0, 0, 0.58),
+        0 0 30px rgba(165, 44, 62, 0.10);
+}
+
+.profile-tarot-card:not(.is-active) {
+    filter:
+        brightness(0.68)
+        saturate(0.78);
+}
+
+.profile-tarot-card.is-card-hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.tarot-card-number {
+    align-self: flex-start;
+
+    color: #b39665;
+
+    font-size: 9px;
+    letter-spacing: 0.15em;
+}
+
+.tarot-card-symbol {
+    display: grid;
+    place-items: center;
+
+    width: 72px;
+    height: 72px;
+    margin-top: 35px;
+
+    border:
+        1px solid
+        rgba(201, 161, 92, 0.66);
+
+    color: #d1ad6b;
+
+    font-family: Georgia, serif;
+    font-size: 38px;
+}
+
+.tarot-card-divider {
+    width: 35px;
+    height: 1px;
+    margin: 31px 0 24px;
+
+    background:
+        rgba(201, 161, 92, 0.57);
+}
+
+.tarot-card-type {
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 21px;
+    line-height: 1.35;
+}
+
+.tarot-card-character {
+    margin-top: 13px;
+
+    color: #b9a992;
+    font-size: 12px;
+}
+
+.tarot-card-footer {
+    margin-top: auto;
+
+    color: #7e6e59;
+
+    font-size: 8px;
+    letter-spacing: 0.16em;
+}
+
+.profile-deck-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+
+    width: 45px;
+    height: 60px;
+
+    transform: translateY(-50%);
+
+    background:
+        rgba(12, 13, 18, 0.72);
+
+    border:
+        1px solid
+        rgba(197, 165, 111, 0.28);
+
+    color: #d5c29e;
+
+    font-size: 32px;
+
+    cursor: pointer;
+}
+
+.profile-deck-arrow-left {
+    left: 5px;
+}
+
+.profile-deck-arrow-right {
+    right: 5px;
+}
+
+
+/* 선택 유형 설명 */
+
+.selected-profile-detail {
+    max-width: 680px;
+    margin: 4px auto 0;
+    padding: 28px 30px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border-left: 2px solid #9b8056;
+}
+
+.selected-profile-label {
+    margin: 0;
+
+    color: #9d855e;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.17em;
+}
+
+.selected-profile-detail h3 {
+    margin: 12px 0 0;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 28px;
+}
+
+.selected-profile-character {
+    margin: 12px 0 0;
+
+    color: #8b858b;
+    font-size: 12px;
+}
+
+.selected-profile-character strong {
+    margin-left: 6px;
+    color: #d1b98f;
+}
+
+.selected-profile-summary {
+    margin: 17px 0 0;
+
+    color: #aaa4aa;
+
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+
+/* 하단 링크 */
+
+.profile-result-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.profile-result-primary-link,
+.profile-result-secondary-link {
+    min-height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.profile-result-primary-link {
+    background: #d5cbbb;
+    color: #15161a;
+}
+
+.profile-result-secondary-link {
+    border:
+        1px solid
+        rgba(210, 195, 169, 0.22);
+
+    color: #b6aa96;
+}
+
+
+@media (max-width: 660px) {
+    .profile-result-page {
+        width: calc(100% - 18px);
+        padding-top: 34px;
+    }
+
+    .profile-score-label span {
+        max-width: 235px;
+    }
+
+    .profile-deck {
+        height: 430px;
+    }
+
+    .profile-tarot-card {
+        width: min(218px, 58vw);
+
+        transform:
+            translate(
+                calc(
+                    -50% +
+                    var(--card-distance) * 88px
+                ),
+                calc(
+                    -50% +
+                    var(--card-absolute-distance) * 13px
+                )
+            )
+            rotate(
+                calc(
+                    var(--card-distance) * 7deg
+                )
+            )
+            scale(
+                calc(
+                    1 -
+                    var(--card-absolute-distance)
+                    * 0.14
+                )
+            );
+    }
+
+    .profile-deck-arrow {
+        width: 36px;
+        height: 52px;
+    }
+
+    .profile-result-navigation {
+        grid-template-columns: 1fr;
+    }
+}
+
+.record-completed-panel {
+    position: relative;
+    z-index: 1;
+
+    margin: 44px 24px 0;
+    padding: 42px 28px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(55, 11, 24, 0.23),
+            rgba(30, 12, 20, 0.15)
+        );
+
+    border:
+        1px solid
+        rgba(119, 22, 41, 0.4);
+}
+
+.record-completed-kicker {
+    margin: 0 0 14px;
+
+    color: #c2a15b;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.record-completed-panel h2 {
+    margin: 0;
+
+    color: #f1ebe2;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: clamp(32px, 5vw, 54px);
+    letter-spacing: -0.05em;
+}
+
+.record-completed-panel > p:last-of-type {
+    margin: 18px 0 0;
+
+    color: #99929b;
+
+    font-size: 13px;
+}

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     setupNicknameCheck();
+    setupProfileDeck();
     setupStudentWall();
 });
 
@@ -230,4 +231,333 @@ function setupStudentWall() {
         writeNameOnWall,
         1450
     );
+}
+
+function setupProfileDeck() {
+    const openButton =
+        document.getElementById(
+            "open-profile-deck"
+        );
+
+    const deckSection =
+        document.getElementById(
+            "profile-deck-section"
+        );
+
+    const deck =
+        document.getElementById(
+            "profile-deck"
+        );
+
+    if (
+        !openButton ||
+        !deckSection ||
+        !deck
+    ) {
+        return;
+    }
+
+    const cards = Array.from(
+        deck.querySelectorAll(
+            ".profile-tarot-card"
+        )
+    );
+
+    const previousButton =
+        document.getElementById(
+            "profile-deck-previous"
+        );
+
+    const nextButton =
+        document.getElementById(
+            "profile-deck-next"
+        );
+
+    const selectedType =
+        document.getElementById(
+            "selected-profile-type"
+        );
+
+    const selectedCharacter =
+        document.getElementById(
+            "selected-profile-character"
+        );
+
+    const selectedSummary =
+        document.getElementById(
+            "selected-profile-summary"
+        );
+
+    if (!cards.length) {
+        return;
+    }
+
+    let activeIndex = 0;
+    let touchStartX = null;
+    let touchCurrentX = null;
+
+
+    function normalizeIndex(index) {
+        const length = cards.length;
+
+        return (
+            (index % length) + length
+        ) % length;
+    }
+
+
+    function getCircularDistance(
+        cardIndex,
+        centerIndex
+    ) {
+        let distance =
+            cardIndex - centerIndex;
+
+        const half =
+            cards.length / 2;
+
+        if (distance > half) {
+            distance -= cards.length;
+        }
+
+        if (distance < -half) {
+            distance += cards.length;
+        }
+
+        return distance;
+    }
+
+
+    function updateSelectedDescription(card) {
+        selectedType.textContent =
+            card.dataset.type || "";
+
+        selectedCharacter.textContent =
+            card.dataset.character || "";
+
+        selectedSummary.textContent =
+            card.dataset.summary || "";
+    }
+
+
+    function renderDeck() {
+        activeIndex =
+            normalizeIndex(activeIndex);
+
+        deck.dataset.activeIndex =
+            String(activeIndex);
+
+        cards.forEach(
+            (card, cardIndex) => {
+                const distance =
+                    getCircularDistance(
+                        cardIndex,
+                        activeIndex
+                    );
+
+                const absoluteDistance =
+                    Math.abs(distance);
+
+                card.classList.toggle(
+                    "is-active",
+                    distance === 0
+                );
+
+                card.setAttribute(
+                    "aria-pressed",
+                    distance === 0
+                        ? "true"
+                        : "false"
+                );
+
+                card.style.setProperty(
+                    "--card-distance",
+                    String(distance)
+                );
+
+                card.style.setProperty(
+                    "--card-absolute-distance",
+                    String(absoluteDistance)
+                );
+
+                card.style.zIndex =
+                    String(
+                        50 - absoluteDistance
+                    );
+
+                if (absoluteDistance > 3) {
+                    card.classList.add(
+                        "is-card-hidden"
+                    );
+                } else {
+                    card.classList.remove(
+                        "is-card-hidden"
+                    );
+                }
+            }
+        );
+
+        updateSelectedDescription(
+            cards[activeIndex]
+        );
+    }
+
+
+    function moveDeck(amount) {
+        activeIndex =
+            normalizeIndex(
+                activeIndex + amount
+            );
+
+        renderDeck();
+    }
+
+
+    openButton.addEventListener(
+        "click",
+        () => {
+            const willOpen =
+                deckSection.hidden;
+
+            deckSection.hidden =
+                !willOpen;
+
+            openButton.setAttribute(
+                "aria-expanded",
+                String(willOpen)
+            );
+
+            openButton.textContent =
+                willOpen
+                    ? "다른 유형 닫기"
+                    : "다른 유형 보기";
+
+            if (willOpen) {
+                renderDeck();
+
+                window.setTimeout(() => {
+                    deckSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                    });
+                }, 50);
+            }
+        }
+    );
+
+
+    previousButton.addEventListener(
+        "click",
+        () => {
+            moveDeck(-1);
+        }
+    );
+
+
+    nextButton.addEventListener(
+        "click",
+        () => {
+            moveDeck(1);
+        }
+    );
+
+
+    cards.forEach(
+        (card, index) => {
+            card.addEventListener(
+                "click",
+                () => {
+                    if (index === activeIndex) {
+                        updateSelectedDescription(
+                            card
+                        );
+                        return;
+                    }
+
+                    activeIndex = index;
+                    renderDeck();
+                }
+            );
+        }
+    );
+
+
+    deck.addEventListener(
+        "touchstart",
+        (event) => {
+            touchStartX =
+                event.touches[0]
+                    .clientX;
+
+            touchCurrentX =
+                touchStartX;
+        },
+        {
+            passive: true,
+        }
+    );
+
+
+    deck.addEventListener(
+        "touchmove",
+        (event) => {
+            if (touchStartX === null) {
+                return;
+            }
+
+            touchCurrentX =
+                event.touches[0]
+                    .clientX;
+        },
+        {
+            passive: true,
+        }
+    );
+
+
+    deck.addEventListener(
+        "touchend",
+        () => {
+            if (
+                touchStartX === null ||
+                touchCurrentX === null
+            ) {
+                return;
+            }
+
+            const difference =
+                touchCurrentX -
+                touchStartX;
+
+            if (Math.abs(difference) > 45) {
+                moveDeck(
+                    difference < 0
+                        ? 1
+                        : -1
+                );
+            }
+
+            touchStartX = null;
+            touchCurrentX = null;
+        }
+    );
+
+
+    deck.addEventListener(
+        "keydown",
+        (event) => {
+            if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                moveDeck(-1);
+            }
+
+            if (event.key === "ArrowRight") {
+                event.preventDefault();
+                moveDeck(1);
+            }
+        }
+    );
+
+
+    renderDeck();
 }

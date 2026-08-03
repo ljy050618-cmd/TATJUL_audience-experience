@@ -1,90 +1,82 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    >
-
-    <meta
-        name="theme-color"
-        content="#000000"
-    >
-
-    <title>
-        학생 공동체 조사
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
-
-</head>
+{% extends "base.html" %}
 
 
-<body class="survey-intro-page">
+{% block title %}
+공동체 유형 조사
+{% endblock %}
 
-    <main class="survey-intro-screen">
 
-        <div class="intro-emblem">
-            S
+{% block body_class %}
+survey-body
+{% endblock %}
+
+
+{% block content %}
+
+<main class="survey-intro-page">
+
+    <section class="survey-intro-card">
+
+        <p class="survey-eyebrow">
+            SALEM ACADEMY · COMMUNITY EXAMINATION
+        </p>
+
+        <h1>
+            공동체 유형 조사
+        </h1>
+
+        <p class="survey-intro-lead">
+            갈등이 생겼을 때 당신은 무엇을 지키고,
+            무엇을 포기하며, 누구의 목소리를 따르는가?
+        </p>
+
+
+        <div class="survey-intro-information">
+
+            <div>
+                <span>문항 수</span>
+                <strong>{{ question_count }}문항</strong>
+            </div>
+
+            <div>
+                <span>예상 시간</span>
+                <strong>약 4분</strong>
+            </div>
+
+            <div>
+                <span>응답 방식</span>
+                <strong>상황별 선택</strong>
+            </div>
+
         </div>
 
 
-        <p class="intro-school-name">
-            SALEM ACADEMY
-        </p>
+        <div class="survey-notice">
 
+            <p>
+                이 조사는 선함과 악함을 판정하지 않습니다.
+            </p>
 
-        <h1>
-            학생 공동체 조사
-        </h1>
+            <p>
+                공동체 안에서 갈등을 해결할 때 무엇을
+                우선하는지를 보여 줍니다.
+            </p>
 
-
-        <p class="intro-subtitle">
-            THE RECORD OF CONDUCT AND BELIEF
-        </p>
-
-
-        <div class="intro-divider"></div>
-
-
-        <p class="intro-student">
-            {{ student.class_number }}반
-            ·
-            {{ student.nickname }}
-        </p>
-
-
-        <p class="intro-warning">
-            모든 학생은 질문에 성실히 응답해야 합니다.<br>
-            기록되지 않은 침묵은 존재하지 않습니다.
-        </p>
-
-
-        <button
-            type="button"
-            class="intro-start-button"
-            disabled
-        >
-            조사는 곧 시작됩니다
-        </button>
+        </div>
 
 
         <a
-            href="{{ url_for('record') }}"
-            class="intro-back-link"
+            href="{{ url_for(
+                'survey_question',
+                question_number=1
+            ) }}"
+            class="survey-start-button"
         >
-            학생 기록지로 돌아가기
+            조사 시작
         </a>
 
-    </main>
+    </section>
 
-</body>
+</main>
 
-</html>
+{% endblock %}

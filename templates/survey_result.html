@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{ student.nickname }} — 공동체 유형 결과
+{% endblock %}
+
+
+{% block body_class %}
+survey-result-body
+{% endblock %}
+
+
+{% block content %}
+
+<main class="profile-result-page">
+
+    <!-- 내 결과 -->
+    <section class="profile-result-sheet">
+
+        <header class="profile-result-header">
+
+            <div>
+                <p class="profile-result-code">
+                    SALEM ACADEMY
+                </p>
+
+                <p class="profile-result-document">
+                    COMMUNITY PROFILE REPORT
+                </p>
+            </div>
+
+            <span>
+                RECORDED
+            </span>
+
+        </header>
+
+
+        <section class="profile-result-intro">
+
+            <p class="profile-result-owner">
+                {{ student.nickname }} 학생의 공동체 유형
+            </p>
+
+            <h1>
+                {{ student.result_type }}
+            </h1>
+
+            <div class="profile-character-line">
+                <span>
+                    유사 등장인물
+                </span>
+
+                <strong>
+                    {{ student.result_character }}
+                </strong>
+            </div>
+
+            {% if character_summary %}
+
+                <p class="profile-result-summary">
+                    {{ character_summary }}
+                </p>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- 네 가지 비율 -->
+        <section class="profile-score-section">
+
+            <div class="profile-section-heading">
+
+                <p>
+                    COMMUNITY PRIORITIES
+                </p>
+
+                <h2>
+                    공동체 판단 경향
+                </h2>
+
+            </div>
+
+
+            <div class="profile-score-list">
+
+                {% for key, dimension in dimensions.items() %}
+
+                    <div class="profile-score-row">
+
+                        <div class="profile-score-label">
+
+                            <div>
+                                <strong>
+                                    {{ dimension.name }}
+                                </strong>
+
+                                <span>
+                                    {{ dimension.description }}
+                                </span>
+                            </div>
+
+                            <b>
+                                {{
+                                    student.result_scores.get(
+                                        key,
+                                        0
+                                    )
+                                }}%
+                            </b>
+
+                        </div>
+
+                        <div class="profile-score-track">
+
+                            <span
+                                style="
+                                    width:
+                                    {{
+                                        student.result_scores.get(
+                                            key,
+                                            0
+                                        )
+                                    }}%;
+                                "
+                            ></span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <button
+            id="open-profile-deck"
+            class="other-profile-button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="profile-deck-section"
+        >
+            다른 유형 보기
+        </button>
+
+    </section>
+
+
+    <!-- 전체 유형 카드 -->
+    <section
+        id="profile-deck-section"
+        class="profile-deck-section"
+        hidden
+    >
+
+        <div class="profile-deck-heading">
+
+            <p>
+                SALEM COMMUNITY ARCHETYPES
+            </p>
+
+            <h2>
+                다른 유형과 등장인물
+            </h2>
+
+            <span>
+                카드를 좌우로 밀거나 양쪽 버튼을 눌러 보세요.
+            </span>
+
+        </div>
+
+
+        <div
+            id="profile-deck"
+            class="profile-deck"
+            data-active-index="0"
+        >
+
+            <button
+                id="profile-deck-previous"
+                class="profile-deck-arrow profile-deck-arrow-left"
+                type="button"
+                aria-label="이전 유형"
+            >
+                ‹
+            </button>
+
+
+            <div class="profile-card-stage">
+
+                {% for profile in all_profiles %}
+
+                    <button
+                        class="profile-tarot-card"
+                        type="button"
+                        data-index="{{ loop.index0 }}"
+                        data-type="{{ profile.type }}"
+                        data-character="{{ profile.character }}"
+                        data-summary="{{ profile.summary }}"
+                    >
+
+                        <span class="tarot-card-number">
+                            {{ "%02d" | format(loop.index) }}
+                        </span>
+
+                        <span class="tarot-card-symbol">
+                            S
+                        </span>
+
+                        <span class="tarot-card-divider"></span>
+
+                        <strong class="tarot-card-type">
+                            {{ profile.type }}
+                        </strong>
+
+                        <span class="tarot-card-character">
+                            {{ profile.character }}
+                        </span>
+
+                        <span class="tarot-card-footer">
+                            SALEM ACADEMY
+                        </span>
+
+                    </button>
+
+                {% endfor %}
+
+            </div>
+
+
+            <button
+                id="profile-deck-next"
+                class="profile-deck-arrow profile-deck-arrow-right"
+                type="button"
+                aria-label="다음 유형"
+            >
+                ›
+            </button>
+
+        </div>
+
+
+        <!-- 가운데 선택된 카드 설명 -->
+        <article
+            id="selected-profile-detail"
+            class="selected-profile-detail"
+        >
+
+            <p class="selected-profile-label">
+                SELECTED ARCHETYPE
+            </p>
+
+            <h3 id="selected-profile-type">
+                {{ all_profiles[0].type }}
+            </h3>
+
+            <p class="selected-profile-character">
+                유사 등장인물
+                <strong id="selected-profile-character">
+                    {{ all_profiles[0].character }}
+                </strong>
+            </p>
+
+            <p
+                id="selected-profile-summary"
+                class="selected-profile-summary"
+            >
+                {{ all_profiles[0].summary }}
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <nav class="profile-result-navigation">
+
+        <a
+            href="{{ url_for('record') }}"
+            class="profile-result-primary-link"
+        >
+            개인 기록지로 돌아가기
+        </a>
+
+        <a
+            href="{{ url_for('students') }}"
+            class="profile-result-secondary-link"
+        >
+            재학생 명부
+        </a>
+
+    </nav>
+
+</main>
+
+{% endblock %}
