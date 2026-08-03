@@ -134,8 +134,8 @@ input {
 
     display: grid;
     place-items: center;
-
-    perspective: 1000px;
+    perspective: 1300px;
+    isolation: isolate;
 }
 
 
@@ -189,12 +189,6 @@ input {
         inset 0 0 70px
         rgba(0, 0, 0, 0.4);
 
-    transform:
-        rotateY(-7deg)
-        rotateX(2deg);
-
-    transition:
-        transform 0.2s ease;
 }
 
 
@@ -811,7 +805,7 @@ input {
     text-align: center;
 }
 
-* =========================
+/* =========================
    INTRO PAGE
    ========================= */
 
@@ -1052,5 +1046,277 @@ input {
     to {
         width: 46px;
         opacity: 1;
+    }
+}
+
+/* =========================================
+   SCHOOL RECORD POSTER DEPTH
+   ========================================= */
+
+
+/* 바닥에 떨어지는 깊은 그림자 */
+.poster-shadow-layer {
+    position: absolute;
+    z-index: -4;
+
+    width: min(72vw, 330px);
+    aspect-ratio: 2 / 3;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    filter: blur(32px);
+
+    transform:
+        translate3d(22px, 34px, -90px)
+        rotate(-3deg)
+        scale(0.94);
+
+    animation:
+        poster-shadow-enter 1.7s
+        cubic-bezier(0.18, 0.8, 0.2, 1)
+        both;
+}
+
+/* 뒤에 겹쳐진 기록지 */
+.poster-paper-layer {
+    position: absolute;
+
+    width: min(82vw, 360px);
+    aspect-ratio: 2 / 3;
+
+    border:
+        1px solid
+        rgba(184, 154, 99, 0.12);
+
+    background:
+        linear-gradient(
+            155deg,
+            #181820,
+            #09090d
+        );
+
+    box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.35);
+}
+
+.poster-paper-back {
+    z-index: -3;
+
+    transform:
+        translate3d(-15px, 13px, -70px)
+        rotate(-4deg);
+
+    opacity: 0.55;
+
+    animation:
+        poster-back-enter 1.55s
+        cubic-bezier(0.18, 0.8, 0.2, 1)
+        both;
+}
+
+.poster-paper-middle {
+    z-index: -2;
+
+    transform:
+        translate3d(12px, 7px, -35px)
+        rotate(2.4deg);
+
+    opacity: 0.72;
+
+    animation:
+        poster-middle-enter 1.45s
+        cubic-bezier(0.18, 0.8, 0.2, 1)
+        both;
+}
+
+/* 실제 포스터 */
+.poster {
+    position: relative;
+    z-index: 2;
+
+    transform-style: preserve-3d;
+
+    transform:
+        translate3d(0, 0, 0)
+        rotateX(1.5deg)
+        rotateY(-2.5deg);
+
+    animation:
+        poster-record-enter 1.35s
+            cubic-bezier(0.16, 0.84, 0.24, 1)
+            both,
+        poster-record-breathe 7s
+            ease-in-out 1.6s
+            infinite;
+}
+
+/* 포스터 위의 요소들을 조금씩 앞으로 배치 */
+.poster-kicker {
+    position: relative;
+    transform: translateZ(22px);
+}
+
+.poster-background-letter {
+    transform: translateZ(10px);
+}
+
+.poster-main {
+    position: relative;
+    transform: translateZ(38px);
+}
+
+.poster-footer {
+    position: relative;
+    transform: translateZ(24px);
+}
+
+/* 포스터 뒤 붉은 빛 */
+.poster-glow {
+    animation:
+        poster-glow-breathe 6s
+        ease-in-out
+        infinite;
+}
+
+/* 처음에는 어둠 속 멀리 있다가 앞으로 등장 */
+@keyframes poster-record-enter {
+    0% {
+        opacity: 0;
+
+        filter:
+            brightness(0.2)
+            blur(5px);
+
+        transform:
+            translate3d(0, 36px, -180px)
+            rotateX(10deg)
+            rotateY(-9deg)
+            scale(0.91);
+    }
+
+    55% {
+        opacity: 1;
+
+        filter:
+            brightness(0.75)
+            blur(0);
+
+        transform:
+            translate3d(0, 4px, 8px)
+            rotateX(0.5deg)
+            rotateY(-1.5deg)
+            scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+
+        filter:
+            brightness(1)
+            blur(0);
+
+        transform:
+            translate3d(0, 0, 0)
+            rotateX(1.5deg)
+            rotateY(-2.5deg)
+            scale(1);
+    }
+}
+
+/* 거의 느껴지지 않을 정도의 움직임 */
+@keyframes poster-record-breathe {
+    0%,
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            rotateX(1.5deg)
+            rotateY(-2.5deg);
+    }
+
+    50% {
+        transform:
+            translate3d(0, -5px, 8px)
+            rotateX(0.5deg)
+            rotateY(-1deg);
+    }
+}
+
+@keyframes poster-back-enter {
+    from {
+        opacity: 0;
+
+        transform:
+            translate3d(-5px, 40px, -150px)
+            rotate(-1deg)
+            scale(0.94);
+    }
+
+    to {
+        opacity: 0.55;
+
+        transform:
+            translate3d(-15px, 13px, -70px)
+            rotate(-4deg)
+            scale(1);
+    }
+}
+
+@keyframes poster-middle-enter {
+    from {
+        opacity: 0;
+
+        transform:
+            translate3d(4px, 30px, -100px)
+            rotate(0deg)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 0.72;
+
+        transform:
+            translate3d(12px, 7px, -35px)
+            rotate(2.4deg)
+            scale(1);
+    }
+}
+
+@keyframes poster-shadow-enter {
+    from {
+        opacity: 0;
+        transform:
+            translate3d(5px, 15px, -150px)
+            scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translate3d(22px, 34px, -90px)
+            rotate(-3deg)
+            scale(0.94);
+    }
+}
+
+@keyframes poster-glow-breathe {
+    0%,
+    100% {
+        opacity: 0.28;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 0.46;
+        transform: scale(1.05);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .poster,
+    .poster-paper-layer,
+    .poster-shadow-layer,
+    .poster-glow {
+        animation: none;
     }
 }
