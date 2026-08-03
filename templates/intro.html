@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <title>세일럼 아카데미</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body class="intro-page">
+
+    <main class="intro-screen">
+
+        <div class="intro-seal">
+            S
+        </div>
+
+        <p class="intro-school-name">
+            SALEM ACADEMY
+        </p>
+
+        <h1>
+            학생 공동체 조사
+        </h1>
+
+        <p class="intro-record">
+            THE RECORD OF CONDUCT AND BELIEF
+        </p>
+
+        <div class="intro-line"></div>
+
+        <p class="intro-warning">
+            모든 학생은 질문에 성실히 응답해야 합니다.
+        </p>
+
+        <button
+            type="button"
+            id="intro-enter-button"
+            class="intro-enter-button"
+        >
+            기록 열람
+        </button>
+
+    </main>
+
+    <script>
+        const nextPage = "{{ url_for('index') }}";
+
+        const enterButton =
+            document.getElementById("intro-enter-button");
+
+        enterButton.addEventListener("click", () => {
+            document.body.classList.add("intro-leaving");
+
+            window.setTimeout(() => {
+                window.location.href = nextPage;
+            }, 900);
+        });
+
+        window.setTimeout(() => {
+            enterButton.classList.add("visible");
+        }, 1800);
+    </script>
+
+</body>
+</html>

@@ -119,9 +119,12 @@ def find_participant(nickname: str):
 
 
 @app.route("/")
-def index():
-    """랜딩 페이지"""
+def intro():
+    return render_template("intro.html")
 
+
+@app.route("/home")
+def index():
     return render_template("index.html")
 
 
