@@ -13,7 +13,6 @@ document.addEventListener(
 
 
 function setupPosterEffect() {
-
     const poster =
         document.getElementById("poster");
 
@@ -21,58 +20,92 @@ function setupPosterEffect() {
         return;
     }
 
-    const canHover =
-        window.matchMedia(
-            "(pointer: fine)"
-        ).matches;
-
-    if (!canHover) {
-        return;
-    }
-
     const posterStage =
         poster.parentElement;
 
+    const resetPoster = () => {
+        poster.style.transform =
+            "rotateY(-7deg) rotateX(2deg)";
+    };
+
+    const movePoster = (
+        clientX,
+        clientY
+    ) => {
+        const rect =
+            posterStage.getBoundingClientRect();
+
+        const x =
+            (
+                clientX -
+                rect.left
+            ) /
+            rect.width -
+            0.5;
+
+        const y =
+            (
+                clientY -
+                rect.top
+            ) /
+            rect.height -
+            0.5;
+
+        const rotateY =
+            x * 16 - 7;
+
+        const rotateX =
+            -y * 12 + 2;
+
+        poster.style.transform = `
+            rotateY(${rotateY}deg)
+            rotateX(${rotateX}deg)
+        `;
+    };
 
     posterStage.addEventListener(
         "mousemove",
         (event) => {
-
-            const rect =
-                posterStage
-                    .getBoundingClientRect();
-
-            const x =
-                (
-                    event.clientX -
-                    rect.left
-                ) /
-                rect.width -
-                0.5;
-
-            const y =
-                (
-                    event.clientY -
-                    rect.top
-                ) /
-                rect.height -
-                0.5;
-
-            poster.style.transform = `
-                rotateY(${x * 16 - 7}deg)
-                rotateX(${-y * 12 + 2}deg)
-            `;
+            movePoster(
+                event.clientX,
+                event.clientY
+            );
         }
     );
 
-
     posterStage.addEventListener(
         "mouseleave",
-        () => {
+        resetPoster
+    );
 
-            poster.style.transform =
-                "rotateY(-7deg) rotateX(2deg)";
+    posterStage.addEventListener(
+        "touchmove",
+        (event) => {
+            const touch =
+                event.touches[0];
+
+            if (!touch) {
+                return;
+            }
+
+            movePoster(
+                touch.clientX,
+                touch.clientY
+            );
+        },
+        {
+            passive: true,
         }
+    );
+
+    posterStage.addEventListener(
+        "touchend",
+        resetPoster
+    );
+
+    posterStage.addEventListener(
+        "touchcancel",
+        resetPoster
     );
 }
 
