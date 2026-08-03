@@ -1,79 +1,106 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width,
-                 initial-scale=1,
-                 viewport-fit=cover"
+        content="width=device-width, initial-scale=1"
     >
 
     <meta
         name="theme-color"
-        content="#100d13"
+        content="#09080b"
     >
 
     <title>
         {% block title %}
-        오늘의 세일럼
+        세일럼 고교
         {% endblock %}
     </title>
 
     <link
         rel="stylesheet"
-        href="{{
-            url_for(
-                'static',
-                filename='style.css'
-            )
-        }}"
+        href="{{ url_for('static', filename='style.css') }}"
     >
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
-    ></script>
+    <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+    >
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+        rel="stylesheet"
+>
 
-    <script
-        defer
-        src="{{
-            url_for(
-                'static',
-                filename='app.js'
-            )
-        }}"
-    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700&display=swap"
+        rel="stylesheet"
+>
+
+
+
 </head>
 
-<body>
+
+<body class="{% block body_class %}{% endblock %}">
 
     <header class="site-header">
 
         <a
-            href="{{ url_for('index') }}"
+            href="{{ url_for('students') }}"
             class="brand"
         >
+
             <span class="brand-symbol">
                 S
             </span>
 
             <span>
-                오늘의 세일럼
+                SALEM ACADEMY
             </span>
+
         </a>
 
-        <div class="header-logos">
-            <span>THE CRUCIBLE</span>
-            <span>탯줄</span>
-        </div>
+
+        {% if session.get("nickname") %}
+
+            <a
+                href="{{ url_for('record') }}"
+                class="header-link"
+            >
+                내 기록지
+            </a>
+
+        {% else %}
+
+            <span class="header-code">
+                EST. 1692
+            </span>
+
+        {% endif %}
 
     </header>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script
+        src="{{ url_for('static', filename='app.js') }}"
+        defer
+    ></script>
 
 </body>
+
 </html>

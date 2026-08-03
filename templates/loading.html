@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta
+        name="theme-color"
+        content="#050406"
+    >
+
+    <title>세일럼 고등학교</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body class="loading-page">
+
+    <main class="loading-screen">
+
+        <div class="loading-emblem">
+            <span class="loading-emblem-letter">
+                S
+            </span>
+
+            <span class="loading-emblem-year">
+                1692
+            </span>
+        </div>
+
+        <p class="loading-school-name">
+            SALEM ACADEMY
+        </p>
+
+        <h1>
+            세일럼 고등학교
+        </h1>
+
+        <div class="loading-line"></div>
+
+        <section class="loading-rule">
+            <p class="loading-rule-label">
+                학칙 제1조
+            </p>
+
+            <p>
+                모든 학생은 공동체의 질서를 따르며,<br>
+                허락되지 않은 의심을 입에 담지 않는다.
+            </p>
+        </section>
+
+        <p class="loading-status">
+            재학생 명부를 불러오는 중
+            <span class="loading-dots" aria-hidden="true"></span>
+        </p>
+
+        <noscript>
+            <a
+                href="{{ url_for('students') }}"
+                class="loading-fallback-link"
+            >
+                재학생 명부로 이동
+            </a>
+        </noscript>
+
+    </main>
+
+    <script>
+        window.setTimeout(() => {
+            window.location.replace(
+                "{{ url_for('students') }}"
+            );
+        }, 3400);
+    </script>
+
+</body>
+</html>

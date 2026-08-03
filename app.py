@@ -1,5 +1,5 @@
 import os
-import re
+import random
 from datetime import datetime, timezone
 
 from dotenv import load_dotenv
@@ -15,16 +15,14 @@ from flask import (
 from supabase import Client, create_client
 
 
-# Codespace의 .env 파일을 읽습니다.
 load_dotenv()
 
 
 app = Flask(__name__)
 
-# Flask 세션 쿠키를 보호하는 비밀키입니다.
 app.secret_key = os.environ.get(
     "FLASK_SECRET_KEY",
-    "temporary-local-development-key",
+    "development-secret-key",
 )
 
 
@@ -34,375 +32,434 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ.get(
 )
 
 
-def get_supabase() -> Client:
-    """
-    Supabase 연결을 반환합니다.
-    환경변수가 없으면 이해하기 쉬운 오류를 냅니다.
-    """
+if not SUPABASE_URL:
+    raise RuntimeError(
+        "SUPABASE_URL 환경변수가 없습니다."
+    )
 
-    if not SUPABASE_URL:
-        raise RuntimeError(
-            "SUPABASE_URL이 설정되지 않았습니다. "
-            ".env 파일을 확인해 주세요."
-        )
-
-    if not SUPABASE_SERVICE_ROLE_KEY:
-        raise RuntimeError(
-            "SUPABASE_SERVICE_ROLE_KEY가 설정되지 않았습니다. "
-            ".env 파일을 확인해 주세요."
-        )
-
-    return create_client(
-        SUPABASE_URL,
-        SUPABASE_SERVICE_ROLE_KEY,
+if not SUPABASE_SERVICE_ROLE_KEY:
+    raise RuntimeError(
+        "SUPABASE_SERVICE_ROLE_KEY 환경변수가 없습니다."
     )
 
 
-def normalize_nickname(raw_nickname: str) -> str:
+supabase: Client = create_client(
+    SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY,
+)
+
+
+CLASS_COUNT = 6
+MIN_NICKNAME_LENGTH = 2
+MAX_NICKNAME_LENGTH = 20
+
+
+def clean_nickname(value: str) -> str:
     """
-    닉네임의 앞뒤 공백과 연속 공백을 정리하고
-    사용할 수 있는 문자인지 검사합니다.
+    앞뒤 공백과 연속된 공백을 정리한다.
     """
-
-    nickname = re.sub(
-        r"\s+",
-        " ",
-        (raw_nickname or "").strip(),
+    return " ".join(
+        (value or "").strip().split()
     )
-
-    if len(nickname) < 2:
-        raise ValueError(
-            "닉네임은 두 글자 이상 입력해 주세요."
-        )
-
-    if len(nickname) > 16:
-        raise ValueError(
-            "닉네임은 16자 이하로 입력해 주세요."
-        )
-
-    allowed_pattern = (
-        r"^[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9 _-]+$"
-    )
-
-    if not re.fullmatch(
-        allowed_pattern,
-        nickname,
-    ):
-        raise ValueError(
-            "닉네임에는 한글, 영문, 숫자, "
-            "공백, -, _만 사용할 수 있습니다."
-        )
-
-    return nickname
 
 
 def find_participant(nickname: str):
     """
-    Supabase에서 같은 닉네임의 참가자를 찾습니다.
-    없으면 None을 반환합니다.
+    닉네임으로 학생 한 명을 조회한다.
     """
-
-    supabase = get_supabase()
-
     response = (
-        supabase.table("participants")
-        .select("id,nickname")
+        supabase
+        .table("participants")
+        .select(
+            "id, nickname, class_number, "
+            "result_type, created_at, last_seen_at"
+        )
         .eq("nickname", nickname)
         .limit(1)
         .execute()
     )
 
-    if response.data:
-        return response.data[0]
+    if not response.data:
+        return None
 
-    return None
-
-
-@app.route("/")
-def intro():
-    return render_template("intro.html")
+    return response.data[0]
 
 
-@app.route("/home")
-def index():
-    return render_template("index.html")
-
-
-@app.route(
-    "/enter",
-    methods=["GET", "POST"],
-)
-def enter():
-    """닉네임 신규 등록 또는 기존 닉네임 입장"""
-
-    if request.method == "GET":
-        return render_template("enter.html")
-
-    raw_nickname = request.form.get(
-        "nickname",
-        "",
+def assign_class() -> int:
+    """
+    인원이 가장 적은 반들 중 하나를
+    무작위로 선택한다.
+    """
+    response = (
+        supabase
+        .table("participants")
+        .select("class_number")
+        .execute()
     )
 
-    mode = request.form.get(
-        "mode",
-        "new",
+    class_counts = {
+        number: 0
+        for number in range(
+            1,
+            CLASS_COUNT + 1,
+        )
+    }
+
+    for participant in response.data or []:
+        class_number = participant.get(
+            "class_number"
+        )
+
+        if class_number in class_counts:
+            class_counts[class_number] += 1
+
+    minimum_count = min(
+        class_counts.values()
     )
 
-    try:
-        nickname = normalize_nickname(
-            raw_nickname
-        )
+    candidate_classes = [
+        number
+        for number, count
+        in class_counts.items()
+        if count == minimum_count
+    ]
 
-    except ValueError as error:
-        return render_template(
-            "enter.html",
-            error=str(error),
-            nickname=raw_nickname,
-        ), 400
-
-    try:
-        participant = find_participant(
-            nickname
-        )
-
-    except Exception as error:
-        print(
-            "Supabase 조회 오류:",
-            error,
-        )
-
-        return render_template(
-            "enter.html",
-            error=(
-                "데이터베이스 연결에 실패했습니다. "
-                ".env와 Supabase 설정을 확인해 주세요."
-            ),
-            nickname=nickname,
-        ), 500
-
-    # 새 닉네임 등록
-    if mode == "new":
-
-        if participant:
-            return render_template(
-                "enter.html",
-                error=(
-                    "이미 사용 중인 닉네임입니다. "
-                    "처음 참여하는 경우 다른 닉네임을 "
-                    "입력해 주세요."
-                ),
-                nickname=nickname,
-            ), 409
-
-        try:
-            supabase = get_supabase()
-
-            response = (
-                supabase.table("participants")
-                .insert(
-                    {
-                        "nickname": nickname,
-                    }
-                )
-                .execute()
-            )
-
-            participant = response.data[0]
-
-        except Exception as error:
-            print(
-                "닉네임 등록 오류:",
-                error,
-            )
-
-            # 두 사람이 동시에 같은 닉네임을
-            # 등록한 경우에도 여기서 걸립니다.
-            return render_template(
-                "enter.html",
-                error=(
-                    "이미 사용 중인 닉네임이거나 "
-                    "등록에 실패했습니다."
-                ),
-                nickname=nickname,
-            ), 409
-
-    # 기존 닉네임으로 재접속
-    elif mode == "return":
-
-        if not participant:
-            return render_template(
-                "enter.html",
-                error=(
-                    "등록되지 않은 닉네임입니다. "
-                    "처음 참여한다면 "
-                    "‘새 닉네임 만들기’를 선택해 주세요."
-                ),
-                nickname=nickname,
-            ), 404
-
-    else:
-        return render_template(
-            "enter.html",
-            error="잘못된 입장 방식입니다.",
-            nickname=nickname,
-        ), 400
-
-    # 닉네임 정보를 Flask 세션에 저장합니다.
-    session.clear()
-
-    session["participant_id"] = participant["id"]
-    session["nickname"] = participant["nickname"]
-
-    try:
-        supabase = get_supabase()
-
-        (
-            supabase.table("participants")
-            .update(
-                {
-                    "last_seen_at": (
-                        datetime.now(
-                            timezone.utc
-                        ).isoformat()
-                    )
-                }
-            )
-            .eq(
-                "id",
-                participant["id"],
-            )
-            .execute()
-        )
-
-    except Exception as error:
-        # 마지막 접속 시각 업데이트 실패는
-        # 입장을 막을 정도의 오류는 아닙니다.
-        print(
-            "접속 시각 업데이트 오류:",
-            error,
-        )
-
-    return redirect(
-        url_for("welcome")
+    return random.choice(
+        candidate_classes
     )
 
 
-@app.route("/api/nickname-check")
-def nickname_check():
-    """JavaScript에서 사용하는 닉네임 중복 확인 API"""
-
-    raw_nickname = request.args.get(
-        "nickname",
-        "",
-    )
-
-    try:
-        nickname = normalize_nickname(
-            raw_nickname
-        )
-
-    except ValueError as error:
-        return jsonify(
-            {
-                "valid": False,
-                "exists": False,
-                "message": str(error),
-            }
-        ), 400
-
-    try:
-        exists = (
-            find_participant(nickname)
-            is not None
-        )
-
-    except Exception as error:
-        print(
-            "닉네임 확인 오류:",
-            error,
-        )
-
-        return jsonify(
-            {
-                "valid": False,
-                "exists": False,
-                "message": (
-                    "데이터베이스 연결에 실패했습니다."
-                ),
-            }
-        ), 500
-
-    if exists:
-        message = (
-            "이미 사용 중인 닉네임입니다."
-        )
-    else:
-        message = (
-            "사용 가능한 닉네임입니다."
-        )
-
-    return jsonify(
-        {
-            "valid": True,
-            "exists": exists,
-            "message": message,
-        }
-    )
-
-
-@app.route("/welcome")
-def welcome():
-    """닉네임 등록 후 임시 입장 완료 페이지"""
-
+def get_current_student():
+    """
+    현재 로그인된 학생을 조회한다.
+    """
     nickname = session.get("nickname")
 
     if not nickname:
-        return redirect(
-            url_for("enter")
-        )
+        return None
 
-    return render_template(
-        "welcome.html",
-        nickname=nickname,
-    )
-
-@app.route("/result")
-def result():
-    nickname = session.get("nickname")
-
-    if not nickname:
-        return redirect(
-            url_for("enter")
-        )
-
-    return render_template(
-        "result.html",
-        nickname=nickname,
-    )
-
-
-@app.route(
-    "/logout",
-    methods=["POST"],
-)
-def logout():
-    """현재 브라우저의 세션을 지웁니다."""
-
-    session.clear()
-
-    return redirect(
-        url_for("index")
-    )
+    return find_participant(nickname)
 
 
 @app.route("/health")
 def health():
-    """Render에서 서버 상태를 확인할 수 있는 주소"""
+    return "OK", 200
 
-    return jsonify(
-        {
-            "status": "ok",
-        }
+@app.route("/")
+def loading():
+    """
+    QR 접속 직후 로고와 학칙을 보여주는
+    짧은 로딩 화면.
+    """
+    return render_template(
+        "loading.html"
+    )
+
+
+@app.route("/students")
+def students():
+    response = (
+        supabase
+        .table("participants")
+        .select(
+            "nickname, class_number, created_at"
+        )
+        .order(
+            "created_at",
+            desc=False,
+        )
+        .execute()
+    )
+
+    participants = response.data or []
+
+    student_names = [
+        participant["nickname"]
+        for participant in participants
+    ]
+
+    return render_template(
+        "students.html",
+        students=participants,
+        student_names=student_names,
+        student_count=len(participants),
+        error=request.args.get("error"),
+        message=request.args.get("message"),
+    )
+
+@app.route("/check-nickname")
+def check_nickname():
+    """
+    닉네임 중복 확인.
+    """
+    nickname = clean_nickname(
+        request.args.get(
+            "nickname",
+            "",
+        )
+    )
+
+    if len(nickname) < MIN_NICKNAME_LENGTH:
+        return jsonify({
+            "available": False,
+            "message": (
+                "닉네임은 2자 이상 "
+                "입력해 주세요."
+            ),
+        })
+
+    if len(nickname) > MAX_NICKNAME_LENGTH:
+        return jsonify({
+            "available": False,
+            "message": (
+                "닉네임은 20자 이하로 "
+                "입력해 주세요."
+            ),
+        })
+
+    participant = find_participant(
+        nickname
+    )
+
+    if participant:
+        return jsonify({
+            "available": False,
+            "message": (
+                "이미 재학생 명부에 "
+                "등록된 이름입니다."
+            ),
+        })
+
+    return jsonify({
+        "available": True,
+        "message": (
+            "사용 가능한 닉네임입니다."
+        ),
+    })
+
+
+@app.route(
+    "/register",
+    methods=["POST"],
+)
+def register():
+    """
+    새로운 학생으로 가입한다.
+    """
+    nickname = clean_nickname(
+        request.form.get(
+            "nickname",
+            "",
+        )
+    )
+
+    if not (
+        MIN_NICKNAME_LENGTH
+        <= len(nickname)
+        <= MAX_NICKNAME_LENGTH
+    ):
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "닉네임은 2자 이상 "
+                    "20자 이하로 입력해 주세요."
+                ),
+            )
+        )
+
+    existing_student = find_participant(
+        nickname
+    )
+
+    if existing_student:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "이미 등록된 닉네임입니다. "
+                    "기존 학생 로그인을 이용해 주세요."
+                ),
+            )
+        )
+
+    class_number = assign_class()
+
+    try:
+        response = (
+            supabase
+            .table("participants")
+            .insert({
+                "nickname": nickname,
+                "class_number": class_number,
+                "result_type": None,
+            })
+            .execute()
+        )
+    except Exception:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "학생 등록에 실패했습니다. "
+                    "닉네임을 다시 확인해 주세요."
+                ),
+            )
+        )
+
+    if not response.data:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "학생 정보를 저장하지 "
+                    "못했습니다."
+                ),
+            )
+        )
+
+    student = response.data[0]
+
+    session.clear()
+    session["nickname"] = student[
+        "nickname"
+    ]
+
+    return redirect(
+        url_for("record")
+    )
+
+
+@app.route(
+    "/login",
+    methods=["POST"],
+)
+def login():
+    """
+    기존 닉네임으로 로그인한다.
+    """
+    nickname = clean_nickname(
+        request.form.get(
+            "nickname",
+            "",
+        )
+    )
+
+    if not nickname:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "닉네임을 입력해 주세요."
+                ),
+            )
+        )
+
+    student = find_participant(
+        nickname
+    )
+
+    if not student:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "재학생 명부에 없는 이름입니다. "
+                    "새로운 학생으로 가입해 주세요."
+                ),
+            )
+        )
+
+    (
+        supabase
+        .table("participants")
+        .update({
+            "last_seen_at": datetime.now(
+                timezone.utc
+            ).isoformat(),
+        })
+        .eq(
+            "id",
+            student["id"],
+        )
+        .execute()
+    )
+
+    session.clear()
+    session["nickname"] = student[
+        "nickname"
+    ]
+
+    return redirect(
+        url_for("record")
+    )
+
+
+@app.route("/record")
+def record():
+    """
+    학생 개인 기록지.
+    """
+    student = get_current_student()
+
+    if not student:
+        session.clear()
+
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "먼저 가입하거나 "
+                    "로그인해 주세요."
+                ),
+            )
+        )
+
+    return render_template(
+        "record.html",
+        student=student,
+    )
+
+
+@app.route("/survey-intro")
+def survey_intro():
+    """
+    조사 시작 전 어두운 인트로.
+    """
+    student = get_current_student()
+
+    if not student:
+        return redirect(
+            url_for(
+                "students",
+                error=(
+                    "먼저 가입하거나 "
+                    "로그인해 주세요."
+                ),
+            )
+        )
+
+    return render_template(
+        "intro.html",
+        student=student,
+    )
+
+
+@app.route("/logout")
+def logout():
+    """
+    현재 로그인 세션 종료.
+    """
+    session.clear()
+
+    return redirect(
+        url_for(
+            "students",
+            message=(
+                "학생 기록 열람이 "
+                "종료되었습니다."
+            ),
+        )
     )
 
 

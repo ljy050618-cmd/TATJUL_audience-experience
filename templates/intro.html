@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -8,68 +10,81 @@
         content="width=device-width, initial-scale=1"
     >
 
-    <title>세일럼 아카데미</title>
+    <meta
+        name="theme-color"
+        content="#000000"
+    >
+
+    <title>
+        학생 공동체 조사
+    </title>
 
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}"
     >
+
 </head>
 
-<body class="intro-page">
 
-    <main class="intro-screen">
+<body class="survey-intro-page">
 
-        <div class="intro-seal">
+    <main class="survey-intro-screen">
+
+        <div class="intro-emblem">
             S
         </div>
+
 
         <p class="intro-school-name">
             SALEM ACADEMY
         </p>
 
+
         <h1>
             학생 공동체 조사
         </h1>
 
-        <p class="intro-record">
+
+        <p class="intro-subtitle">
             THE RECORD OF CONDUCT AND BELIEF
         </p>
 
-        <div class="intro-line"></div>
+
+        <div class="intro-divider"></div>
+
+
+        <p class="intro-student">
+            {{ student.class_number }}반
+            ·
+            {{ student.nickname }}
+        </p>
+
 
         <p class="intro-warning">
-            모든 학생은 질문에 성실히 응답해야 합니다.
+            모든 학생은 질문에 성실히 응답해야 합니다.<br>
+            기록되지 않은 침묵은 존재하지 않습니다.
         </p>
+
 
         <button
             type="button"
-            id="intro-enter-button"
-            class="intro-enter-button"
+            class="intro-start-button"
+            disabled
         >
-            기록 열람
+            조사는 곧 시작됩니다
         </button>
+
+
+        <a
+            href="{{ url_for('record') }}"
+            class="intro-back-link"
+        >
+            학생 기록지로 돌아가기
+        </a>
 
     </main>
 
-    <script>
-        const nextPage = "{{ url_for('index') }}";
-
-        const enterButton =
-            document.getElementById("intro-enter-button");
-
-        enterButton.addEventListener("click", () => {
-            document.body.classList.add("intro-leaving");
-
-            window.setTimeout(() => {
-                window.location.href = nextPage;
-            }, 900);
-        });
-
-        window.setTimeout(() => {
-            enterButton.classList.add("visible");
-        }, 1800);
-    </script>
-
 </body>
+
 </html>

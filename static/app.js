@@ -1,543 +1,233 @@
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        setupPosterEffect();
-        setupModeCards();
-        setupNicknameCheck();
-        setupResultShare();
-        setupResultSave();
-
-    }
-);
-
-
-
-
-function setupModeCards() {
-
-    const modeCards =
-        document.querySelectorAll(
-            ".mode-card"
-        );
-
-    modeCards.forEach(
-        (card) => {
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    modeCards.forEach(
-                        (otherCard) => {
-                            otherCard.classList
-                                .remove("selected");
-                        }
-                    );
-
-                    card.classList.add(
-                        "selected"
-                    );
-
-                    const radio =
-                        card.querySelector(
-                            'input[type="radio"]'
-                        );
-
-                    if (radio) {
-                        radio.checked = true;
-                    }
-                }
-            );
-        }
-    );
-}
+document.addEventListener("DOMContentLoaded", () => {
+    setupNicknameCheck();
+    setupStudentWall();
+});
 
 
 function setupNicknameCheck() {
+    const input =
+        document.getElementById("nickname");
 
-    const nicknameInput =
+    const button =
         document.getElementById(
-            "nickname"
+            "check-nickname-button"
         );
 
-    const checkButton =
-        document.getElementById(
-            "nickname-check-button"
-        );
-
-    const nicknameStatus =
+    const status =
         document.getElementById(
             "nickname-status"
         );
 
-    if (
-        !nicknameInput ||
-        !checkButton ||
-        !nicknameStatus
-    ) {
+    if (!input || !button || !status) {
         return;
     }
 
+    button.addEventListener("click", async () => {
+        const nickname = input.value.trim();
 
-    checkButton.addEventListener(
-        "click",
-        async () => {
+        status.textContent = "";
+        status.className = "nickname-status";
 
-            const nickname =
-                nicknameInput.value.trim();
+        if (nickname.length < 2) {
+            showStatus(
+                "닉네임은 2자 이상 입력해 주세요.",
+                false
+            );
+            return;
+        }
 
-            if (!nickname) {
+        button.disabled = true;
+        button.textContent = "확인 중";
 
-                showNicknameStatus(
-                    "닉네임을 먼저 입력해 주세요.",
-                    false
-                );
+        try {
+            const query = new URLSearchParams({
+                nickname,
+            });
 
-                return;
-            }
-
-
-            showNicknameStatus(
-                "확인 중입니다.",
-                null
+            const response = await fetch(
+                `/check-nickname?${query.toString()}`
             );
 
-
-            try {
-
-                const response =
-                    await fetch(
-                        `/api/nickname-check?nickname=${
-                            encodeURIComponent(
-                                nickname
-                            )
-                        }`
-                    );
-
-                const data =
-                    await response.json();
-
-
-                if (
-                    response.ok &&
-                    data.valid &&
-                    !data.exists
-                ) {
-                    showNicknameStatus(
-                        data.message,
-                        true
-                    );
-
-                } else {
-                    showNicknameStatus(
-                        data.message ||
-                        "사용할 수 없는 닉네임입니다.",
-                        false
-                    );
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "닉네임 확인 오류:",
-                    error
-                );
-
-                showNicknameStatus(
-                    "중복 확인에 실패했습니다.",
-                    false
-                );
+            if (!response.ok) {
+                throw new Error("중복 확인 실패");
             }
-        }
-    );
 
+            const result = await response.json();
 
-    nicknameInput.addEventListener(
-        "input",
-        () => {
-
-            nicknameStatus.textContent =
-                "중복 확인 버튼을 눌러 주세요.";
-
-            nicknameStatus.className =
-                "input-help";
-        }
-    );
-}
-
-
-function showNicknameStatus(
-    message,
-    isAvailable
-) {
-
-    const nicknameStatus =
-        document.getElementById(
-            "nickname-status"
-        );
-
-    nicknameStatus.textContent =
-        message;
-
-    nicknameStatus.className =
-        "input-help";
-
-
-    if (isAvailable === true) {
-
-        nicknameStatus.classList.add(
-            "status-available"
-        );
-
-    } else if (isAvailable === false) {
-
-        nicknameStatus.classList.add(
-            "status-unavailable"
-        );
-    }
-}
-
-function setupResultShare() {
-
-    const shareButton =
-        document.getElementById(
-            "share-result-button"
-        );
-
-    const resultCard =
-        document.getElementById(
-            "result-card"
-        );
-
-    const shareStatus =
-        document.getElementById(
-            "share-status"
-        );
-
-    if (
-        !shareButton ||
-        !resultCard
-    ) {
-        return;
-    }
-
-
-    shareButton.addEventListener(
-        "click",
-        async () => {
-
-            const originalText =
-                shareButton.textContent;
-
-            shareButton.disabled = true;
-
-            shareButton.textContent =
-                "결과 이미지 만드는 중...";
-
-
-            try {
-
-                const file =
-                    await createResultImageFile(
-                        resultCard
-                    );
-
-
-                const canShareFile =
-                    navigator.share &&
-                    navigator.canShare &&
-                    navigator.canShare({
-                        files: [file],
-                    });
-
-
-                if (canShareFile) {
-
-                    await navigator.share({
-                        title:
-                            "오늘의 세일럼 결과",
-
-                        text:
-                            "나의 세일럼 관객 유형 결과",
-
-                        files: [file],
-                    });
-
-
-                    showShareStatus(
-                        shareStatus,
-                        "공유창을 열었습니다.",
-                        true
-                    );
-
-                } else {
-
-                    downloadFile(file);
-
-                    showShareStatus(
-                        shareStatus,
-                        "이 브라우저에서는 이미지 공유가 지원되지 않아 파일을 저장했습니다.",
-                        true
-                    );
-                }
-
-            } catch (error) {
-
-                if (
-                    error.name ===
-                    "AbortError"
-                ) {
-
-                    showShareStatus(
-                        shareStatus,
-                        "공유를 취소했습니다.",
-                        null
-                    );
-
-                } else {
-
-                    console.error(
-                        "결과 공유 오류:",
-                        error
-                    );
-
-                    showShareStatus(
-                        shareStatus,
-                        "결과 이미지 공유에 실패했습니다.",
-                        false
-                    );
-                }
-
-            } finally {
-
-                shareButton.disabled =
-                    false;
-
-                shareButton.textContent =
-                    originalText;
-            }
-        }
-    );
-}
-
-
-function setupResultSave() {
-
-    const saveButton =
-        document.getElementById(
-            "save-result-button"
-        );
-
-    const resultCard =
-        document.getElementById(
-            "result-card"
-        );
-
-    const shareStatus =
-        document.getElementById(
-            "share-status"
-        );
-
-    if (
-        !saveButton ||
-        !resultCard
-    ) {
-        return;
-    }
-
-
-    saveButton.addEventListener(
-        "click",
-        async () => {
-
-            const originalText =
-                saveButton.textContent;
-
-            saveButton.disabled = true;
-
-            saveButton.textContent =
-                "이미지 저장 중...";
-
-
-            try {
-
-                const file =
-                    await createResultImageFile(
-                        resultCard
-                    );
-
-                downloadFile(file);
-
-                showShareStatus(
-                    shareStatus,
-                    "결과 이미지를 저장했습니다.",
-                    true
-                );
-
-            } catch (error) {
-
-                console.error(
-                    "결과 저장 오류:",
-                    error
-                );
-
-                showShareStatus(
-                    shareStatus,
-                    "결과 이미지 저장에 실패했습니다.",
-                    false
-                );
-
-            } finally {
-
-                saveButton.disabled =
-                    false;
-
-                saveButton.textContent =
-                    originalText;
-            }
-        }
-    );
-}
-
-
-async function createResultImageFile(
-    resultCard
-) {
-
-    if (
-        typeof html2canvas ===
-        "undefined"
-    ) {
-        throw new Error(
-            "html2canvas가 로드되지 않았습니다."
-        );
-    }
-
-
-    const canvas =
-        await html2canvas(
-            resultCard,
-            {
-                scale: 2,
-                backgroundColor:
-                    "#100d13",
-
-                useCORS: true,
-                logging: false,
-            }
-        );
-
-
-    const blob =
-        await new Promise(
-            (
-                resolve,
-                reject
-            ) => {
-
-                canvas.toBlob(
-                    (
-                        createdBlob
-                    ) => {
-
-                        if (
-                            createdBlob
-                        ) {
-                            resolve(
-                                createdBlob
-                            );
-
-                        } else {
-
-                            reject(
-                                new Error(
-                                    "이미지 파일을 만들지 못했습니다."
-                                )
-                            );
-                        }
-                    },
-
-                    "image/png",
-                    1
-                );
-            }
-        );
-
-
-    return new File(
-        [blob],
-        "today-salem-result.png",
-        {
-            type: "image/png",
-        }
-    );
-}
-
-
-function downloadFile(file) {
-
-    const fileUrl =
-        URL.createObjectURL(file);
-
-    const downloadLink =
-        document.createElement("a");
-
-    downloadLink.href =
-        fileUrl;
-
-    downloadLink.download =
-        file.name;
-
-    document.body.appendChild(
-        downloadLink
-    );
-
-    downloadLink.click();
-
-    downloadLink.remove();
-
-
-    setTimeout(
-        () => {
-            URL.revokeObjectURL(
-                fileUrl
+            showStatus(
+                result.message,
+                result.available
             );
-        },
-        1000
-    );
+        } catch (error) {
+            showStatus(
+                "중복 확인 중 오류가 발생했습니다.",
+                false
+            );
+        } finally {
+            button.disabled = false;
+            button.textContent = "중복 확인";
+        }
+    });
+
+    input.addEventListener("input", () => {
+        status.textContent = "";
+        status.className = "nickname-status";
+    });
+
+    function showStatus(message, available) {
+        status.textContent = message;
+
+        status.className = available
+            ? "nickname-status status-available"
+            : "nickname-status status-unavailable";
+    }
 }
 
 
-function showShareStatus(
-    element,
-    message,
-    success
-) {
+function setupStudentWall() {
+    const stage =
+        document.getElementById(
+            "student-name-stage"
+        );
 
-    if (!element) {
+    const dataElement =
+        document.getElementById(
+            "student-data"
+        );
+
+    if (!stage || !dataElement) {
         return;
     }
 
-    element.textContent =
-        message;
+    let names;
 
-    element.className =
-        "input-help share-status";
+    try {
+        names = JSON.parse(
+            dataElement.textContent.trim()
+        );
+    } catch (error) {
+        console.error(
+            "학생 명부 데이터를 읽지 못했습니다.",
+            error
+        );
+        return;
+    }
 
+    if (!Array.isArray(names) || names.length === 0) {
+        return;
+    }
 
-    if (success === true) {
+    const activeElements = new Set();
+    let previousName = null;
 
-        element.classList.add(
-            "status-available"
+    function selectRandomName() {
+        if (names.length === 1) {
+            return names[0];
+        }
+
+        let selected;
+
+        do {
+            selected =
+                names[
+                    Math.floor(
+                        Math.random() * names.length
+                    )
+                ];
+        } while (selected === previousName);
+
+        previousName = selected;
+
+        return selected;
+    }
+
+    function writeNameOnWall() {
+        if (
+            document.hidden ||
+            activeElements.size >= 9
+        ) {
+            return;
+        }
+
+        const nickname = selectRandomName();
+
+        const wrapper =
+            document.createElement("span");
+
+        wrapper.className =
+            "wall-student-name";
+
+        const left =
+            5 + Math.random() * 72;
+
+        const top =
+            8 + Math.random() * 73;
+
+        const angle =
+            -9 + Math.random() * 18;
+
+        const size =
+            20 + Math.random() * 19;
+
+        const lifetime =
+            6200 + Math.random() * 2800;
+
+        wrapper.style.left = `${left}%`;
+        wrapper.style.top = `${top}%`;
+        wrapper.style.fontSize = `${size}px`;
+        wrapper.style.setProperty(
+            "--wall-angle",
+            `${angle}deg`
         );
 
-    } else if (
-        success === false
-    ) {
+        Array.from(nickname).forEach(
+            (character, index) => {
+                const letter =
+                    document.createElement("span");
 
-        element.classList.add(
-            "status-unavailable"
+                letter.className =
+                    "wall-name-letter";
+
+                letter.textContent = character;
+
+                letter.style.animationDelay =
+                    `${index * 0.14}s`;
+
+                wrapper.appendChild(letter);
+            }
+        );
+
+        stage.appendChild(wrapper);
+        activeElements.add(wrapper);
+
+        window.setTimeout(() => {
+            wrapper.classList.add(
+                "wall-name-erasing"
+            );
+        }, lifetime - 1800);
+
+        window.setTimeout(() => {
+            activeElements.delete(wrapper);
+            wrapper.remove();
+        }, lifetime);
+    }
+
+    const initialCount =
+        Math.min(names.length, 6);
+
+    for (
+        let index = 0;
+        index < initialCount;
+        index += 1
+    ) {
+        window.setTimeout(
+            writeNameOnWall,
+            450 + index * 600
         );
     }
+
+    window.setInterval(
+        writeNameOnWall,
+        1450
+    );
 }

@@ -1,16 +1,12 @@
 :root {
-    --background: #100d13;
-    --panel: #1a141c;
-
-    --red: #9b2234;
-    --bright-red: #d14a58;
-    --gold: #c9a56a;
-
-    --text: #f4eee7;
-    --muted: #aaa0aa;
-
-    --line:
-        rgba(255, 255, 255, 0.13);
+    --background: #09080b;
+    --panel: #151117;
+    --red: #851f30;
+    --bright-red: #c94453;
+    --gold: #b99a64;
+    --text: #f1ebe3;
+    --muted: #9e959e;
+    --line: rgba(255, 255, 255, 0.12);
 }
 
 
@@ -40,14 +36,14 @@ body {
 
     background:
         radial-gradient(
-            circle at 15% 15%,
-            rgba(155, 34, 52, 0.24),
+            circle at 10% 10%,
+            rgba(133, 31, 48, 0.17),
             transparent 30%
         ),
         radial-gradient(
-            circle at 85% 70%,
-            rgba(201, 165, 106, 0.09),
-            transparent 28%
+            circle at 90% 75%,
+            rgba(185, 154, 100, 0.06),
+            transparent 25%
         ),
         var(--background);
 }
@@ -65,6 +61,13 @@ input {
 }
 
 
+button {
+    border: 0;
+}
+
+
+/* 공통 헤더 */
+
 .site-header {
     min-height: 64px;
     padding: 0 18px;
@@ -73,330 +76,503 @@ input {
     align-items: center;
     justify-content: space-between;
 
-    border-bottom:
-        1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 }
 
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 9px;
-
-    font-weight: 800;
-}
-
-
-.brand-symbol {
-    width: 30px;
-    height: 30px;
-
-    display: grid;
-    place-items: center;
-
-    border:
-        1px solid var(--gold);
-
-    color: var(--gold);
-
-    font-family:
-        Georgia,
-        serif;
-}
-
-
-.header-logos {
-    display: flex;
     gap: 10px;
 
-    color: var(--muted);
-
-    font-size: 8px;
+    font-size: 11px;
+    font-weight: 800;
     letter-spacing: 0.12em;
 }
 
 
-.landing {
-    min-height:
-        calc(100vh - 64px);
-
-    padding:
-        38px 22px 70px;
-
-    display: grid;
-    gap: 52px;
-    align-items: center;
-}
-
-
-.poster-stage {
-    position: relative;
+.brand-symbol {
+    width: 31px;
+    height: 31px;
 
     display: grid;
     place-items: center;
-    perspective: 1300px;
-    isolation: isolate;
+
+    border: 1px solid var(--gold);
+
+    color: var(--gold);
+
+    font-family: Georgia, serif;
+    font-size: 18px;
 }
 
 
-.poster-glow {
-    position: absolute;
+.header-code,
+.header-link {
+    color: var(--muted);
 
-    width: 70%;
-    height: 75%;
-
-    background: var(--red);
-
-    filter: blur(70px);
-    opacity: 0.25;
+    font-size: 9px;
+    letter-spacing: 0.13em;
 }
 
 
-.poster {
-    position: relative;
+.header-link {
+    color: var(--gold);
+}
 
-    width:
-        min(82vw, 360px);
 
-    aspect-ratio: 2 / 3;
+/* QR 접속 로딩 화면 */
 
-    padding: 25px;
-
-    display: flex;
-    flex-direction: column;
-
+.loading-page {
+    min-height: 100vh;
+    margin: 0;
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 55% 35%,
-            rgba(209, 74, 88, 0.3),
-            transparent 32%
+            circle at 50% 38%,
+            rgba(111, 25, 40, 0.2),
+            transparent 28%
         ),
-        linear-gradient(
-            145deg,
-            #30171e,
-            #0c090d 72%
-        );
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.2);
-
-    box-shadow:
-        25px 28px 55px
-        rgba(0, 0, 0, 0.55),
-        inset 0 0 70px
-        rgba(0, 0, 0, 0.4);
-
+        #000000;
 }
 
 
-.poster-kicker,
-.poster-footer {
-    position: relative;
-    z-index: 2;
+.loading-screen {
+    min-height: 100vh;
+    padding: 30px 22px;
 
-    color: var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    font-size: 9px;
-    letter-spacing: 0.14em;
-}
-
-
-.poster-background-letter {
-    position: absolute;
-
-    top: 65px;
-    right: -4px;
-
-    color:
-        rgba(155, 34, 52, 0.4);
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size: 145px;
-}
-
-
-.poster-main {
-    position: relative;
-    z-index: 2;
-
-    margin-top: auto;
-    margin-bottom: 30px;
-}
-
-
-.poster-main h1 {
-    margin:
-        0 0 24px;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 64px;
-    line-height: 0.88;
-    letter-spacing: -0.06em;
-}
-
-
-.poster-main p {
-    color: #d2c7cd;
-
-    font-size: 12px;
-    line-height: 1.7;
-}
-
-
-.poster-footer {
-    margin-top: auto;
-}
-
-
-.landing-copy {
     text-align: center;
 }
 
 
-.eyebrow {
+.loading-emblem {
+    width: 88px;
+    height: 100px;
+    margin-bottom: 27px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--gold);
+    outline: 1px solid rgba(185, 154, 100, 0.2);
+    outline-offset: 6px;
+
     color: var(--gold);
 
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
+    opacity: 0;
+
+    animation:
+        loading-content-in
+        1.1s
+        ease
+        0.15s
+        forwards;
 }
 
 
-.landing-copy h2,
-.page-title {
-    margin: 18px 0;
+.loading-emblem-letter {
+    font-family: Georgia, serif;
+    font-size: 43px;
+    line-height: 1;
+}
+
+
+.loading-emblem-year {
+    margin-top: 7px;
+
+    font-size: 8px;
+    letter-spacing: 0.18em;
+}
+
+
+.loading-school-name {
+    margin: 0 0 12px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.27em;
+
+    opacity: 0;
+
+    animation:
+        loading-content-in
+        0.9s
+        ease
+        0.65s
+        forwards;
+}
+
+
+.loading-screen h1 {
+    margin: 0;
 
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 44px;
+    font-size: clamp(40px, 10vw, 72px);
     font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.05em;
+
+    opacity: 0;
+
+    animation:
+        loading-content-in
+        0.9s
+        ease
+        0.85s
+        forwards;
 }
 
 
-.description {
-    color: #c9bec9;
+.loading-line {
+    width: 0;
+    height: 1px;
+    margin: 30px 0;
 
-    font-size: 15px;
-    line-height: 1.8;
+    background: var(--gold);
+
+    animation:
+        loading-line-open
+        0.8s
+        ease
+        1.05s
+        forwards;
 }
 
 
-.primary-button,
-.secondary-button {
-    min-height: 50px;
-    padding: 0 22px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 2px;
-    border:
-        1px solid transparent;
-
-    cursor: pointer;
-    font-weight: 800;
-
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
-}
-
-
-.primary-button:hover,
-.secondary-button:hover {
-    transform:
-        translateY(-2px);
-}
-
-
-.primary-button {
-    margin-top: 28px;
-
-    background: var(--red);
-    color: white;
-
-    box-shadow:
-        0 12px 26px
-        rgba(155, 34, 52, 0.25);
-}
-
-
-.secondary-button {
-    background:
-        rgba(255, 255, 255, 0.03);
-
-    border-color: var(--line);
-    color: var(--text);
-}
-
-
-.small-button {
-    min-width: 92px;
-    padding: 0 12px;
-
-    font-size: 13px;
-}
-
-
-.full-button {
-    width: 100%;
-}
-
-
-.small-text,
-.warning-text,
-.input-help {
-    color: var(--muted);
+.loading-rule {
+    color: #aaa2a8;
 
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.8;
+
+    opacity: 0;
+
+    animation:
+        loading-content-in
+        0.9s
+        ease
+        1.15s
+        forwards;
 }
 
 
-.small-text {
-    margin-top: 16px;
+.loading-rule p {
+    margin: 0;
 }
 
 
-.form-page {
-    width:
-        min(
-            620px,
-            calc(100% - 34px)
+.loading-rule-label {
+    margin-bottom: 8px !important;
+
+    color: var(--gold);
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+}
+
+
+.loading-status {
+    margin-top: 36px;
+
+    color: #706970;
+
+    font-size: 9px;
+    letter-spacing: 0.12em;
+
+    opacity: 0;
+
+    animation:
+        loading-status-pulse
+        1.3s
+        ease
+        1.7s
+        infinite;
+}
+
+
+@keyframes loading-content-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes loading-line-open {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 46px;
+    }
+}
+
+
+@keyframes loading-status-pulse {
+    0%,
+    100% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.85;
+    }
+}
+
+
+/* 재학생 명부 */
+
+.students-page {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0 90px;
+}
+
+
+.students-heading {
+    text-align: center;
+}
+
+
+.section-code {
+    margin: 0;
+
+    color: var(--gold);
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+
+.students-heading h1 {
+    margin: 13px 0 24px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(42px, 9vw, 70px);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+}
+
+
+.registered-count {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 7px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+.registered-count strong {
+    color: var(--gold);
+
+    font-family: Georgia, serif;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+
+.student-stage-section {
+    margin-top: 31px;
+}
+
+
+.student-name-stage {
+    position: relative;
+
+    min-height: 310px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 255, 255, 0.03),
+            transparent 55%
+        ),
+        linear-gradient(
+            180deg,
+            #0b0a0d,
+            #141217
         );
 
-    margin: 0 auto;
-
-    padding:
-        62px 0 90px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 
-.nickname-form {
-    margin-top: 30px;
+.student-name-stage::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.015) 0px,
+            rgba(255, 255, 255, 0.015) 1px,
+            transparent 1px,
+            transparent 6px
+        );
+
+    pointer-events: none;
+}
+
+
+.empty-student-stage {
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 12px;
+    letter-spacing: 0.04em;
+}
+
+
+.floating-student-name {
+    position: absolute;
+
+    color: rgba(239, 233, 225, 0.86);
+
+    font-family:
+        "Nanum Pen Script",
+        "Apple Chancery",
+        "Comic Sans MS",
+        cursive;
+
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: rotate(var(--angle, 0deg));
+
+    animation:
+        graffiti-fade-life var(--life, 6s)
+        ease-in-out forwards;
+}
+
+.floating-student-name-ink {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0ch;
+
+    text-shadow:
+        0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 8px rgba(255, 255, 255, 0.03);
+
+    animation:
+        graffiti-write 1.4s
+        steps(18, end)
+        forwards;
+}
+
+@keyframes graffiti-write {
+    from {
+        width: 0ch;
+        filter: blur(1.5px);
+    }
+
+    to {
+        width: var(--chars, 8ch);
+        filter: blur(0);
+    }
+}
+
+@keyframes graffiti-fade-life {
+    0% {
+        opacity: 0;
+        filter: blur(2px);
+    }
+
+    18% {
+        opacity: 0.95;
+        filter: blur(0);
+    }
+
+    68% {
+        opacity: 0.72;
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 0;
+        filter: blur(2px);
+    }
+}
+
+
+.student-access-section {
+    margin-top: 31px;
     padding: 24px;
 
     background:
-        rgba(255, 255, 255, 0.04);
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(255, 255, 255, 0.012)
+        );
 
-    border:
-        1px solid var(--line);
+    border: 1px solid var(--line);
+}
+
+
+.access-title h2 {
+    margin: 8px 0 0;
+
+    font-family: Georgia, serif;
+    font-size: 31px;
+    font-weight: 500;
+}
+
+
+.access-title > p:last-child {
+    max-width: 520px;
+    margin: 13px 0 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+
+.student-access-form {
+    margin-top: 26px;
 }
 
 
@@ -404,113 +580,72 @@ input {
     display: block;
     margin-bottom: 9px;
 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
 }
 
 
-.nickname-input-row {
+.nickname-row {
     display: flex;
     gap: 8px;
 }
 
 
-.nickname-input-row input {
+.nickname-row input {
     width: 100%;
     min-width: 0;
-    height: 50px;
+    height: 51px;
 
     padding: 0 15px;
 
-    background: #0c090d;
+    background: #070609;
+
     border:
         1px solid
         rgba(255, 255, 255, 0.18);
 
-    color: white;
+    color: var(--text);
     outline: none;
 }
 
 
-.nickname-input-row input:focus {
+.nickname-row input:focus {
     border-color: var(--gold);
 }
 
 
-.mode-list {
-    margin: 24px 0;
+.check-button {
+    min-width: 92px;
+    height: 51px;
+    padding: 0 12px;
 
-    display: grid;
-    gap: 10px;
-}
+    background:
+        rgba(255, 255, 255, 0.04);
 
+    border: 1px solid var(--line);
 
-.mode-card {
-    padding: 16px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-    border:
-        1px solid var(--line);
+    color: var(--text);
 
     cursor: pointer;
-}
 
-
-.mode-card input {
-    position: absolute;
-    opacity: 0;
-}
-
-
-.mode-card span {
-    color: var(--muted);
     font-size: 12px;
+    font-weight: 800;
 }
 
 
-.mode-card.selected {
-    border-color: var(--gold);
-
-    background:
-        rgba(201, 165, 106, 0.08);
+.check-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
 }
 
 
-.error-box,
-.success-box {
-    margin: 22px 0;
-    padding: 14px 16px;
+.nickname-status {
+    min-height: 21px;
+    margin: 8px 0 0;
 
-    line-height: 1.6;
-}
+    color: var(--muted);
 
-
-.error-box {
-    background:
-        rgba(155, 34, 52, 0.18);
-
-    border:
-        1px solid
-        rgba(255, 100, 110, 0.4);
-
-    color: #ffd7da;
-}
-
-
-.success-box {
-    margin-bottom: 24px;
-
-    background:
-        rgba(65, 150, 101, 0.15);
-
-    border:
-        1px solid
-        rgba(90, 210, 140, 0.35);
-
-    color: #b9efce;
+    font-size: 12px;
 }
 
 
@@ -520,218 +655,289 @@ input {
 
 
 .status-unavailable {
-    color: #ff8791;
+    color: #ff8993;
 }
 
 
-@media (min-width: 800px) {
+.access-buttons {
+    margin-top: 19px;
 
-    .site-header {
-        min-height: 74px;
-        padding: 0 60px;
-    }
-
-
-    .landing {
-        min-height:
-            calc(100vh - 74px);
-
-        padding: 60px;
-
-        grid-template-columns:
-            minmax(330px, 500px)
-            minmax(330px, 550px);
-
-        justify-content: center;
-        gap: 90px;
-    }
-
-
-    .landing-copy {
-        text-align: left;
-    }
-
-
-    .landing-copy h2 {
-        font-size: 68px;
-    }
-
+    display: grid;
+    gap: 10px;
 }
 
-.result-page {
-    width:
-        min(
-            520px,
-            calc(100% - 32px)
-        );
 
+.primary-button,
+.secondary-button {
+    min-height: 51px;
+    padding: 0 22px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid transparent;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.primary-button {
+    background: var(--red);
+    color: white;
+
+    box-shadow:
+        0 13px 28px
+        rgba(133, 31, 48, 0.25);
+}
+
+
+.secondary-button {
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border-color: var(--line);
+
+    color: var(--text);
+}
+
+
+.primary-button:hover,
+.secondary-button:hover {
+    transform: translateY(-2px);
+}
+
+
+.privacy-notice {
+    margin: 18px 0 0;
+
+    color: var(--muted);
+
+    font-size: 10px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+
+.error-box,
+.success-box {
+    margin-top: 21px;
+    padding: 14px 16px;
+
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+
+.error-box {
+    background:
+        rgba(133, 31, 48, 0.18);
+
+    border:
+        1px solid
+        rgba(255, 100, 115, 0.35);
+
+    color: #ffd5d9;
+}
+
+
+.success-box {
+    background:
+        rgba(65, 150, 101, 0.13);
+
+    border:
+        1px solid
+        rgba(90, 210, 140, 0.3);
+
+    color: #baefcf;
+}
+
+
+/* 학생 개인 기록지 */
+
+.record-page {
+    width: min(720px, calc(100% - 32px));
     margin: 0 auto;
-
-    padding:
-        50px 0 90px;
+    padding: 50px 0 90px;
 }
 
 
-.result-card {
+.record-card {
     position: relative;
-
-    width:
-        min(
-            100%,
-            420px
-        );
-
-    aspect-ratio: 9 / 16;
-
-    margin:
-        30px auto 0;
-
-    padding:
-        30px 26px;
-
-    display: flex;
-    flex-direction: column;
-
+    padding: 27px;
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 72% 22%,
-            rgba(
-                190,
-                42,
-                63,
-                0.5
-            ),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 20% 75%,
-            rgba(
-                201,
-                165,
-                106,
-                0.12
-            ),
-            transparent 30%
+            circle at 90% 10%,
+            rgba(133, 31, 48, 0.17),
+            transparent 32%
         ),
         linear-gradient(
             155deg,
-            #36141e,
-            #100d13 70%
+            #171219,
+            #0e0b10
         );
 
     border:
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.18
-        );
+        rgba(185, 154, 100, 0.3);
 
     box-shadow:
-        0 25px 60px
-        rgba(
-            0,
-            0,
-            0,
-            0.45
-        );
+        0 30px 70px
+        rgba(0, 0, 0, 0.45);
 
-    color: #f4eee7;
+    animation:
+        record-card-in
+        0.9s
+        ease
+        both;
 }
 
 
-.result-card::before {
-    content: "S";
-
-    position: absolute;
-
-    top: 90px;
-    right: -15px;
-
-    color:
-        rgba(
-            155,
-            34,
-            52,
-            0.28
-        );
-
-    font-family:
-        Georgia,
-        serif;
-
-    font-size: 190px;
-    line-height: 1;
-}
-
-
-.result-card::after {
+.record-card::before {
     content: "";
 
     position: absolute;
-
-    inset: 12px;
+    inset: 10px;
 
     border:
         1px solid
-        rgba(
-            201,
-            165,
-            106,
-            0.22
-        );
+        rgba(255, 255, 255, 0.05);
 
     pointer-events: none;
 }
 
 
-.result-card-top,
-.result-card-bottom {
+@keyframes record-card-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.record-header {
     position: relative;
     z-index: 2;
 
-    display: flex;
-    justify-content:
-        space-between;
+    display: grid;
+    grid-template-columns:
+        auto
+        1fr
+        auto;
+
+    align-items: center;
+    gap: 14px;
+}
+
+
+.record-emblem {
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--gold);
 
     color: var(--gold);
 
-    font-size: 9px;
+    font-family: Georgia, serif;
+    font-size: 27px;
+}
+
+
+.record-heading p {
+    margin: 0;
+
+    color: var(--gold);
+
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+
+.record-heading h1 {
+    margin: 5px 0 0;
+
+    font-family: Georgia, serif;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+
+.confidential {
+    color: var(--bright-red);
+
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.13em;
 }
 
 
-.result-card-top p,
-.result-card-bottom p {
-    margin: 0;
-}
-
-
-.result-card-center {
+.record-code {
     position: relative;
     z-index: 2;
 
-    margin:
-        auto 0;
+    margin-top: 25px;
+    padding: 11px 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+
+    color: var(--muted);
+
+    font-size: 8px;
+    letter-spacing: 0.13em;
 }
 
 
-.result-subtitle {
-    margin:
-        0 0 10px;
+.record-information {
+    position: relative;
+    z-index: 2;
 
-    color: var(--gold);
-
-    font-size: 12px;
-    font-weight: 700;
+    margin: 27px 0 0;
 }
 
 
-.result-card-center h2 {
+.record-row {
+    padding: 19px 0;
+
+    display: grid;
+    grid-template-columns:
+        135px
+        1fr;
+
+    gap: 20px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.record-row dt {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+.record-row dd {
     margin: 0;
 
     font-family:
@@ -739,77 +945,98 @@ input {
         "Times New Roman",
         serif;
 
-    font-size: 52px;
-    font-weight: 500;
-    line-height: 0.95;
-    letter-spacing: -0.06em;
+    font-size: 21px;
 }
 
 
-.result-divider {
-    width: 42px;
-    height: 1px;
-
-    margin:
-        28px 0;
-
-    background:
-        var(--gold);
+.result-row dd {
+    color: var(--gold);
 }
 
 
-.result-description {
-    max-width: 280px;
-
-    margin: 0;
-
-    color: #d7cbd1;
-
-    font-size: 14px;
-    line-height: 1.8;
+.pending-result {
+    color: var(--muted);
 }
 
 
-.result-actions {
-    width:
-        min(
-            100%,
-            420px
-        );
+.survey-entry {
+    position: relative;
+    z-index: 2;
 
-    margin:
-        22px auto 0;
-
-    display: grid;
-    gap: 10px;
-}
-
-
-.result-actions .primary-button {
-    margin-top: 0;
-}
-
-
-.result-actions button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-
-.share-status {
-    min-height: 20px;
-
-    margin:
-        3px 0 0;
+    margin-top: 31px;
+    padding: 25px 21px;
 
     text-align: center;
+
+    background:
+        rgba(133, 31, 48, 0.09);
+
+    border:
+        1px solid
+        rgba(133, 31, 48, 0.28);
 }
 
-/* =========================
-   INTRO PAGE
-   ========================= */
 
-.intro-page {
+.survey-entry h2 {
+    margin: 11px 0 14px;
+
+    font-family: Georgia, serif;
+    font-size: 27px;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+
+.survey-entry > p:last-of-type {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+
+.survey-entry .primary-button,
+.survey-entry .secondary-button {
+    margin-top: 21px;
+}
+
+
+.record-footer {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 29px;
+    padding-top: 18px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--muted);
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+
+.record-footer p {
+    margin: 0;
+}
+
+
+.record-footer a {
+    flex-shrink: 0;
+    color: var(--gold);
+}
+
+
+/* 공동체 조사 인트로 */
+
+.survey-intro-page {
     min-height: 100vh;
     margin: 0;
     overflow: hidden;
@@ -817,26 +1044,22 @@ input {
     background:
         radial-gradient(
             circle at 50% 35%,
-            rgba(105, 24, 38, 0.22),
+            rgba(105, 24, 38, 0.2),
             transparent 30%
         ),
         linear-gradient(
             180deg,
-            #020204,
-            #09090d
+            #000000,
+            #08070a
         );
 
     color: #ece5db;
-
-    transition:
-        opacity 0.9s ease,
-        filter 0.9s ease;
 }
 
 
-.intro-screen {
+.survey-intro-screen {
     min-height: 100vh;
-    padding: 36px 24px;
+    padding: 35px 23px;
 
     display: flex;
     flex-direction: column;
@@ -846,14 +1069,16 @@ input {
     text-align: center;
 
     animation:
-        intro-screen-appear 1.6s ease both;
+        intro-screen-in
+        1.5s
+        ease
+        both;
 }
 
 
-.intro-seal {
+.intro-emblem {
     width: 78px;
     height: 78px;
-
     margin-bottom: 28px;
 
     display: grid;
@@ -861,36 +1086,41 @@ input {
 
     border:
         1px solid
-        rgba(184, 154, 99, 0.7);
+        rgba(185, 154, 100, 0.7);
 
-    color: #b89a63;
+    color: var(--gold);
 
-    font-family:
-        Georgia,
-        serif;
-
+    font-family: Georgia, serif;
     font-size: 42px;
 
     animation:
-        intro-seal-appear 1.5s ease 0.3s both;
+        intro-content-in
+        1.3s
+        ease
+        0.2s
+        both;
 }
 
 
 .intro-school-name {
     margin: 0 0 13px;
 
-    color: #b89a63;
+    color: var(--gold);
 
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     letter-spacing: 0.3em;
 
     animation:
-        intro-text-appear 1.1s ease 0.7s both;
+        intro-content-in
+        1s
+        ease
+        0.6s
+        both;
 }
 
 
-.intro-screen h1 {
+.survey-intro-screen h1 {
     margin: 0;
 
     font-family:
@@ -899,39 +1129,68 @@ input {
         serif;
 
     font-size:
-        clamp(38px, 9vw, 76px);
+        clamp(39px, 9vw, 76px);
 
     font-weight: 500;
     letter-spacing: -0.05em;
 
     animation:
-        intro-text-appear 1.1s ease 0.9s both;
+        intro-content-in
+        1s
+        ease
+        0.8s
+        both;
 }
 
 
-.intro-record {
+.intro-subtitle {
     margin: 17px 0 0;
 
-    color: #8e878e;
+    color: #8f888f;
 
-    font-size: 9px;
-    letter-spacing: 0.22em;
+    font-size: 8px;
+    letter-spacing: 0.21em;
 
     animation:
-        intro-text-appear 1.1s ease 1.05s both;
+        intro-content-in
+        1s
+        ease
+        0.95s
+        both;
 }
 
 
-.intro-line {
+.intro-divider {
     width: 46px;
     height: 1px;
-
-    margin: 34px 0;
+    margin: 31px 0;
 
     background: #806b47;
 
     animation:
-        intro-line-open 1s ease 1.15s both;
+        intro-content-in
+        1s
+        ease
+        1.05s
+        both;
+}
+
+
+.intro-student {
+    margin: 0 0 14px;
+
+    color: var(--gold);
+
+    font-family: Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+
+    animation:
+        intro-content-in
+        1s
+        ease
+        1.15s
+        both;
 }
 
 
@@ -944,57 +1203,60 @@ input {
     line-height: 1.8;
 
     animation:
-        intro-text-appear 1.1s ease 1.25s both;
+        intro-content-in
+        1s
+        ease
+        1.25s
+        both;
 }
 
 
-.intro-enter-button {
-    margin-top: 38px;
-    padding: 14px 25px;
-
-    opacity: 0;
-    transform: translateY(8px);
+.intro-start-button {
+    margin-top: 35px;
+    padding: 14px 24px;
 
     background: transparent;
 
     border:
         1px solid
-        rgba(184, 154, 99, 0.5);
+        rgba(185, 154, 100, 0.42);
 
-    color: #e9dfd2;
+    color: #9e969e;
 
-    cursor: pointer;
-
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.1em;
 
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease,
-        background 0.25s ease;
-}
-
-
-.intro-enter-button.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-.intro-enter-button:hover {
-    background:
-        rgba(184, 154, 99, 0.08);
-}
-
-
-.intro-leaving {
     opacity: 0;
-    filter: brightness(0);
+
+    animation:
+        intro-content-in
+        0.9s
+        ease
+        1.65s
+        forwards;
 }
 
 
-@keyframes intro-screen-appear {
+.intro-back-link {
+    margin-top: 18px;
+
+    color: #777078;
+
+    font-size: 10px;
+
+    opacity: 0;
+
+    animation:
+        intro-content-in
+        0.9s
+        ease
+        1.85s
+        forwards;
+}
+
+
+@keyframes intro-screen-in {
     from {
         opacity: 0;
     }
@@ -1005,29 +1267,10 @@ input {
 }
 
 
-@keyframes intro-seal-appear {
+@keyframes intro-content-in {
     from {
         opacity: 0;
-
-        transform:
-            scale(0.84)
-            rotate(-6deg);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            scale(1)
-            rotate(0);
-    }
-}
-
-
-@keyframes intro-text-appear {
-    from {
-        opacity: 0;
-        transform: translateY(9px);
+        transform: translateY(8px);
     }
 
     to {
@@ -1037,286 +1280,773 @@ input {
 }
 
 
-@keyframes intro-line-open {
-    from {
-        width: 0;
-        opacity: 0;
+/* 화면 크기 대응 */
+
+@media (min-width: 800px) {
+    .site-header {
+        min-height: 74px;
+        padding: 0 55px;
     }
 
-    to {
-        width: 46px;
-        opacity: 1;
+    .students-page {
+        padding-top: 60px;
+    }
+
+    .student-name-stage {
+        position: relative;
+
+        min-height: 310px;
+        overflow: hidden;
+
+        background:
+            radial-gradient(
+                circle at 50% 50%,
+                rgba(255, 255, 255, 0.03),
+                transparent 55%
+            ),
+            linear-gradient(
+                180deg,
+                #0b0a0d,
+                #141217
+            );
+
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+    .student-access-section {
+        padding: 30px;
+    }
+
+    .access-buttons {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+}
+
+
+@media (max-width: 560px) {
+    .record-header {
+        grid-template-columns:
+            auto
+            1fr;
+    }
+
+    .confidential {
+        grid-column: 1 / -1;
+        margin-top: 5px;
+    }
+
+    .record-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .record-footer {
+        flex-direction: column;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
     }
 }
 
 /* =========================================
-   SCHOOL RECORD POSTER DEPTH
+   재학생 명부: 오래된 학교 벽
+   ========================================= */
+/* =========================================
+   재학생 명부 전용 화이트보드 디자인
+   반드시 style.css 가장 아래에 둘 것
    ========================================= */
 
 
-/* 바닥에 떨어지는 깊은 그림자 */
-.poster-shadow-layer {
-    position: absolute;
-    z-index: -4;
+/* 페이지 전체에서 붉은 배경 제거 */
 
-    width: min(72vw, 330px);
-    aspect-ratio: 2 / 3;
+body.students-body {
+    background:
+        linear-gradient(
+            180deg,
+            #f3f4f4 0%,
+            #e5e7e8 100%
+        ) !important;
 
-    background: rgba(0, 0, 0, 0.75);
-
-    filter: blur(32px);
-
-    transform:
-        translate3d(22px, 34px, -90px)
-        rotate(-3deg)
-        scale(0.94);
-
-    animation:
-        poster-shadow-enter 1.7s
-        cubic-bezier(0.18, 0.8, 0.2, 1)
-        both;
+    color: #252a30;
 }
 
-/* 뒤에 겹쳐진 기록지 */
-.poster-paper-layer {
-    position: absolute;
 
-    width: min(82vw, 360px);
-    aspect-ratio: 2 / 3;
+/* 배경에 아주 약한 실내 벽 질감 */
 
-    border:
-        1px solid
-        rgba(184, 154, 99, 0.12);
+body.students-body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 255, 255, 0.95),
+            transparent 23%
+        ),
+        radial-gradient(
+            circle at 85% 72%,
+            rgba(38, 43, 47, 0.06),
+            transparent 25%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.008) 0,
+            rgba(0, 0, 0, 0.008) 1px,
+            transparent 1px,
+            transparent 6px
+        );
+
+    pointer-events: none;
+}
+
+
+/* 헤더 */
+
+.students-body .site-header {
+    background: rgba(248, 249, 249, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+
+    backdrop-filter: blur(9px);
+}
+
+.students-body .brand {
+    color: #30363d;
+}
+
+.students-body .brand-symbol {
+    color: #4e5963;
+    border-color: #7d858c;
+}
+
+.students-body .header-code,
+.students-body .header-link {
+    color: #59636d;
+}
+
+
+/* 명부 제목 */
+
+.students-body .section-code {
+    color: #69727b;
+}
+
+.students-body .students-heading h1 {
+    color: #262c32;
+}
+
+.students-body .registered-count {
+    color: #69727a;
+}
+
+.students-body .registered-count strong {
+    color: #343c44;
+}
+
+
+/* 화이트보드 외곽 */
+
+.students-body .student-name-stage {
+    position: relative;
+
+    min-height: 390px;
+    overflow: hidden;
 
     background:
         linear-gradient(
-            155deg,
-            #181820,
-            #09090d
-        );
+            180deg,
+            #ffffff 0%,
+            #f1f3f3 100%
+        ) !important;
+
+    border: 9px solid #aaa59d;
+    border-radius: 8px;
 
     box-shadow:
-        0 20px 45px
-        rgba(0, 0, 0, 0.35);
+        inset 0 0 0 2px rgba(255, 255, 255, 0.9),
+        inset 0 0 35px rgba(47, 51, 54, 0.06),
+        0 16px 35px rgba(24, 29, 32, 0.16);
 }
 
-.poster-paper-back {
-    z-index: -3;
 
-    transform:
-        translate3d(-15px, 13px, -70px)
-        rotate(-4deg);
+/* 화이트보드 표면의 반사와 약한 얼룩 */
 
-    opacity: 0.55;
+.students-body .student-name-stage::before {
+    content: "";
 
-    animation:
-        poster-back-enter 1.55s
-        cubic-bezier(0.18, 0.8, 0.2, 1)
-        both;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.55) 23%,
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 22% 70%,
+            rgba(53, 58, 62, 0.025),
+            transparent 22%
+        ),
+        radial-gradient(
+            ellipse at 77% 24%,
+            rgba(53, 58, 62, 0.02),
+            transparent 19%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.008) 0,
+            rgba(0, 0, 0, 0.008) 1px,
+            transparent 1px,
+            transparent 8px
+        );
+
+    pointer-events: none;
 }
 
-.poster-paper-middle {
-    z-index: -2;
 
-    transform:
-        translate3d(12px, 7px, -35px)
-        rotate(2.4deg);
+/* 화이트보드 오른쪽 아래 작은 학교 표기 */
 
-    opacity: 0.72;
+.students-body .student-name-stage::after {
+    content: "SALEM ACADEMY · STUDENT REGISTER";
 
-    animation:
-        poster-middle-enter 1.45s
-        cubic-bezier(0.18, 0.8, 0.2, 1)
-        both;
-}
-
-/* 실제 포스터 */
-.poster {
-    position: relative;
+    position: absolute;
+    right: 17px;
+    bottom: 13px;
     z-index: 2;
 
-    transform-style: preserve-3d;
+    color: rgba(38, 43, 47, 0.17);
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+
+    pointer-events: none;
+}
+
+
+/* 등록 학생이 없을 때 */
+
+.students-body .empty-student-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+
+    display: grid;
+    place-items: center;
+
+    color: rgba(36, 42, 47, 0.38);
+
+    font-size: 12px;
+    letter-spacing: 0.04em;
+}
+
+
+/* 이름 전체 */
+
+.students-body .wall-student-name {
+    position: absolute;
+    z-index: 4;
+
+    display: inline-flex;
+
+    color: rgba(41, 48, 55, 0.88);
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        "Nanum Myeongjo",
+        serif;
+
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    white-space: nowrap;
 
     transform:
-        translate3d(0, 0, 0)
-        rotateX(1.5deg)
-        rotateY(-2.5deg);
+        rotate(var(--wall-angle))
+        translateZ(0);
+
+    text-shadow:
+        0.5px 0 rgba(0, 0, 0, 0.14),
+        0 1px rgba(255, 255, 255, 0.35);
+
+    pointer-events: none;
+}
+
+
+/* 각 글자가 한 자씩 써지는 효과 */
+
+.students-body .wall-name-letter {
+    display: inline-block;
+
+    opacity: 0;
+    filter: blur(1.7px);
+
+    transform:
+        translate(-5px, 3px)
+        rotate(-3deg)
+        scale(0.96);
 
     animation:
-        poster-record-enter 1.35s
-            cubic-bezier(0.16, 0.84, 0.24, 1)
-            both,
-        poster-record-breathe 7s
-            ease-in-out 1.6s
-            infinite;
+        serious-marker-write
+        0.44s
+        ease-out
+        forwards;
 }
 
-/* 포스터 위의 요소들을 조금씩 앞으로 배치 */
-.poster-kicker {
-    position: relative;
-    transform: translateZ(22px);
-}
 
-.poster-background-letter {
-    transform: translateZ(10px);
-}
+/* 사라질 때 */
 
-.poster-main {
-    position: relative;
-    transform: translateZ(38px);
-}
-
-.poster-footer {
-    position: relative;
-    transform: translateZ(24px);
-}
-
-/* 포스터 뒤 붉은 빛 */
-.poster-glow {
+.students-body .wall-name-erasing {
     animation:
-        poster-glow-breathe 6s
-        ease-in-out
-        infinite;
+        serious-marker-erase
+        1.8s
+        ease-in
+        forwards;
 }
 
-/* 처음에는 어둠 속 멀리 있다가 앞으로 등장 */
-@keyframes poster-record-enter {
+.students-body
+.wall-name-erasing
+.wall-name-letter {
+    animation: none;
+    opacity: 1;
+}
+
+
+/* 입력 영역을 밝은 기록 카드처럼 변경 */
+
+.students-body .student-access-section {
+    background: rgba(255, 255, 255, 0.68);
+    border: 1px solid rgba(47, 54, 61, 0.15);
+
+    box-shadow:
+        0 13px 30px
+        rgba(30, 35, 39, 0.08);
+}
+
+.students-body .access-title h2,
+.students-body .field-label {
+    color: #293038;
+}
+
+.students-body .access-title > p:last-child,
+.students-body .privacy-notice {
+    color: #68717a;
+}
+
+.students-body .nickname-row input {
+    background: #ffffff;
+    border-color: rgba(40, 46, 52, 0.2);
+    color: #242a30;
+}
+
+.students-body .nickname-row input::placeholder {
+    color: #90979e;
+}
+
+.students-body .nickname-row input:focus {
+    border-color: #4e5963;
+}
+
+.students-body .check-button,
+.students-body .secondary-button {
+    background: #eef0f1;
+    border-color: rgba(42, 48, 54, 0.16);
+    color: #30373e;
+}
+
+.students-body .primary-button {
+    background: #343c44;
+    color: #ffffff;
+
+    box-shadow:
+        0 12px 25px
+        rgba(42, 48, 54, 0.2);
+}
+
+
+/* 글자가 써지는 애니메이션 */
+
+@keyframes serious-marker-write {
     0% {
         opacity: 0;
 
-        filter:
-            brightness(0.2)
-            blur(5px);
+        filter: blur(2px);
 
         transform:
-            translate3d(0, 36px, -180px)
-            rotateX(10deg)
-            rotateY(-9deg)
-            scale(0.91);
+            translate(-5px, 3px)
+            rotate(-4deg)
+            scale(0.94);
     }
 
     55% {
-        opacity: 1;
-
-        filter:
-            brightness(0.75)
-            blur(0);
-
-        transform:
-            translate3d(0, 4px, 8px)
-            rotateX(0.5deg)
-            rotateY(-1.5deg)
-            scale(1.01);
-    }
-
-    100% {
-        opacity: 1;
-
-        filter:
-            brightness(1)
-            blur(0);
-
-        transform:
-            translate3d(0, 0, 0)
-            rotateX(1.5deg)
-            rotateY(-2.5deg)
-            scale(1);
-    }
-}
-
-/* 거의 느껴지지 않을 정도의 움직임 */
-@keyframes poster-record-breathe {
-    0%,
-    100% {
-        transform:
-            translate3d(0, 0, 0)
-            rotateX(1.5deg)
-            rotateY(-2.5deg);
-    }
-
-    50% {
-        transform:
-            translate3d(0, -5px, 8px)
-            rotateX(0.5deg)
-            rotateY(-1deg);
-    }
-}
-
-@keyframes poster-back-enter {
-    from {
-        opacity: 0;
-
-        transform:
-            translate3d(-5px, 40px, -150px)
-            rotate(-1deg)
-            scale(0.94);
-    }
-
-    to {
-        opacity: 0.55;
-
-        transform:
-            translate3d(-15px, 13px, -70px)
-            rotate(-4deg)
-            scale(1);
-    }
-}
-
-@keyframes poster-middle-enter {
-    from {
-        opacity: 0;
-
-        transform:
-            translate3d(4px, 30px, -100px)
-            rotate(0deg)
-            scale(0.96);
-    }
-
-    to {
         opacity: 0.72;
+        filter: blur(0.45px);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
 
         transform:
-            translate3d(12px, 7px, -35px)
-            rotate(2.4deg)
+            translate(0, 0)
+            rotate(0)
             scale(1);
     }
 }
 
-@keyframes poster-shadow-enter {
-    from {
-        opacity: 0;
-        transform:
-            translate3d(5px, 15px, -150px)
-            scale(0.8);
-    }
 
-    to {
+/* 마커가 닦이며 사라지는 느낌 */
+
+@keyframes serious-marker-erase {
+    0% {
         opacity: 1;
-        transform:
-            translate3d(22px, 34px, -90px)
-            rotate(-3deg)
-            scale(0.94);
+        filter: blur(0);
     }
-}
 
-@keyframes poster-glow-breathe {
-    0%,
+    40% {
+        opacity: 0.65;
+        filter: blur(0.7px);
+    }
+
+    75% {
+        opacity: 0.25;
+        filter: blur(2px);
+    }
+
     100% {
-        opacity: 0.28;
-        transform: scale(0.94);
-    }
+        opacity: 0;
+        filter: blur(5px);
 
-    50% {
-        opacity: 0.46;
-        transform: scale(1.05);
+        transform:
+            rotate(var(--wall-angle))
+            translateX(7px);
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .poster,
-    .poster-paper-layer,
-    .poster-shadow-layer,
-    .poster-glow {
-        animation: none;
+/* =========================================
+   반별 재학생 명부
+   ========================================= */
+
+body.roster-body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255, 255, 255, 0.045),
+            transparent 34%
+        ),
+        linear-gradient(
+            180deg,
+            #101114 0%,
+            #16171a 100%
+        ) !important;
+
+    color: #e8e5df;
+}
+
+
+/* 상단 헤더 */
+
+.roster-body .site-header {
+    background: rgba(15, 16, 19, 0.94);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.roster-body .brand,
+.roster-body .header-link,
+.roster-body .header-code {
+    color: #d7d2c9;
+}
+
+.roster-body .brand-symbol {
+    color: #b7aa91;
+    border-color: #766d5c;
+}
+
+
+/* 페이지 전체 */
+
+.roster-page {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 70px 0 100px;
+}
+
+
+/* 명부 제목 */
+
+.roster-heading {
+    margin-bottom: 38px;
+    text-align: center;
+}
+
+.roster-document-code {
+    margin: 0 0 15px;
+
+    color: #8f8779;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.roster-heading h1 {
+    margin: 0;
+
+    color: #eeeae3;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(27px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.roster-description {
+    margin: 15px 0 0;
+
+    color: #95918a;
+
+    font-size: 13px;
+}
+
+.roster-total {
+    margin-top: 22px;
+
+    color: #aaa59d;
+
+    font-size: 12px;
+    letter-spacing: 0.04em;
+}
+
+.roster-total strong {
+    margin: 0 5px;
+
+    color: #e6e0d5;
+
+    font-size: 18px;
+}
+
+
+/* 명부 본체 */
+
+.class-register {
+    overflow: hidden;
+
+    background: #1b1c20;
+
+    border-top: 2px solid #827866;
+    border-bottom: 1px solid #4a4640;
+
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.32);
+}
+
+.class-register-row {
+    display: grid;
+    grid-template-columns: 94px 1fr;
+
+    min-height: 86px;
+
+    border-bottom: 1px solid rgba(213, 205, 191, 0.16);
+}
+
+.class-register-row:last-child {
+    border-bottom: 0;
+}
+
+
+/* 1반, 2반 부분 */
+
+.class-register-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border-right: 1px solid rgba(213, 205, 191, 0.16);
+
+    color: #d9d2c6;
+}
+
+.class-number {
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.class-unit {
+    margin: 4px 0 0 3px;
+
+    color: #aaa296;
+
+    font-size: 13px;
+}
+
+
+/* 학생 이름 영역 */
+
+.class-student-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    gap: 12px 27px;
+
+    padding: 22px 28px;
+}
+
+.registered-student-name {
+    position: relative;
+
+    color: #dedad2;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+}
+
+.registered-student-name:not(:last-child)::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    right: -15px;
+
+    width: 2px;
+    height: 2px;
+
+    background: #746e65;
+    border-radius: 50%;
+}
+
+.class-empty {
+    color: #686762;
+
+    font-size: 12px;
+    letter-spacing: 0.03em;
+}
+
+
+/* 입력 영역 */
+
+.roster-body .student-access-section {
+    margin-top: 44px;
+    padding: 32px;
+
+    background: #191a1e;
+
+    border: 1px solid rgba(215, 207, 193, 0.14);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.25);
+}
+
+.roster-body .access-title h2,
+.roster-body .field-label {
+    color: #e7e2da;
+}
+
+.roster-body .access-title > p:last-child,
+.roster-body .privacy-notice {
+    color: #898680;
+}
+
+.roster-body .section-code {
+    color: #8f8779;
+}
+
+.roster-body .nickname-row input {
+    background: #111216;
+    border-color: rgba(218, 210, 196, 0.2);
+    color: #ece8e1;
+}
+
+.roster-body .nickname-row input::placeholder {
+    color: #64635f;
+}
+
+.roster-body .nickname-row input:focus {
+    border-color: #9a8d76;
+}
+
+.roster-body .check-button,
+.roster-body .secondary-button {
+    background: #24262a;
+    border-color: rgba(218, 210, 196, 0.18);
+    color: #d8d3ca;
+}
+
+.roster-body .primary-button {
+    background: #d9d2c5;
+    color: #18191c;
+
+    box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+
+/* 휴대전화 화면 */
+
+@media (max-width: 600px) {
+    .roster-page {
+        width: min(100% - 22px, 920px);
+        padding-top: 48px;
+    }
+
+    .class-register-row {
+        grid-template-columns: 65px 1fr;
+        min-height: 76px;
+    }
+
+    .class-number {
+        font-size: 21px;
+    }
+
+    .class-student-list {
+        gap: 9px 21px;
+        padding: 17px 16px;
+    }
+
+    .registered-student-name {
+        font-size: 13px;
+    }
+
+    .registered-student-name:not(:last-child)::after {
+        right: -12px;
+    }
+
+    .roster-body .student-access-section {
+        padding: 24px 18px;
     }
 }
