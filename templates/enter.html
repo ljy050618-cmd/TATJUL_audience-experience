@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}
+닉네임 설정 — 오늘의 세일럼
+{% endblock %}
+
+
+{% block content %}
+
+<section class="form-page">
+
+    <p class="eyebrow">
+        STEP 01 · ENTER SALEM
+    </p>
+
+    <h1 class="page-title">
+        세일럼에서 사용할<br>
+        이름을 정해 주세요.
+    </h1>
+
+    <p class="description">
+        개인정보 대신 닉네임으로
+        검사 결과를 저장합니다.
+        이후 같은 닉네임으로
+        결과에 다시 접근할 수 있습니다.
+    </p>
+
+
+    {% if error %}
+
+    <div class="error-box">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form
+        method="POST"
+        action="{{ url_for('enter') }}"
+        class="nickname-form"
+        id="nickname-form"
+    >
+
+        <label
+            for="nickname"
+            class="field-label"
+        >
+            닉네임
+        </label>
+
+
+        <div class="nickname-input-row">
+
+            <input
+                id="nickname"
+                name="nickname"
+                type="text"
+                value="{{ nickname or '' }}"
+                minlength="2"
+                maxlength="16"
+                placeholder="2~16자"
+                autocomplete="off"
+                required
+            >
+
+            <button
+                type="button"
+                id="nickname-check-button"
+                class="secondary-button small-button"
+            >
+                중복 확인
+            </button>
+
+        </div>
+
+
+        <p
+            id="nickname-status"
+            class="input-help"
+        >
+            한글, 영문, 숫자,
+            공백, -, _ 사용 가능
+        </p>
+
+
+        <div class="mode-list">
+
+            <label class="mode-card selected">
+
+                <input
+                    type="radio"
+                    name="mode"
+                    value="new"
+                    checked
+                >
+
+                <strong>
+                    새 닉네임 만들기
+                </strong>
+
+                <span>
+                    처음 참여하는 관객
+                </span>
+
+            </label>
+
+
+            <label class="mode-card">
+
+                <input
+                    type="radio"
+                    name="mode"
+                    value="return"
+                >
+
+                <strong>
+                    기존 닉네임으로 입장
+                </strong>
+
+                <span>
+                    이전 결과를 다시 보는 관객
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="primary-button full-button"
+        >
+            세일럼 입장하기
+        </button>
+
+    </form>
+
+
+    <p class="warning-text">
+        닉네임만으로 실제 본인 여부를
+        확인하지는 않습니다.
+        타인이 쉽게 추측하기 어려운
+        닉네임을 사용해 주세요.
+    </p>
+
+</section>
+
+{% endblock %}
