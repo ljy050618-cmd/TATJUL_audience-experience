@@ -35,6 +35,13 @@
         나타나도록 연결하게 됩니다.
     </p>
 
+    <a
+        href="{{ url_for('result') }}"
+        class="primary-button full-button"
+    >
+        임시 결과 화면 보기
+    </a>
+
     <form
         method="POST"
         action="{{ url_for('logout') }}"

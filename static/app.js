@@ -5,6 +5,8 @@ document.addEventListener(
         setupPosterEffect();
         setupModeCards();
         setupNicknameCheck();
+        setupResultShare();
+        setupResultSave();
 
     }
 );
@@ -254,6 +256,350 @@ function showNicknameStatus(
     } else if (isAvailable === false) {
 
         nicknameStatus.classList.add(
+            "status-unavailable"
+        );
+    }
+}
+
+function setupResultShare() {
+
+    const shareButton =
+        document.getElementById(
+            "share-result-button"
+        );
+
+    const resultCard =
+        document.getElementById(
+            "result-card"
+        );
+
+    const shareStatus =
+        document.getElementById(
+            "share-status"
+        );
+
+    if (
+        !shareButton ||
+        !resultCard
+    ) {
+        return;
+    }
+
+
+    shareButton.addEventListener(
+        "click",
+        async () => {
+
+            const originalText =
+                shareButton.textContent;
+
+            shareButton.disabled = true;
+
+            shareButton.textContent =
+                "결과 이미지 만드는 중...";
+
+
+            try {
+
+                const file =
+                    await createResultImageFile(
+                        resultCard
+                    );
+
+
+                const canShareFile =
+                    navigator.share &&
+                    navigator.canShare &&
+                    navigator.canShare({
+                        files: [file],
+                    });
+
+
+                if (canShareFile) {
+
+                    await navigator.share({
+                        title:
+                            "오늘의 세일럼 결과",
+
+                        text:
+                            "나의 세일럼 관객 유형 결과",
+
+                        files: [file],
+                    });
+
+
+                    showShareStatus(
+                        shareStatus,
+                        "공유창을 열었습니다.",
+                        true
+                    );
+
+                } else {
+
+                    downloadFile(file);
+
+                    showShareStatus(
+                        shareStatus,
+                        "이 브라우저에서는 이미지 공유가 지원되지 않아 파일을 저장했습니다.",
+                        true
+                    );
+                }
+
+            } catch (error) {
+
+                if (
+                    error.name ===
+                    "AbortError"
+                ) {
+
+                    showShareStatus(
+                        shareStatus,
+                        "공유를 취소했습니다.",
+                        null
+                    );
+
+                } else {
+
+                    console.error(
+                        "결과 공유 오류:",
+                        error
+                    );
+
+                    showShareStatus(
+                        shareStatus,
+                        "결과 이미지 공유에 실패했습니다.",
+                        false
+                    );
+                }
+
+            } finally {
+
+                shareButton.disabled =
+                    false;
+
+                shareButton.textContent =
+                    originalText;
+            }
+        }
+    );
+}
+
+
+function setupResultSave() {
+
+    const saveButton =
+        document.getElementById(
+            "save-result-button"
+        );
+
+    const resultCard =
+        document.getElementById(
+            "result-card"
+        );
+
+    const shareStatus =
+        document.getElementById(
+            "share-status"
+        );
+
+    if (
+        !saveButton ||
+        !resultCard
+    ) {
+        return;
+    }
+
+
+    saveButton.addEventListener(
+        "click",
+        async () => {
+
+            const originalText =
+                saveButton.textContent;
+
+            saveButton.disabled = true;
+
+            saveButton.textContent =
+                "이미지 저장 중...";
+
+
+            try {
+
+                const file =
+                    await createResultImageFile(
+                        resultCard
+                    );
+
+                downloadFile(file);
+
+                showShareStatus(
+                    shareStatus,
+                    "결과 이미지를 저장했습니다.",
+                    true
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "결과 저장 오류:",
+                    error
+                );
+
+                showShareStatus(
+                    shareStatus,
+                    "결과 이미지 저장에 실패했습니다.",
+                    false
+                );
+
+            } finally {
+
+                saveButton.disabled =
+                    false;
+
+                saveButton.textContent =
+                    originalText;
+            }
+        }
+    );
+}
+
+
+async function createResultImageFile(
+    resultCard
+) {
+
+    if (
+        typeof html2canvas ===
+        "undefined"
+    ) {
+        throw new Error(
+            "html2canvas가 로드되지 않았습니다."
+        );
+    }
+
+
+    const canvas =
+        await html2canvas(
+            resultCard,
+            {
+                scale: 2,
+                backgroundColor:
+                    "#100d13",
+
+                useCORS: true,
+                logging: false,
+            }
+        );
+
+
+    const blob =
+        await new Promise(
+            (
+                resolve,
+                reject
+            ) => {
+
+                canvas.toBlob(
+                    (
+                        createdBlob
+                    ) => {
+
+                        if (
+                            createdBlob
+                        ) {
+                            resolve(
+                                createdBlob
+                            );
+
+                        } else {
+
+                            reject(
+                                new Error(
+                                    "이미지 파일을 만들지 못했습니다."
+                                )
+                            );
+                        }
+                    },
+
+                    "image/png",
+                    1
+                );
+            }
+        );
+
+
+    return new File(
+        [blob],
+        "today-salem-result.png",
+        {
+            type: "image/png",
+        }
+    );
+}
+
+
+function downloadFile(file) {
+
+    const fileUrl =
+        URL.createObjectURL(file);
+
+    const downloadLink =
+        document.createElement("a");
+
+    downloadLink.href =
+        fileUrl;
+
+    downloadLink.download =
+        file.name;
+
+    document.body.appendChild(
+        downloadLink
+    );
+
+    downloadLink.click();
+
+    downloadLink.remove();
+
+
+    setTimeout(
+        () => {
+            URL.revokeObjectURL(
+                fileUrl
+            );
+        },
+        1000
+    );
+}
+
+
+function showShareStatus(
+    element,
+    message,
+    success
+) {
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        message;
+
+    element.className =
+        "input-help share-status";
+
+
+    if (success === true) {
+
+        element.classList.add(
+            "status-available"
+        );
+
+    } else if (
+        success === false
+    ) {
+
+        element.classList.add(
             "status-unavailable"
         );
     }

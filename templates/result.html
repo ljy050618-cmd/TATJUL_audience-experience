@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+나의 결과 — 오늘의 세일럼
+{% endblock %}
+
+
+{% block content %}
+
+<section class="result-page">
+
+    <p class="eyebrow">
+        YOUR SALEM TYPE
+    </p>
+
+    <h1 class="page-title">
+        {{ nickname }}님의 결과
+    </h1>
+
+
+    <!-- 이 부분이 실제 이미지로 변환됩니다. -->
+    <article
+        id="result-card"
+        class="result-card"
+    >
+
+        <div class="result-card-top">
+
+            <p class="result-small-title">
+                오늘의 세일럼
+            </p>
+
+            <p class="result-number">
+                TYPE 01
+            </p>
+
+        </div>
+
+
+        <div class="result-card-center">
+
+            <p class="result-subtitle">
+                침묵 속에서 진실을 지켜보는
+            </p>
+
+            <h2>
+                침묵하는<br>
+                목격자
+            </h2>
+
+            <div class="result-divider"></div>
+
+            <p class="result-description">
+                당신은 소문을 쉽게 믿지 않지만,
+                위험 앞에서 진실을 말할지
+                오래 고민하는 사람입니다.
+            </p>
+
+        </div>
+
+
+        <div class="result-card-bottom">
+
+            <p>
+                THE CRUCIBLE
+            </p>
+
+            <p>
+                AUDIENCE EXPERIENCE
+            </p>
+
+        </div>
+
+    </article>
+
+
+    <div class="result-actions">
+
+        <button
+            type="button"
+            id="share-result-button"
+            class="primary-button full-button"
+        >
+            결과 이미지 공유하기
+        </button>
+
+        <button
+            type="button"
+            id="save-result-button"
+            class="secondary-button full-button"
+        >
+            결과 이미지 저장하기
+        </button>
+
+        <p
+            id="share-status"
+            class="input-help share-status"
+        ></p>
+
+    </div>
+
+</section>
+
+{% endblock %}

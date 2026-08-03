@@ -563,3 +563,250 @@ input {
     }
 
 }
+
+.result-page {
+    width:
+        min(
+            520px,
+            calc(100% - 32px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        50px 0 90px;
+}
+
+
+.result-card {
+    position: relative;
+
+    width:
+        min(
+            100%,
+            420px
+        );
+
+    aspect-ratio: 9 / 16;
+
+    margin:
+        30px auto 0;
+
+    padding:
+        30px 26px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 72% 22%,
+            rgba(
+                190,
+                42,
+                63,
+                0.5
+            ),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 75%,
+            rgba(
+                201,
+                165,
+                106,
+                0.12
+            ),
+            transparent 30%
+        ),
+        linear-gradient(
+            155deg,
+            #36141e,
+            #100d13 70%
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.45
+        );
+
+    color: #f4eee7;
+}
+
+
+.result-card::before {
+    content: "S";
+
+    position: absolute;
+
+    top: 90px;
+    right: -15px;
+
+    color:
+        rgba(
+            155,
+            34,
+            52,
+            0.28
+        );
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-size: 190px;
+    line-height: 1;
+}
+
+
+.result-card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 12px;
+
+    border:
+        1px solid
+        rgba(
+            201,
+            165,
+            106,
+            0.22
+        );
+
+    pointer-events: none;
+}
+
+
+.result-card-top,
+.result-card-bottom {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    justify-content:
+        space-between;
+
+    color: var(--gold);
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+
+.result-card-top p,
+.result-card-bottom p {
+    margin: 0;
+}
+
+
+.result-card-center {
+    position: relative;
+    z-index: 2;
+
+    margin:
+        auto 0;
+}
+
+
+.result-subtitle {
+    margin:
+        0 0 10px;
+
+    color: var(--gold);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.result-card-center h2 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 52px;
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+}
+
+
+.result-divider {
+    width: 42px;
+    height: 1px;
+
+    margin:
+        28px 0;
+
+    background:
+        var(--gold);
+}
+
+
+.result-description {
+    max-width: 280px;
+
+    margin: 0;
+
+    color: #d7cbd1;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+.result-actions {
+    width:
+        min(
+            100%,
+            420px
+        );
+
+    margin:
+        22px auto 0;
+
+    display: grid;
+    gap: 10px;
+}
+
+
+.result-actions .primary-button {
+    margin-top: 0;
+}
+
+
+.result-actions button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+
+.share-status {
+    min-height: 20px;
+
+    margin:
+        3px 0 0;
+
+    text-align: center;
+}

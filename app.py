@@ -363,6 +363,20 @@ def welcome():
         nickname=nickname,
     )
 
+@app.route("/result")
+def result():
+    nickname = session.get("nickname")
+
+    if not nickname:
+        return redirect(
+            url_for("enter")
+        )
+
+    return render_template(
+        "result.html",
+        nickname=nickname,
+    )
+
 
 @app.route(
     "/logout",
