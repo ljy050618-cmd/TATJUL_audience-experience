@@ -14,6 +14,14 @@
     >
 
     <title>세일럼 고등학교</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;700&family=Gowun+Dodum&display=swap"
+    rel="stylesheet"
+    >
+
 
     <link
         rel="stylesheet"
@@ -26,13 +34,11 @@
     <main class="loading-screen">
 
         <div class="loading-emblem">
-            <span class="loading-emblem-letter">
-                S
-            </span>
-
-            <span class="loading-emblem-year">
-                1692
-            </span>
+            <img
+                src="{{ url_for('static', filename='salem_logo.png') }}"
+                alt="Salem Academy emblem"
+                class="loading-emblem-image"
+            >
         </div>
 
         <p class="loading-school-name">

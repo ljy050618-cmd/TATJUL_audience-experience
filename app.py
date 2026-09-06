@@ -1042,6 +1042,123 @@ def record():
         dimensions=SURVEY_DIMENSIONS,
     )
 
+@app.route("/roster")
+def roster():
+    student = get_current_student()
+
+    if not student:
+        return redirect(
+            url_for(
+                "students",
+                error="먼저 로그인해 주세요.",
+            )
+        )
+
+    response = (
+        supabase
+        .table("participants")
+        .select(
+            "nickname, class_number, created_at"
+        )
+        .order(
+            "created_at",
+            desc=False,
+        )
+        .execute()
+    )
+
+    participants = response.data or []
+
+    classes = {
+        number: []
+        for number in range(
+            1,
+            CLASS_COUNT + 1
+        )
+    }
+
+    for participant in participants:
+        class_number = participant.get(
+            "class_number"
+        )
+
+        if class_number in classes:
+            classes[class_number].append(
+                participant
+            )
+
+    return render_template(
+        "roster.html",
+        student=student,
+        classes=classes,
+        student_count=len(participants),
+    )
+
+@app.route("/survey-stats")
+def survey_stats():
+    student = get_current_student()
+
+    if not student:
+        return redirect(
+            url_for("students")
+        )
+
+    response = (
+        supabase
+        .table("participants")
+        .select("result_type")
+        .execute()
+    )
+
+    participants = response.data or []
+
+    type_counts = {
+        profile["type"]: 0
+        for profile in RESULT_PROFILES.values()
+    }
+
+    completed_count = 0
+
+    for participant in participants:
+        result_type = participant.get("result_type")
+
+        if result_type in type_counts:
+            type_counts[result_type] += 1
+            completed_count += 1
+
+    statistics = []
+
+    for profile in RESULT_PROFILES.values():
+        type_name = profile["type"]
+        count = type_counts[type_name]
+
+        percentage = (
+            round(count / completed_count * 100, 1)
+            if completed_count > 0
+            else 0
+        )
+
+        statistics.append({
+            "type": type_name,
+            "character": profile["character"],
+            "count": count,
+            "percentage": percentage,
+        })
+
+    statistics.sort(
+        key=lambda item: item["count"],
+        reverse=True,
+    )
+
+    return render_template(
+        "survey_stats.html",
+        student=student,
+        statistics=statistics,
+        completed_count=completed_count,
+    )
+
+
+
 
 @app.route("/survey-intro")
 def survey_intro():

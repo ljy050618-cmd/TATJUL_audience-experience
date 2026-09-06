@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta
+        name="theme-color"
+        content="#101114"
+    >
+
+    <title>
+        반별 재학생 명부 | 세일럼 고등학교
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Noto+Serif+KR:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+
+<body class="roster-body">
+
+    <header class="site-header">
+
+        <a
+            href="{{ url_for('record') }}"
+            class="brand"
+        >
+
+            <span class="brand-symbol">
+                <img
+                    src="{{ url_for('static', filename='salem_logo.png') }}"
+                    alt="Salem Academy"
+                >
+            </span>
+
+            <span>
+                SALEM ACADEMY
+            </span>
+
+        </a>
+
+
+
+    </header>
+
+
+    <main class="roster-page">
+
+        <header class="roster-heading">
+
+            <p class="roster-document-code">
+                SALEM ACADEMY · OFFICIAL REGISTER
+            </p>
+
+            <h1>
+                반별 재학생 명부
+            </h1>
+
+            <p class="roster-description">
+                현재 등록된 학생들의 반 배정 현황입니다.
+            </p>
+
+            <p class="roster-total">
+                현재 등록 학생
+                <strong>
+                    {{ student_count }}
+                </strong>
+                명
+            </p>
+
+        </header>
+
+
+        <section class="class-register">
+
+            {% for class_number, students in classes.items() %}
+
+                <div class="class-register-row">
+
+                    <div class="class-register-label">
+
+                        <span class="class-number">
+                            {{ class_number }}
+                        </span>
+
+                        <span class="class-unit">
+                            반
+                        </span>
+
+                    </div>
+
+
+                    <div class="class-student-list">
+
+                        {% if students %}
+
+                            {% for person in students %}
+
+                                <span class="registered-student-name">
+                                    {{ person.nickname }}
+                                </span>
+
+                            {% endfor %}
+
+                        {% else %}
+
+                            <span class="class-empty">
+                                등록된 학생 없음
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </section>
+    
+        <div style="height: 50px;"></div>
+
+        <a
+            href="{{ url_for('record') }}"
+            class="secondary-button"
+        >
+            내 기록으로 돌아가기
+        </a>    
+
+    </main>
+
+</body>
+
+</html>

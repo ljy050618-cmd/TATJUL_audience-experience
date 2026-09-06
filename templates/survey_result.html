@@ -138,17 +138,86 @@ survey-result-body
         </section>
 
 
-        <button
-            id="open-profile-deck"
-            class="other-profile-button"
-            type="button"
-            aria-expanded="false"
-            aria-controls="profile-deck-section"
+        <div class="profile-action-row">
+
+            <button
+                id="open-profile-deck"
+                class="other-profile-button"
+                type="button"
+                aria-expanded="false"
+                aria-controls="profile-deck-section"
+            >
+                다른 유형 보기
+            </button>
+
+            <a
+                href="{{ url_for('survey_stats') }}"
+                class="profile-stats-button"
+            >
+                세일럼 유형 통계
+            </a>
+
+            <button
+                id="open-share-popup"
+                class="profile-share-button"
+                type="button"
+            >
+                공유
+            </button>
+
+        </div>
+        
+        <div
+            id="share-popup"
+            class="share-popup"
+            aria-hidden="true"
         >
-            다른 유형 보기
-        </button>
+            <div class="share-popup-card">
+
+                <button
+                    id="close-share-popup"
+                    class="share-popup-close"
+                    type="button"
+                    aria-label="공유 창 닫기"
+                >
+                    ×
+                </button>
+
+                <p class="share-popup-kicker">
+                    SHARE RESULT
+                </p>
+
+                <h3>
+                    결과 공유
+                </h3>
+
+                <button
+                    id="native-share-button"
+                    class="share-option-button"
+                    type="button"
+                >
+                    공유하기
+                </button>
+
+                <button
+                    id="copy-link-button"
+                    class="share-option-button"
+                    type="button"
+                >
+                    링크 복사
+                </button>
+
+                <p
+                    id="share-copy-message"
+                    class="share-copy-message"
+                ></p>
+
+            </div>
+        </div> 
 
     </section>
+
+
 
 
     <!-- 전체 유형 카드 -->
@@ -288,7 +357,7 @@ survey-result-body
         </a>
 
         <a
-            href="{{ url_for('students') }}"
+            href="{{ url_for('roster') }}"
             class="profile-result-secondary-link"
         >
             재학생 명부
@@ -297,5 +366,67 @@ survey-result-body
     </nav>
 
 </main>
+<script>
+    const sharePopup =
+        document.getElementById("share-popup");
 
+    const openShareButton =
+        document.getElementById("open-share-popup");
+
+    const closeShareButton =
+        document.getElementById("close-share-popup");
+
+    const nativeShareButton =
+        document.getElementById("native-share-button");
+
+    const copyLinkButton =
+        document.getElementById("copy-link-button");
+
+    const copyMessage =
+        document.getElementById("share-copy-message");
+
+
+    openShareButton.addEventListener("click", () => {
+        sharePopup.classList.add("is-open");
+        sharePopup.setAttribute("aria-hidden", "false");
+    });
+
+
+    closeShareButton.addEventListener("click", () => {
+        sharePopup.classList.remove("is-open");
+        sharePopup.setAttribute("aria-hidden", "true");
+    });
+
+
+    sharePopup.addEventListener("click", (event) => {
+        if (event.target === sharePopup) {
+            sharePopup.classList.remove("is-open");
+            sharePopup.setAttribute("aria-hidden", "true");
+        }
+    });
+
+
+    nativeShareButton.addEventListener("click", async () => {
+        if (navigator.share) {
+            await navigator.share({
+                title: "세일럼 공동체 유형 결과",
+                text: "내 세일럼 공동체 유형 결과를 확인해 보세요.",
+                url: window.location.href
+            });
+        } else {
+            copyMessage.textContent =
+                "이 브라우저에서는 링크 복사를 이용해 주세요.";
+        }
+    });
+
+
+    copyLinkButton.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        copyMessage.textContent =
+            "링크가 복사되었습니다.";
+    });
+</script>
 {% endblock %}

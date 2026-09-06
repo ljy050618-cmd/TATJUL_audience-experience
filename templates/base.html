@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+KR:wght@400;500;700&family=Gowun+Dodum&display=swap"
         rel="stylesheet"
 >
 
@@ -56,13 +56,12 @@
 
     <header class="site-header">
 
-        <a
-            href="{{ url_for('students') }}"
-            class="brand"
-        >
-
+        <a href="{{ url_for('students') }}" class="brand">
             <span class="brand-symbol">
-                S
+                <img
+                    src="{{ url_for('static', filename='salem_logo.png') }}"
+                    alt="Salem Academy"
+                >
             </span>
 
             <span>

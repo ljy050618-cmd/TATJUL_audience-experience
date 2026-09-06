@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+세일럼 유형 통계
+{% endblock %}
+
+
+{% block body_class %}
+survey-stats-body
+{% endblock %}
+
+
+{% block content %}
+
+<main class="survey-stats-page">
+
+    <section class="survey-stats-sheet">
+
+        <header class="survey-stats-header">
+
+            <p class="survey-stats-kicker">
+                SALEM COMMUNITY PROFILE
+            </p>
+
+            <h1>
+                세일럼 유형 통계
+            </h1>
+
+            <p class="survey-stats-description">
+                공동체 유형 조사를 완료한 학생들의 결과 분포입니다.
+            </p>
+
+        </header>
+
+
+        <div class="survey-stats-summary">
+
+            <span>
+                조사 완료
+            </span>
+
+            <strong>
+                {{ completed_count }}명
+            </strong>
+
+        </div>
+
+
+        <div class="survey-stats-list">
+
+            {% for item in statistics %}
+
+                <div class="survey-stat-row">
+
+                    <div class="survey-stat-rank">
+                        {{ loop.index }}위
+                    </div>
+
+                    <div class="survey-stat-main">
+
+                        <div class="survey-stat-top">
+
+                            <div class="survey-stat-labels">
+
+                                <strong class="survey-stat-type">
+                                    {{ item.type }}
+                                </strong>
+
+                                <span class="survey-stat-character">
+                                    {{ item.character }}
+                                </span>
+
+                            </div>
+
+                            <div class="survey-stat-number">
+
+                                <strong>
+                                    {{ item.percentage }}%
+                                </strong>
+
+                                <span>
+                                    {{ item.count }}명
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="survey-stat-track">
+
+                            <div
+                                class="survey-stat-fill"
+                                style="width: {{ item.percentage }}%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <footer class="survey-stats-footer">
+
+            <a
+                href="{{ url_for('survey_result') }}"
+                class="survey-stats-back"
+            >
+                내 유형으로 돌아가기
+            </a>
+
+        </footer>
+
+    </section>
+
+</main>
+
+{% endblock %}

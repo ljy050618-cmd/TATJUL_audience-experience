@@ -21,10 +21,6 @@ record-body
 
             <div class="record-title-wrap">
 
-                <div class="record-emblem">
-                    S
-                </div>
-
                 <div class="record-title-block">
                     <p class="record-school-en">
                         SALEM ACADEMY
@@ -50,45 +46,72 @@ record-body
         </div>
 
 
-        <section class="record-table">
+        <div class="record-profile">
 
-            <div class="record-row">
-                <div class="record-label">
-                    이름
+            <section class="record-photo-section">
+
+                <div class="record-photo-frame">
+                    <span class="record-photo-question">
+                        ?
+                    </span>
                 </div>
 
-                <div class="record-value">
-                    {{ student.nickname }}
+                <p class="record-photo-label">
+                    STUDENT PHOTO
+                </p>
+
+            </section>
+
+
+            <section class="record-information">
+
+                <div class="record-info-row">
+
+                    <span class="record-info-label">
+                        이름
+                    </span>
+
+                    <strong class="record-info-value">
+                        {{ student.nickname }}
+                    </strong>
+
                 </div>
-            </div>
 
 
-            <div class="record-row">
-                <div class="record-label">
-                    소속
+                <div class="record-info-row">
+
+                    <span class="record-info-label">
+                        소속
+                    </span>
+
+                    <strong class="record-info-value">
+                        {{ student.class_number }}반
+                    </strong>
+
                 </div>
 
-                <div class="record-value">
-                    세일럼 고교 {{ student.class_number }}반
+
+                <div class="record-info-row">
+
+                    <span class="record-info-label">
+                        공동체 유형 결과
+                    </span>
+
+                    <strong class="record-info-value record-info-result">
+
+                        {% if student.result_type %}
+                            {{ student.result_type }}
+                        {% else %}
+                            검사 전
+                        {% endif %}
+
+                    </strong>
+
                 </div>
-            </div>
 
+            </section>
 
-            <div class="record-row">
-                <div class="record-label">
-                    공동체 유형 결과
-                </div>
-
-                <div class="record-value record-result-main">
-                    {% if student.result_type %}
-                        {{ student.result_type }}
-                    {% else %}
-                        미기록
-                    {% endif %}
-                </div>
-            </div>
-
-        </section>
+        </div>
 
 
         {% if student.result_type %}
@@ -119,14 +142,41 @@ record-body
 
         {% else %}
 
-            <section class="record-pending-panel">
+    <section class="record-notification">
+
+        <button
+            type="button"
+            class="record-notification-bar"
+            onclick="this.parentElement.classList.toggle('is-open')"
+        >
+            <span class="record-notification-left">
+                <span class="record-notification-dot"></span>
+
+                <span>
+                    새 알림
+                </span>
+            </span>
+
+            <span class="record-notification-message">
+                완료되지 않은 필수 조사가 있습니다.
+            </span>
+
+            <span class="record-notification-arrow">
+                ↓
+            </span>
+        </button>
+
+
+        <div class="record-notification-content">
+
+            <div class="record-pending-panel">
 
                 <p class="record-pending-kicker">
                     REQUIRED ASSESSMENT
                 </p>
 
                 <h2>
-                    공동체 유형 조사가<br>
+                    공동체 유형 조사가
                     완료되지 않았습니다.
                 </h2>
 
@@ -142,16 +192,27 @@ record-body
                     조사하러 가기
                 </a>
 
-            </section>
+            </div>
+
+        </div>
+
+    </section>
+
 
         {% endif %}
-
 
         <footer class="record-footer">
 
             <p class="record-footer-note">
                 본 기록은 세일럼 고교 학생관리규정에 따라 보존됩니다.
             </p>
+
+            <a
+                href="{{ url_for('roster') }}"
+                class="record-roster-link"
+            >
+                반별 등록 현황 보기
+            </a>
 
             <a
                 href="{{ url_for('logout') }}"
