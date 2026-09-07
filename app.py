@@ -787,20 +787,21 @@ def loading():
 
 @app.route("/students")
 def students():
-    response = (
-        supabase
-        .table("participants")
-        .select(
-            "nickname, class_number, created_at"
+    try:
+        response = (
+            supabase
+            .table("participants")
+            .select("nickname, class_number, created_at")
+            .order("created_at", desc=False)
+            .execute()
         )
-        .order(
-            "created_at",
-            desc=False,
-        )
-        .execute()
-    )
 
-    participants = response.data or []
+        participants = response.data or []
+
+    except Exception as e:
+        app.logger.exception("participants 조회 실패: %s", e)
+
+        return f"Supabase 오류: {e}", 500
 
     student_names = [
         participant["nickname"]
