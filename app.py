@@ -787,29 +787,10 @@ def loading():
 
 @app.route("/students")
 def students():
-    try:
-        response = (
-            supabase
-            .table("participants")
-            .select("nickname, class_number, created_at")
-            .order("created_at", desc=False)
-            .execute()
-        )
-
-        participants = response.data or []
-
-        return jsonify({
-            "ok": True,
-            "participants": participants
-        })
-
-    except Exception as e:
-        app.logger.exception("students 오류: %s", e)
-
-        return jsonify({
-            "ok": False,
-            "error": str(e)
-        }), 500
+    return jsonify({
+        "ok": True,
+        "message": "students route works"
+    })
 
 @app.route("/check-nickname")
 def check_nickname():
