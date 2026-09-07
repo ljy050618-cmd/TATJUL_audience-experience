@@ -787,10 +787,27 @@ def loading():
 
 @app.route("/students")
 def students():
-    return jsonify({
-        "ok": True,
-        "message": "students route works"
-    })
+    try:
+        response = (
+            supabase
+            .table("participants")
+            .select("id")
+            .limit(1)
+            .execute()
+        )
+
+        return jsonify({
+            "ok": True,
+            "data": response.data
+        })
+
+    except Exception as e:
+        app.logger.exception("Supabase test failed: %s", e)
+
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        }), 500
 
 @app.route("/check-nickname")
 def check_nickname():
