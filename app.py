@@ -787,27 +787,34 @@ def loading():
 
 @app.route("/students")
 def students():
-    try:
-        response = (
-            supabase
-            .table("participants")
-            .select("id")
-            .limit(1)
-            .execute()
+    response = (
+        supabase
+        .table("participants")
+        .select(
+            "nickname, class_number, created_at"
         )
+        .order(
+            "created_at",
+            desc=False,
+        )
+        .execute()
+    )
 
-        return jsonify({
-            "ok": True,
-            "data": response.data
-        })
+    participants = response.data or []
 
-    except Exception as e:
-        app.logger.exception("Supabase test failed: %s", e)
+    student_names = [
+        participant["nickname"]
+        for participant in participants
+    ]
 
-        return jsonify({
-            "ok": False,
-            "error": str(e)
-        }), 500
+    return render_template(
+        "students.html",
+        students=participants,
+        student_names=student_names,
+        student_count=len(participants),
+        error=request.args.get("error"),
+        message=request.args.get("message"),
+    )
 
 @app.route("/check-nickname")
 def check_nickname():
