@@ -798,25 +798,18 @@ def students():
 
         participants = response.data or []
 
+        return jsonify({
+            "ok": True,
+            "participants": participants
+        })
+
     except Exception as e:
-        app.logger.exception("participants 조회 실패: %s", e)
+        app.logger.exception("students 오류: %s", e)
 
-        return f"Supabase 오류: {e}", 500
-
-    student_names = [
-        participant["nickname"]
-        for participant in participants
-    ]
-
-    return render_template(
-        "students.html",
-        students=participants,
-        student_names=student_names,
-        student_count=len(participants),
-        error=request.args.get("error"),
-        message=request.args.get("message"),
-    )
-
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        }), 500
 
 @app.route("/check-nickname")
 def check_nickname():
