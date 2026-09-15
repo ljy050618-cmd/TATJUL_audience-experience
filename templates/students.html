@@ -49,11 +49,11 @@ roster-body
             </p>
 
             <h2>
-                학생 등록 및 기록 열람
+                학생 등록
             </h2>
 
             <p>
-                본교에서 사용할 닉네임을 입력해 주세요.
+                세일럼에서 사용할 이름이 무작위로 부여됩니다
             </p>
 
         </div>
@@ -77,78 +77,80 @@ roster-body
         {% endif %}
 
 
-        <form
-            method="post"
-            class="student-access-form"
+<!-- 신규 학생 가입 -->
+<form
+    method="post"
+    action="{{ url_for('register') }}"
+    class="student-access-form nickname-assignment"
+>
+
+    <div class="suggested-nickname-box">
+
+        <strong class="suggested-nickname-value">
+            {{ suggested_nickname }}
+        </strong>
+
+        <span class="nickname-assignment-note">
+            이 이름은 세일럼에서 당신을 식별하는 이름입니다.
+        </span>
+
+    </div>
+
+    <input
+        type="hidden"
+        name="nickname"
+        value="{{ suggested_nickname }}"
+    >
+
+    <button
+        type="submit"
+        class="primary-button nickname-start-button"
+    >
+        이 이름으로 시작
+    </button>
+
+</form>
+
+
+<!-- 기존 학생 로그인 -->
+<div class="existing-login-toggle">
+
+    <button
+        type="button"
+        class="existing-login-link"
+        onclick="this.parentElement.classList.toggle('is-open')"
+    >
+        기존 학생이신가요? 로그인
+    </button>
+
+    <form
+        method="post"
+        action="{{ url_for('login') }}"
+        class="existing-login-form"
+    >
+
+        <input
+            id="existing-nickname"
+            name="nickname"
+            type="text"
+            autocomplete="off"
+            placeholder="기존 닉네임 입력"
+            required
         >
 
-            <label
-                for="nickname"
-                class="field-label"
-            >
-                학생 닉네임
-            </label>
+        <button
+            type="submit"
+            class="secondary-button"
+        >
+            로그인
+        </button>
+
+    </form>
+
+</div>
 
 
-            <div class="nickname-row">
-
-                <input
-                    id="nickname"
-                    name="nickname"
-                    type="text"
-                    minlength="2"
-                    maxlength="20"
-                    autocomplete="off"
-                    placeholder="닉네임 입력"
-                    required
-                >
-
-                <button
-                    id="check-nickname-button"
-                    class="check-button"
-                    type="button"
-                >
-                    중복 확인
-                </button>
-
-            </div>
-
-
-            <p
-                id="nickname-status"
-                class="nickname-status"
-                aria-live="polite"
-            ></p>
-
-
-            <div class="access-buttons">
-
-                <button
-                    type="submit"
-                    formaction="{{ url_for('register') }}"
-                    class="primary-button"
-                >
-                    새로운 학생으로 가입
-                </button>
-
-                <button
-                    type="submit"
-                    formaction="{{ url_for('login') }}"
-                    class="secondary-button"
-                >
-                    기존 학생 로그인
-                </button>
-
-            </div>
-
-        </form>
-
-
-        <p class="privacy-notice">
-            실명, 전화번호 등 개인정보는 입력하지 마세요.
-        </p>
-
-    </section>
+</section>
 
 
 </main>

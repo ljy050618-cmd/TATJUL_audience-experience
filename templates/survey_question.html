@@ -1,148 +1,185 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-공동체 유형 조사 {{ question_number }}
+공동체 유형 검사
 {% endblock %}
-
 
 {% block body_class %}
 survey-body
 {% endblock %}
 
-
 {% block content %}
 
-<main class="survey-question-page">
+<main class="survey-all-page">
 
-    <section class="survey-question-card">
-
-        <header class="survey-question-header">
-
-            <div>
-                <p class="survey-eyebrow">
-                    COMMUNITY EXAMINATION
-                </p>
-
-                <p class="survey-progress-number">
-                    {{ question_number }}
-                    /
-                    {{ total_questions }}
-                </p>
-            </div>
-
-            <span class="survey-student-name">
-                {{ student.nickname }}
-            </span>
-
-        </header>
-
-
-        <div class="survey-progress-track">
-
-            <span
-                style="width: {{ progress }}%;"
-            ></span>
-
-        </div>
-
-
-        <div class="survey-situation">
-
-            <span>
-                갈등 상황
-            </span>
-
-            <p>
-                {{ question.situation }}
-            </p>
-
-        </div>
-
+    <header class="survey-all-header">
+        <p class="survey-eyebrow">
+            SALEM COMMUNITY PROFILE
+        </p>
 
         <h1>
-            {{ question.question }}
+            공동체 유형 검사
         </h1>
 
+        <p>
+            각 문항에서 자신과 가장 가까운 선택을 골라 주세요.
+        </p>
+    </header>
 
-        {% if error %}
 
-            <p class="survey-error">
-                {{ error }}
+    {% if error %}
+        <div class="survey-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+
+    <form
+        method="post"
+        id="survey-form"
+    >
+
+        {% for question in questions %}
+
+            {% set question_index = loop.index0 %}
+
+            <section class="survey-question-block">
+
+                <p class="survey-question-number">
+                    Q{{ loop.index }}
+                </p>
+
+                <h2>
+                    {{ question.question }}
+                </h2>
+
+
+                <div class="survey-option-list">
+
+                    {% for option in question.options %}
+
+                        <label class="survey-option">
+
+                            <input
+                                type="radio"
+                                name="answer_{{ question_index }}"
+                                value="{{ option.key }}"
+                                required
+                            >
+
+                            <span class="survey-option-marker">
+                                {{ option.label }}
+                            </span>
+
+                            <span class="survey-option-text">
+                                {{ option.text }}
+                            </span>
+
+                        </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endfor %}
+
+
+        <div class="survey-submit-wrap">
+
+            <button
+                type="button"
+                id="open-submit-confirm"
+                class="survey-submit-button"
+            >
+                제출
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <div
+        id="submit-confirm"
+        class="survey-confirm"
+        aria-hidden="true"
+    >
+
+        <div class="survey-confirm-card">
+
+            <p class="survey-confirm-kicker">
+                SUBMIT RESPONSE
             </p>
 
-        {% endif %}
+            <h2>
+                제출하시겠습니까?
+            </h2>
 
+            <p>
+                제출 후에는 답변을 수정할 수 없습니다.
+            </p>
 
-        <form method="post">
-
-            <div class="survey-option-list">
-
-                {% for option in question.options %}
-
-                    <label class="survey-option">
-
-                        <input
-                            type="radio"
-                            name="answer"
-                            value="{{ option.dimension }}"
-                        >
-
-                        <span class="survey-option-marker">
-                            {{ loop.index }}
-                        </span>
-
-                        <span class="survey-option-text">
-                            {{ option.text }}
-                        </span>
-
-                    </label>
-
-                {% endfor %}
-
-            </div>
-
-
-            <div class="survey-navigation">
-
-                {% if question_number > 1 %}
-
-                    <a
-                        href="{{ url_for(
-                            'survey_question',
-                            question_number=(
-                                question_number - 1
-                            )
-                        ) }}"
-                        class="survey-back-button"
-                    >
-                        이전 문항
-                    </a>
-
-                {% else %}
-
-                    <span></span>
-
-                {% endif %}
-
+            <div class="survey-confirm-actions">
 
                 <button
-                    type="submit"
-                    class="survey-next-button"
+                    type="button"
+                    id="cancel-submit"
+                    class="survey-confirm-cancel"
                 >
-                    {% if question_number == total_questions %}
-                        결과 확인
-                    {% else %}
-                        다음 문항
-                    {% endif %}
+                    돌아가기
+                </button>
+
+                <button
+                    type="button"
+                    id="confirm-submit"
+                    class="survey-confirm-submit"
+                >
+                    제출
                 </button>
 
             </div>
 
-        </form>
+        </div>
 
-    </section>
+    </div>
 
 </main>
+
+
+<script>
+const form = document.getElementById("survey-form");
+const popup = document.getElementById("submit-confirm");
+
+document
+    .getElementById("open-submit-confirm")
+    .addEventListener("click", () => {
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        popup.classList.add("is-open");
+        popup.setAttribute("aria-hidden", "false");
+    });
+
+
+document
+    .getElementById("cancel-submit")
+    .addEventListener("click", () => {
+
+        popup.classList.remove("is-open");
+        popup.setAttribute("aria-hidden", "true");
+    });
+
+
+document
+    .getElementById("confirm-submit")
+    .addEventListener("click", () => {
+        form.submit();
+    });
+</script>
 
 {% endblock %}

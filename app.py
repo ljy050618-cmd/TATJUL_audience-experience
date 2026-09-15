@@ -12,6 +12,79 @@ from flask import (
     session,
     url_for,
 )
+
+CLASS_COUNT = 6
+MIN_NICKNAME_LENGTH = 2
+MAX_NICKNAME_LENGTH = 20
+
+
+ANONYMOUS_ADJECTIVES = [
+    "고요한",
+    "느긋한",
+    "용감한",
+    "신중한",
+    "명랑한",
+    "졸린",
+    "재빠른",
+    "차분한",
+    "엉뚱한",
+    "다정한",
+    "수줍은",
+    "당당한",
+    "호기심 많은",
+    "영리한",
+    "부지런한",
+    "자유로운",
+    "낙천적인",
+    "침착한",
+    "활기찬",
+    "온화한",
+    "유쾌한",
+    "조용한",
+    "대담한",
+    "기민한",
+    "평화로운",
+]
+
+
+ANONYMOUS_ANIMALS = [
+    "너구리",
+    "하마",
+    "수달",
+    "판다",
+    "여우",
+    "늑대",
+    "토끼",
+    "고슴도치",
+    "다람쥐",
+    "코알라",
+    "기린",
+    "코끼리",
+    "얼룩말",
+    "사슴",
+    "알파카",
+    "라마",
+    "캥거루",
+    "펭귄",
+    "부엉이",
+    "올빼미",
+    "참새",
+    "까마귀",
+    "두루미",
+    "돌고래",
+    "고래",
+    "물개",
+    "해달",
+    "북극곰",
+    "카피바라",
+    "미어캣",
+]
+
+
+
+
+
+
 from supabase import Client, create_client
 
 
@@ -56,554 +129,230 @@ MAX_NICKNAME_LENGTH = 20
 
 # 조사에서 측정하는 네 가지 공동체 성향
 SURVEY_DIMENSIONS = {
-    "order": {
-        "name": "규율",
-        "description": "공동체의 기준, 책임, 절차를 중시합니다.",
+    "T": {
+        "name": "진실·검증",
+        "description": "확인 가능한 사실과 일관성을 얼마나 중시하는지를 나타냅니다.",
     },
-    "solidarity": {
-        "name": "연대",
-        "description": "관계, 신뢰, 구성원의 안전을 중시합니다.",
+    "O": {
+        "name": "질서·제도",
+        "description": "공식 절차와 규칙, 조직의 정당성을 얼마나 중시하는지를 나타냅니다.",
     },
-    "autonomy": {
-        "name": "자율",
-        "description": "개인의 판단, 진실성, 독립성을 중시합니다.",
+    "A": {
+        "name": "행동·개입",
+        "description": "직접 말하고 개입해 상황을 움직이려는 정도를 나타냅니다.",
     },
-    "change": {
-        "name": "변화",
-        "description": "새로운 해결책, 행동, 구조의 변화를 중시합니다.",
+    "S": {
+        "name": "자기보존",
+        "description": "자신의 평판, 지위, 관계와 안전을 지키려는 정도를 나타냅니다.",
     },
 }
-
 
 # 각 문항은 네 선택지로 구성된다.
 # 선택지 순서는 항상 규율·연대·자율·변화 순서가 아니다.
 SURVEY_QUESTIONS = [
     {
-        "situation": "학급에서 중요한 행사를 준비하던 중 역할 분담에 불만이 생겼다.",
-        "question": "가장 먼저 해야 할 일은 무엇이라고 생각하는가?",
+        "question": "동아리 회비가 몇 차례 맞지 않아 한 운영진이 사적으로 사용했다는 의혹이 생겼다. 회장은 회계자료를 확인한 뒤 공식적으로 설명하겠다고 한다. 나는?",
         "options": [
-            {
-                "text": "처음 정한 역할과 기준을 다시 확인한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "각자가 왜 불만을 느끼는지 차례로 듣는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "내 역할은 내가 판단해 필요한 일을 먼저 한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "기존 역할 분담을 버리고 새로운 방식을 제안한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "직접 자료와 당사자 말을 확인한다.", "key": "Q1A"},
+            {"label": "B", "text": "공식 절차에서 근거를 확인한 뒤 판단한다.", "key": "Q1B"},
+            {"label": "C", "text": "공식 조사 결과를 우선 따른다.", "key": "Q1C"},
+            {"label": "D", "text": "평판과 주변 정황으로 스스로 판단한다.", "key": "Q1D"},
         ],
     },
     {
-        "situation": "친한 친구가 규칙을 어긴 사실을 우연히 알게 되었다.",
-        "question": "당신은 어떻게 행동하겠는가?",
+        "question": "단체 채팅방에서 한 선배가 후배를 비하했다는 캡처가 퍼졌다. 캡처에는 대화 앞뒤가 잘려 있고 원본은 아직 공개되지 않았다. 나는?",
         "options": [
-            {
-                "text": "친구라도 정해진 절차에 따라 알려야 한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "먼저 친구가 그런 행동을 한 이유를 묻는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "다른 사람의 판단보다 내 양심에 따라 결정한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "규칙 자체가 타당한지도 함께 문제 제기한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "원본을 확인하고, 틀렸다면 바로 정정한다.", "key": "Q2A"},
+            {"label": "B", "text": "원본을 확인할 때까지 반응하지 않는다.", "key": "Q2B"},
+            {"label": "C", "text": "위험할 수 있으니 우선 주변에 알린다.", "key": "Q2C"},
+            {"label": "D", "text": "확실하지 않으니 관여하지 않는다.", "key": "Q2D"},
         ],
     },
     {
-        "situation": "회의에서 다수의 의견이 빠르게 하나로 모였다.",
-        "question": "당신이 가장 신경 쓰는 부분은 무엇인가?",
+        "question": "의과대학 실습 조에서 한 학생이 '무성의한 태도'를 이유로 낮은 평가를 받았다. 나는 평가가 과하다고 느끼지만, 이의를 제기하면 이후 실습평가에 불이익이 생길까 걱정된다. 나는?",
         "options": [
-            {
-                "text": "결정 과정이 정해진 절차를 따랐는가.",
-                "dimension": "order",
-            },
-            {
-                "text": "말하지 못한 사람이 소외되지 않았는가.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "다수 의견과 달라도 내 생각을 말할 수 있는가.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "익숙한 결론만 반복하고 있지는 않은가.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "정식 절차로 이의를 제기하고 불이익을 감수한다.", "key": "Q3A"},
+            {"label": "B", "text": "절차 안에서 의견을 내되, 결정되면 따른다.", "key": "Q3B"},
+            {"label": "C", "text": "부당하다면 따르지 않고 불이익을 감수한다.", "key": "Q3C"},
+            {"label": "D", "text": "공개적으로 문제 삼지 않고 내 피해를 피한다.", "key": "Q3D"},
         ],
     },
     {
-        "situation": "팀원이 반복해서 약속 시간에 늦는다.",
-        "question": "가장 적절한 대응은 무엇인가?",
+        "question": "친한 사람이 과제 표절 의혹으로 단체방에서 공개 비판을 받고 있다. 아직 원본 자료는 확인되지 않았고, 그 사람을 돕다 보면 나도 감싸는 사람으로 보일 수 있다. 나는?",
         "options": [
-            {
-                "text": "지각에 대한 명확한 기준과 책임을 적용한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "지각할 수밖에 없는 사정이 있는지 살핀다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "그 사람에게 직접 문제를 말하고 내 경계를 정한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "모두가 지키기 쉬운 새로운 시간 운영 방식을 만든다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "공개적으로 해명할 기회를 요구한다.", "key": "Q4A"},
+            {"label": "B", "text": "위험이 적은 방식으로 적극 돕는다.", "key": "Q4B"},
+            {"label": "C", "text": "앞장서진 않지만 곁을 지킨다.", "key": "Q4C"},
+            {"label": "D", "text": "상황이 정리될 때까지 거리를 둔다.", "key": "Q4D"},
         ],
     },
     {
-        "situation": "학교의 오래된 전통이 일부 학생에게 부담이 되고 있다.",
-        "question": "당신의 선택과 가장 가까운 것은?",
+        "question": "공용 물품이 반복해서 사라진 뒤 여러 사람이 같은 구성원을 의심하기 시작했고 담당자도 그 사람을 따로 불렀다. 하지만 직접적인 증거는 아직 없다. 나는?",
         "options": [
-            {
-                "text": "전통을 유지하되 예외 기준을 명확히 만든다.",
-                "dimension": "order",
-            },
-            {
-                "text": "부담을 느끼는 학생들의 경험을 먼저 듣는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "참여 여부는 학생 개인이 선택해야 한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "현재에 맞지 않는 전통은 과감히 바꿔야 한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "자료를 직접 확인해 독립적으로 판단한다.", "key": "Q5A"},
+            {"label": "B", "text": "공식 검토의 근거를 확인한 뒤 따른다.", "key": "Q5B"},
+            {"label": "C", "text": "다수의 증언과 공식 판단을 우선 믿는다.", "key": "Q5C"},
+            {"label": "D", "text": "평소 평판과 정황을 보고 판단한다.", "key": "Q5D"},
         ],
     },
     {
-        "situation": "모둠 과제에서 한 사람이 거의 참여하지 않았다.",
-        "question": "평가할 때 어떤 태도를 취하겠는가?",
+        "question": "의과대학 증례 토론에서 교수나 선배 의사가 한 진단을 강하게 주장한다. 하지만 내가 찾아본 자료와 환자 정보만으로는 그 결론이 확실하지 않아 보인다. 나는?",
         "options": [
-            {
-                "text": "실제 기여도에 따라 정확하게 평가한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "참여하지 못한 사정을 먼저 확인한다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "다른 사람과 상관없이 내가 한 일을 분명히 밝힌다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "개별 평가가 가능한 과제 방식으로 바꾸자고 제안한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "근거를 묻고 반대 자료가 있으면 바로 제시한다.", "key": "Q6A"},
+            {"label": "B", "text": "조용히 자료를 더 확인한다.", "key": "Q6B"},
+            {"label": "C", "text": "경험을 믿고 그 판단에 맞춰 행동한다.", "key": "Q6C"},
+            {"label": "D", "text": "어느 편도 들지 않고 지켜본다.", "key": "Q6D"},
         ],
     },
     {
-        "situation": "소문 때문에 한 학생이 공동체에서 멀어지고 있다.",
-        "question": "당신은 무엇을 우선하겠는가?",
+        "question": "학생회·동아리·직장 행사에서 운영진의 실수로 참가자에게 잘못된 안내가 나갔다. 내부에서는 공식 공지가 나갈 때까지 밖에 이야기하지 말라고 한다. 나는?",
         "options": [
-            {
-                "text": "사실 확인 절차를 만들고 확인되지 않은 말은 금지한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "소문으로 상처받은 학생 곁에 먼저 다가간다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "주변 분위기와 관계없이 내가 확인한 사실만 믿는다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "소문이 퍼지는 구조와 문화를 공개적으로 문제 삼는다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "정식 내부 절차로 끝까지 문제를 제기한다.", "key": "Q7A"},
+            {"label": "B", "text": "공식 발표 전까지 외부 발언을 삼간다.", "key": "Q7B"},
+            {"label": "C", "text": "필요하면 밖에 사실을 알리고 불이익을 감수한다.", "key": "Q7C"},
+            {"label": "D", "text": "말하지 않고 내 책임을 피할 기록부터 남긴다.", "key": "Q7D"},
         ],
     },
     {
-        "situation": "학급 대표가 독단적으로 결정을 내렸다.",
-        "question": "당신의 반응은?",
+        "question": "모임 단체방에서 한 사람의 말실수가 반복해서 캡처되며 조롱거리로 번졌다. 나도 그 사람에게 아쉬운 점은 있지만 분위기가 지나치다고 느낀다. 나는?",
         "options": [
-            {
-                "text": "대표의 권한과 의사결정 규정을 확인한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "대표와 구성원 모두의 입장을 조정한다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "그 결정에 동의하지 않는다는 입장을 분명히 밝힌다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "대표 한 사람에게 권한이 몰리지 않는 구조를 제안한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "그 자리에서 그만하자고 말한다.", "key": "Q8A"},
+            {"label": "B", "text": "분위기를 돌리거나 당사자에게 따로 연락한다.", "key": "Q8B"},
+            {"label": "C", "text": "집단과 맞서진 않지만 그 사람 곁에 남는다.", "key": "Q8C"},
+            {"label": "D", "text": "상황에서 거리를 두고 관여하지 않는다.", "key": "Q8D"},
         ],
     },
     {
-        "situation": "두 친구가 서로 자신이 옳다며 당신에게 편을 들어 달라고 한다.",
-        "question": "어떤 태도를 취하겠는가?",
+        "question": "친구 사이의 갈등에서 내가 알고 있는 사실 하나를 밝히면 현재의 오해를 풀 수 있다. 하지만 그 사실을 말하려면 예전에 내가 했던 잘못도 함께 드러난다. 나는?",
         "options": [
-            {
-                "text": "공통으로 적용할 수 있는 기준을 찾아 판단한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "두 사람의 감정이 가라앉도록 대화를 돕는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "누구의 편도 들지 않고 내 판단을 말한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "둘 중 하나를 고르는 방식 자체에서 벗어난 해결책을 찾는다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "내 실수까지 모두 밝히고 결과를 감수한다.", "key": "Q9A"},
+            {"label": "B", "text": "익명·비밀보장 방식으로 사실을 알린다.", "key": "Q9B"},
+            {"label": "C", "text": "가까운 사람을 지키기 위해 일부를 숨긴다.", "key": "Q9C"},
+            {"label": "D", "text": "내 피해가 크다면 공개하지 않는다.", "key": "Q9D"},
         ],
     },
     {
-        "situation": "공동체 전체를 위해 일부 구성원의 희생이 필요하다는 의견이 나왔다.",
-        "question": "당신이 가장 중요하게 보는 것은?",
+        "question": "소속 조직이 참석 여부와 상관없이 모든 구성원에게 같은 방식의 의무 활동을 새로 부과했다. 취지는 이해하지만 실제로는 일부 사람에게 지나치게 불리하다고 느낀다. 나는?",
         "options": [
-            {
-                "text": "누구에게나 동일한 책임 원칙이 적용되는가.",
-                "dimension": "order",
-            },
-            {
-                "text": "희생을 요구받는 사람이 보호받을 수 있는가.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "개인이 희생을 거부할 권리가 있는가.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "희생 없이 해결할 다른 방법은 없는가.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "정식 통로로 규칙을 바꾸려 적극 움직인다.", "key": "Q10A"},
+            {"label": "B", "text": "일단 따르며 재검토를 기다린다.", "key": "Q10B"},
+            {"label": "C", "text": "직접 거부하거나 사람을 모아 변화를 만든다.", "key": "Q10C"},
+            {"label": "D", "text": "앞장서지 않고 개인적으로 우회한다.", "key": "Q10D"},
         ],
     },
-    {
-        "situation": "회의 시간이 부족해 충분한 토론 없이 결정을 내려야 한다.",
-        "question": "당신의 선택은?",
+        {
+        "question": "회의나 모임에서 납득하기 어려운 운영 방식이 몇 달째 반복되고 있다. 아직 내게 직접적인 큰 피해는 없지만 계속 불만이 쌓이고 있다. 나는?",
         "options": [
-            {
-                "text": "책임자가 정해진 권한에 따라 임시 결정을 내린다.",
-                "dimension": "order",
-            },
-            {
-                "text": "최소한 반대 의견을 가진 사람의 말은 듣는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "동의하지 않는 결정에는 참여하지 않을 수 있어야 한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "결정을 미루고 더 빠른 의견 수렴 방식을 시도한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "새로 온 학생이 기존 분위기에 적응하지 못하고 있다.",
-        "question": "당신이 할 가능성이 가장 높은 행동은?",
-        "options": [
-            {
-                "text": "학교 규칙과 생활 방식을 차근차근 알려 준다.",
-                "dimension": "order",
-            },
-            {
-                "text": "먼저 말을 걸고 함께할 사람을 연결해 준다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "억지로 섞이게 하기보다 스스로 적응할 시간을 준다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "기존 학생들도 새 학생에게 맞춰 변해야 한다고 말한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "모두가 따르는 방식이 비효율적이라는 사실을 발견했다.",
-        "question": "어떻게 하겠는가?",
-        "options": [
-            {
-                "text": "문제점을 정리해 공식적인 절차로 개선을 요청한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "변화로 불편해질 사람들의 의견을 먼저 살핀다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "내가 맡은 부분부터 더 나은 방식으로 처리한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "실패 가능성이 있더라도 새로운 방식을 즉시 시험한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "친구가 다른 사람에게 상처가 될 말을 했지만 악의는 없었다.",
-        "question": "당신의 판단은?",
-        "options": [
-            {
-                "text": "의도와 관계없이 잘못된 행동에 책임을 져야 한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "상처받은 사람과 말한 사람 모두의 마음을 살핀다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "내가 부당하다고 생각하면 친구에게 직접 말한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "비슷한 일이 반복되지 않도록 대화 방식을 바꾼다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "공동체를 지키기 위해 어떤 사실을 숨겨야 한다는 주장이 나왔다.",
-        "question": "당신과 가장 가까운 입장은?",
-        "options": [
-            {
-                "text": "공개 여부는 정해진 책임자와 규정이 판단해야 한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "공개로 인해 다칠 사람들을 먼저 고려해야 한다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "진실을 말할지는 개인의 양심에 달려 있다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "사실을 숨겨야 유지되는 공동체라면 구조를 바꿔야 한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "당신의 의견이 반 전체의 의견과 다르다.",
-        "question": "어떻게 하겠는가?",
-        "options": [
-            {
-                "text": "결정 절차가 공정했다면 다수의 결정을 따른다.",
-                "dimension": "order",
-            },
-            {
-                "text": "갈등이 커지지 않도록 표현 방식을 조절한다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "불이익이 있더라도 내 의견을 분명히 말한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "모두가 생각하지 못한 새로운 선택지를 제시한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "공동 프로젝트가 실패할 가능성이 높아졌다.",
-        "question": "당신은 무엇을 선택하겠는가?",
-        "options": [
-            {
-                "text": "역할과 책임을 다시 정리하고 계획대로 수습한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "팀원들이 지치지 않도록 분위기와 관계를 돌본다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "내가 책임질 수 있는 부분에 집중한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "처음 목표를 포기하고 새로운 목표를 세운다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "누군가 공동체를 비판하자 주변 사람들이 불편해한다.",
-        "question": "당신의 반응은?",
-        "options": [
-            {
-                "text": "비판도 정해진 방식과 근거를 갖춰야 한다고 본다.",
-                "dimension": "order",
-            },
-            {
-                "text": "비판한 사람과 불편해진 사람 사이의 대화를 돕는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "불편함 때문에 비판할 권리가 막혀서는 안 된다고 본다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "그 비판을 계기로 기존 문화를 다시 검토한다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "규칙을 엄격히 적용하면 공정하지만 한 사람에게 큰 피해가 생긴다.",
-        "question": "당신의 선택은?",
-        "options": [
-            {
-                "text": "예외가 반복되지 않도록 원칙대로 처리한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "피해를 최소화할 수 있는 배려 방안을 찾는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "당사자가 자신의 선택을 직접 결정하도록 한다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "이런 피해를 만드는 규칙 자체를 고친다.",
-                "dimension": "change",
-            },
-        ],
-    },
-    {
-        "situation": "갈등이 오래 이어져 누구도 먼저 양보하려 하지 않는다.",
-        "question": "마지막으로 당신이 선택할 행동은?",
-        "options": [
-            {
-                "text": "합의가 안 되면 정해진 권한과 절차로 결정한다.",
-                "dimension": "order",
-            },
-            {
-                "text": "서로가 받아들일 수 있는 최소한의 합의를 찾는다.",
-                "dimension": "solidarity",
-            },
-            {
-                "text": "타협보다 내가 옳다고 생각하는 입장을 지킨다.",
-                "dimension": "autonomy",
-            },
-            {
-                "text": "현재 논쟁과 전혀 다른 새로운 해결 방식을 제시한다.",
-                "dimension": "change",
-            },
+            {"label": "A", "text": "불만이 생기면 비교적 바로 말한다.", "key": "Q11A",},
+            {"label": "B", "text": "영향과 책임을 따져본 뒤 필요하면 말한다.", "key": "Q11B",},
+            {"label": "C", "text": "공개석상에서도 문제를 꺼내는 편이다.", "key": "Q11C",},
+            {"label": "D", "text": "선을 넘기 전까지는 쉽게 나서지 않는다.", "key": "Q11D",},
         ],
     },
 ]
 
+SCORING_KEY = {
+    # Q1 — T / O
+    "Q1A": {"T": 1, "O": 0},
+    "Q1B": {"T": 1, "O": 1},
+    "Q1C": {"T": 0, "O": 1},
+    "Q1D": {"T": 0, "O": 0},
+
+    # Q2 — T / A
+    "Q2A": {"T": 1, "A": 1},
+    "Q2B": {"T": 1, "A": 0},
+    "Q2C": {"T": 0, "A": 1},
+    "Q2D": {"T": 0, "A": 0},
+
+    # Q3 — O / S
+    "Q3A": {"O": 1, "S": 0},
+    "Q3B": {"O": 1, "S": 1},
+    "Q3C": {"O": 0, "S": 0},
+    "Q3D": {"O": 0, "S": 1},
+
+    # Q4 — A / S
+    "Q4A": {"A": 1, "S": 0},
+    "Q4B": {"A": 1, "S": 1},
+    "Q4C": {"A": 0, "S": 0},
+    "Q4D": {"A": 0, "S": 1},
+
+    # Q5 — T / O
+    "Q5A": {"T": 1, "O": 0},
+    "Q5B": {"T": 1, "O": 1},
+    "Q5C": {"T": 0, "O": 1},
+    "Q5D": {"T": 0, "O": 0},
+
+    # Q6 — T / A
+    "Q6A": {"T": 1, "A": 1},
+    "Q6B": {"T": 1, "A": 0},
+    "Q6C": {"T": 0, "A": 1},
+    "Q6D": {"T": 0, "A": 0},
+
+    # Q7 — O / S
+    "Q7A": {"O": 1, "S": 0},
+    "Q7B": {"O": 1, "S": 1},
+    "Q7C": {"O": 0, "S": 0},
+    "Q7D": {"O": 0, "S": 1},
+
+    # Q8 — A / S
+    "Q8A": {"A": 1, "S": 0},
+    "Q8B": {"A": 1, "S": 1},
+    "Q8C": {"A": 0, "S": 0},
+    "Q8D": {"A": 0, "S": 1},
+
+    # Q9 — T / S
+    "Q9A": {"T": 1, "S": 0},
+    "Q9B": {"T": 1, "S": 1},
+    "Q9C": {"T": 0, "S": 0},
+    "Q9D": {"T": 0, "S": 1},
+
+    # Q10 — O / A
+    "Q10A": {"O": 1, "A": 1},
+    "Q10B": {"O": 1, "A": 0},
+    "Q10C": {"O": 0, "A": 1},
+    "Q10D": {"O": 0, "A": 0},
+}
+
+
 
 # 네 단일 성향 + 여섯 조합 = 등장인물 10명
-RESULT_PROFILES = {
-    "order": {
-        "type": "원칙의 수호자형",
-        "character": "댄포스",
-        "summary": (
-            "공동체가 흔들릴수록 명확한 기준과 책임이 "
-            "필요하다고 생각하는 유형입니다."
-        ),
-    },
-    "solidarity": {
-        "type": "관계의 중재자형",
-        "character": "레베카 너스",
-        "summary": (
-            "갈등 속에서도 사람과 사람 사이의 신뢰를 "
-            "회복하는 일을 우선하는 유형입니다."
-        ),
-    },
-    "autonomy": {
-        "type": "독립적 판단자형",
-        "character": "존 프록터",
-        "summary": (
-            "다수의 시선보다 자신의 양심과 판단을 "
-            "중요하게 여기는 유형입니다."
-        ),
-    },
-    "change": {
-        "type": "판을 바꾸는 행동가형",
-        "character": "애비게일",
-        "summary": (
-            "기존 질서에 머물기보다 상황을 움직이고 "
-            "새로운 국면을 만드는 유형입니다."
-        ),
-    },
-    "order+solidarity": {
-        "type": "책임 있는 조정자형",
-        "character": "헤일 목사",
-        "summary": (
-            "원칙을 존중하면서도 구성원의 목소리를 듣고 "
-            "균형점을 찾으려는 유형입니다."
-        ),
-    },
-    "order+autonomy": {
-        "type": "냉정한 기준자형",
-        "character": "엘리자베스 프록터",
-        "summary": (
-            "명확한 기준을 지키면서도 최종 판단은 "
-            "스스로 내리려는 유형입니다."
-        ),
-    },
-    "order+change": {
-        "type": "제도 개혁자형",
-        "character": "패리스 목사",
-        "summary": (
-            "질서를 유지하되 필요하다면 제도와 운영 방식을 "
-            "빠르게 바꾸려는 유형입니다."
-        ),
-    },
-    "solidarity+autonomy": {
-        "type": "신뢰 기반 대변자형",
-        "character": "자일스 코리",
-        "summary": (
-            "사람에 대한 의리를 지키면서도 부당한 압력에는 "
-            "자신의 목소리를 내는 유형입니다."
-        ),
-    },
-    "solidarity+change": {
-        "type": "분위기 전환자형",
-        "character": "메리 워런",
-        "summary": (
-            "관계의 흐름을 민감하게 읽고 공동체가 다른 방향으로 "
-            "움직이도록 영향을 주는 유형입니다."
-        ),
-    },
-    "autonomy+change": {
-        "type": "저항하는 개척자형",
-        "character": "티튜바",
-        "summary": (
-            "주어진 역할에 머물기보다 독자적인 생존 방식과 "
-            "새로운 선택지를 찾는 유형입니다."
-        ),
-    },
-}
+
+
+
+
+
+
+
+def generate_random_nickname():
+    response = (
+        supabase
+        .table("participants")
+        .select("nickname")
+        .execute()
+    )
+
+    used_nicknames = {
+        participant["nickname"]
+        for participant in (response.data or [])
+        if participant.get("nickname")
+    }
+
+    available_nicknames = [
+        f"익명의 {adjective} {animal}"
+        for adjective in ANONYMOUS_ADJECTIVES
+        for animal in ANONYMOUS_ANIMALS
+        if f"익명의 {adjective} {animal}"
+        not in used_nicknames
+    ]
+
+    if not available_nicknames:
+        raise RuntimeError(
+            "사용 가능한 랜덤 닉네임이 모두 소진되었습니다."
+        )
+
+    return random.choice(
+        available_nicknames
+    )
 
 
 def clean_nickname(value: str) -> str:
@@ -682,84 +431,389 @@ def get_current_student():
     return find_participant(nickname)
 
 
+RESULT_PROFILES = {
+    "proctor": {
+        "type": "갈등하는 저항자",
+        "character": "프록터",
+        "summary": (
+            "진실과 원칙 사이에서 갈등하면서도 "
+            "자신의 선택을 끝까지 고민하는 유형입니다."
+        ),
+        "one_line": (
+            "옳다고 믿는 것을 지키고 싶지만, "
+            "그 선택이 가져올 대가까지 깊이 고민합니다."
+        ),
+        "strength": (
+            "끝까지 남아 있는 양심과 자기 판단"
+        ),
+        "shaken": (
+            "주변의 시선과 책임이 한꺼번에 자신에게 쏠릴 때"
+        ),
+        "fear": (
+            "자신의 선택 때문에 소중한 사람까지 상처받는 것"
+        ),
+        "watch": (
+            "프록터가 침묵을 선택하는 순간과 "
+            "마침내 자신의 목소리를 내는 순간을 비교해 보세요."
+        ),
+    },
+
+    "giles": {
+        "type": "거침없는 저항자",
+        "character": "자일스",
+        "summary": (
+            "부당하다고 느낀 상황에서 비교적 빠르게 "
+            "목소리를 내고 행동으로 옮기는 유형입니다."
+        ),
+        "one_line": (
+            "문제가 있다고 느끼면 오래 망설이기보다 "
+            "직접 말하고 부딪히는 편입니다."
+        ),
+        "strength": (
+            "불합리함을 지나치지 않는 용기"
+        ),
+        "shaken": (
+            "자신의 직설적인 행동이 예상보다 큰 결과를 만들었을 때"
+        ),
+        "fear": (
+            "알고도 아무 말 하지 못한 채 지나치는 것"
+        ),
+        "watch": (
+            "자일스가 어떤 순간에 바로 행동하고, "
+            "그 행동이 주변 사람들에게 어떤 파장을 만드는지 보세요."
+        ),
+    },
+
+    "abigail": {
+        "type": "선동·조작형",
+        "character": "애비게일",
+        "summary": (
+            "상황과 관계를 적극적으로 움직이며 "
+            "자신이 원하는 방향으로 흐름을 바꾸는 유형입니다."
+        ),
+        "one_line": (
+            "상황이 자신에게 불리하게 흘러가더라도 "
+            "빠르게 판을 바꾸고 주도권을 잡으려 합니다."
+        ),
+        "strength": (
+            "상황을 빠르게 읽고 사람을 움직이는 추진력"
+        ),
+        "shaken": (
+            "자신이 만든 흐름이 통제할 수 없을 만큼 커질 때"
+        ),
+        "fear": (
+            "주도권을 잃고 다른 사람의 판단에 맡겨지는 것"
+        ),
+        "watch": (
+            "애비게일이 사람들의 감정과 두려움을 "
+            "어떻게 이용해 상황을 바꾸는지 살펴보세요."
+        ),
+    },
+
+    "elizabeth": {
+        "type": "조력·지지형",
+        "character": "엘리자베스",
+        "summary": (
+            "진실과 원칙을 중요하게 여기면서도 "
+            "쉽게 전면에 나서기보다 가까운 사람을 지지하는 유형입니다."
+        ),
+        "one_line": (
+            "큰 목소리를 내기보다 자신이 믿는 사람과 원칙을 "
+            "조용히 지키는 편입니다."
+        ),
+        "strength": (
+            "쉽게 흔들리지 않는 신뢰와 절제"
+        ),
+        "shaken": (
+            "진실을 말하는 것이 오히려 가까운 사람을 해칠 수 있을 때"
+        ),
+        "fear": (
+            "자신의 판단이 사랑하는 사람에게 상처를 남기는 것"
+        ),
+        "watch": (
+            "엘리자베스가 언제 말을 아끼고, "
+            "언제 진실을 선택하는지를 눈여겨보세요."
+        ),
+    },
+
+    "mary": {
+        "type": "흔들리는 양심형",
+        "character": "메어리",
+        "summary": (
+            "옳고 그름을 인식하면서도 주변의 압력과 "
+            "자신의 판단 사이에서 쉽게 흔들릴 수 있는 유형입니다."
+        ),
+        "one_line": (
+            "무엇이 옳은지는 알지만, "
+            "혼자 그 선택을 감당해야 할 때 쉽게 흔들립니다."
+        ),
+        "strength": (
+            "잘못을 알아차리고 되돌리려는 양심"
+        ),
+        "shaken": (
+            "다수의 시선과 압박이 자신에게 집중될 때"
+        ),
+        "fear": (
+            "혼자 남겨지거나 집단에서 배제되는 것"
+        ),
+        "watch": (
+            "메어리가 자신의 판단을 지키려는 순간과 "
+            "집단의 압력에 흔들리는 순간을 비교해 보세요."
+        ),
+    },
+
+    "parris": {
+        "type": "자기보존형",
+        "character": "패리스",
+        "summary": (
+            "조직과 관계 속에서 자신의 지위와 안전을 "
+            "중요하게 고려하는 유형입니다."
+        ),
+        "one_line": (
+            "상황을 판단할 때 옳고 그름만큼 "
+            "자신이 잃게 될 것도 함께 계산합니다."
+        ),
+        "strength": (
+            "위험을 빠르게 감지하고 자신을 보호하는 감각"
+        ),
+        "shaken": (
+            "자신의 지위나 평판이 직접적으로 위협받을 때"
+        ),
+        "fear": (
+            "사람들의 신뢰와 자신의 위치를 한꺼번에 잃는 것"
+        ),
+        "watch": (
+            "패리스가 어떤 상황에서 진실보다 "
+            "자신의 지위와 평판을 먼저 고려하는지 살펴보세요."
+        ),
+    },
+
+    "cheever_herrick": {
+        "type": "평범한 집행자형",
+        "character": "치버&헤릭",
+        "summary": (
+            "주어진 규칙과 역할 안에서 행동하며 "
+            "개인적인 판단보다 맡은 임무를 우선하는 유형입니다."
+        ),
+        "one_line": (
+            "상황 전체를 바꾸려 하기보다 "
+            "자신에게 주어진 역할을 수행하는 편입니다."
+        ),
+        "strength": (
+            "정해진 역할을 안정적으로 수행하는 책임감"
+        ),
+        "shaken": (
+            "맡은 역할과 개인적인 양심이 정면으로 충돌할 때"
+        ),
+        "fear": (
+            "자신의 판단 때문에 질서가 무너지는 것"
+        ),
+        "watch": (
+            "치버와 헤릭이 명령을 수행하면서도 "
+            "각자 어떤 표정과 태도를 보이는지 살펴보세요."
+        ),
+    },
+
+    "danforth": {
+        "type": "권위·체제 수호형",
+        "character": "댄포스",
+        "summary": (
+            "공식 절차와 조직의 권위를 강하게 신뢰하며 "
+            "질서 유지에 높은 가치를 두는 유형입니다."
+        ),
+        "one_line": (
+            "개인의 사정보다 제도와 기준이 흔들리지 않는 것을 "
+            "더 중요하게 생각합니다."
+        ),
+        "strength": (
+            "원칙과 기준을 끝까지 유지하는 결단력"
+        ),
+        "shaken": (
+            "자신이 믿어 온 제도의 정당성이 의심받기 시작할 때"
+        ),
+        "fear": (
+            "한 번의 예외가 전체 질서를 무너뜨리는 것"
+        ),
+        "watch": (
+            "댄포스가 새로운 사실 앞에서도 "
+            "왜 기존 판단을 쉽게 바꾸지 않는지 살펴보세요."
+        ),
+    },
+
+    "hale": {
+        "type": "각성한 동조자형",
+        "character": "헤일",
+        "summary": (
+            "사실을 확인하고 행동하면서도 "
+            "새로운 근거가 나타나면 기존 판단을 수정할 수 있는 유형입니다."
+        ),
+        "one_line": (
+            "처음에는 제도와 기준을 믿지만, "
+            "모순을 발견하면 자신의 판단을 다시 돌아봅니다."
+        ),
+        "strength": (
+            "잘못을 인정하고 판단을 수정할 수 있는 성찰"
+        ),
+        "shaken": (
+            "자신이 옳다고 믿었던 행동이 타인에게 피해를 주었음을 깨달을 때"
+        ),
+        "fear": (
+            "자신의 확신이 오히려 잘못된 결과를 만든 것"
+        ),
+        "watch": (
+            "헤일의 확신이 어떻게 의심으로 바뀌고, "
+            "그 의심이 행동의 변화로 이어지는지 보세요."
+        ),
+    },
+
+    "rebecca": {
+        "type": "원칙적 비동조자형",
+        "character": "레베카",
+        "summary": (
+            "외부의 압력보다 자신의 원칙과 판단을 지키며 "
+            "쉽게 집단의 흐름에 휩쓸리지 않는 유형입니다."
+        ),
+        "one_line": (
+            "다수가 같은 방향으로 움직여도 "
+            "자신이 옳다고 믿는 기준을 쉽게 바꾸지 않습니다."
+        ),
+        "strength": (
+            "압력 속에서도 흔들리지 않는 내적 기준"
+        ),
+        "shaken": (
+            "자신의 원칙을 지키는 일이 가까운 사람들에게 피해를 줄 때"
+        ),
+        "fear": (
+            "살아남기 위해 스스로 믿는 것을 부정하는 것"
+        ),
+        "watch": (
+            "레베카가 큰 행동을 하지 않고도 "
+            "어떻게 자신의 태도만으로 주변과 대비되는지 살펴보세요."
+        ),
+    },
+}
+
+
+RESULT_CODE_MAP = {
+    "+++-": "hale",
+    "++++": "hale",
+
+    "++--": "elizabeth",
+    "++-+": "elizabeth",
+
+    "+-++": "proctor",
+
+    "--+-": "giles",
+
+    "---+": "mary",
+    "+--+": "mary",
+
+    "-+-+": "cheever_herrick",
+    "-+--": "cheever_herrick",
+
+    "+---": "rebecca",
+    "----": "rebecca",
+
+    "--++": "abigail",
+
+    "-+++": "parris",
+
+    "-++-": "danforth",
+}
+
+
+
+
 def calculate_survey_result(answers):
-    counts = {
-        key: 0
-        for key in SURVEY_DIMENSIONS
-    }
-
-    for dimension in answers:
-        if dimension in counts:
-            counts[dimension] += 1
-
-    total = sum(counts.values())
-
-    if total == 0:
+    if len(answers) < 11:
         raise ValueError(
-            "조사 응답이 없습니다."
+            "모든 문항에 응답해야 합니다."
         )
 
-    percentages = {
-        key: round(
-            value / total * 100
-        )
-        for key, value in counts.items()
+    # Q1~Q10만 본 채점에 사용
+    main_answers = answers[:10]
+
+    # Q11은 보너스 분기용
+    bonus_answer = answers[10]
+
+    scores = {
+        "T": 0,
+        "O": 0,
+        "A": 0,
+        "S": 0,
     }
 
-    # 반올림 오차를 보정해 합계가 100이 되게 한다.
-    difference = 100 - sum(
-        percentages.values()
-    )
-
-    highest_key = max(
-        percentages,
-        key=percentages.get,
-    )
-
-    percentages[highest_key] += difference
-
-    sorted_dimensions = sorted(
-        counts,
-        key=counts.get,
-        reverse=True,
-    )
-
-    first = sorted_dimensions[0]
-    second = sorted_dimensions[1]
-
-    # 1위와 2위가 세 문항 이상 차이 나면 단일 유형.
-    if counts[first] - counts[second] >= 3:
-        profile_key = first
-    else:
-        profile_key = "+".join(
-            sorted([first, second])
+    # Q1~Q10 점수 합산
+    for answer_key in main_answers:
+        scoring = SCORING_KEY.get(
+            answer_key
         )
 
-        # RESULT_PROFILES 키 순서에 맞추기
-        pair_keys = {
-            frozenset(
-                ["order", "solidarity"]
-            ): "order+solidarity",
-            frozenset(
-                ["order", "autonomy"]
-            ): "order+autonomy",
-            frozenset(
-                ["order", "change"]
-            ): "order+change",
-            frozenset(
-                ["solidarity", "autonomy"]
-            ): "solidarity+autonomy",
-            frozenset(
-                ["solidarity", "change"]
-            ): "solidarity+change",
-            frozenset(
-                ["autonomy", "change"]
-            ): "autonomy+change",
-        }
+        if scoring is None:
+            raise ValueError(
+                f"잘못된 응답입니다: {answer_key}"
+            )
 
-        profile_key = pair_keys[
-            frozenset([first, second])
-        ]
+        for dimension, point in scoring.items():
+            scores[dimension] += point
+
+    # 각 축은 5회 측정:
+    # 3~5점 = +
+    # 0~2점 = -
+    signs = {
+        dimension: (
+            "+"
+            if score >= 3
+            else "-"
+        )
+        for dimension, score
+        in scores.items()
+    }
+
+    # 반드시 T-O-A-S 순서
+    result_code = (
+        signs["T"]
+        + signs["O"]
+        + signs["A"]
+        + signs["S"]
+    )
+
+    # +-+-만 Q11로 분기
+    if result_code == "+-+-":
+        if bonus_answer in {
+            "Q11A",
+            "Q11C",
+        }:
+            profile_key = "giles"
+
+        elif bonus_answer in {
+            "Q11B",
+            "Q11D",
+        }:
+            profile_key = "proctor"
+
+        else:
+            raise ValueError(
+                "Q11 응답이 올바르지 않습니다."
+            )
+
+    else:
+        profile_key = RESULT_CODE_MAP.get(
+            result_code
+        )
+
+    # 현재 엑셀에서 아직 배정되지 않은 6개 조합
+    if profile_key is None:
+        return {
+            "type": "미분류",
+            "character": "미분류",
+            "summary": (
+                "현재 설계안에서 이 조합의 "
+                "결과지는 아직 확정되지 않았습니다."
+            ),
+            "scores": scores,
+            "code": result_code,
+        }
 
     profile = RESULT_PROFILES[
         profile_key
@@ -769,9 +823,11 @@ def calculate_survey_result(answers):
         "type": profile["type"],
         "character": profile["character"],
         "summary": profile["summary"],
-        "scores": percentages,
+        "scores": scores,
+        "code": result_code,
     }
 
+   
 
 @app.route("/health")
 def health():
@@ -780,8 +836,8 @@ def health():
 
 @app.route("/")
 def loading():
-    return render_template(
-        "loading.html"
+    return redirect(
+        url_for("students")
     )
 
 
@@ -807,11 +863,14 @@ def students():
         for participant in participants
     ]
 
+    suggested_nickname = generate_random_nickname()
+
     return render_template(
         "students.html",
         students=participants,
         student_names=student_names,
         student_count=len(participants),
+        suggested_nickname=suggested_nickname,
         error=request.args.get("error"),
         message=request.args.get("message"),
     )
@@ -952,7 +1011,7 @@ def register():
     ]
 
     return redirect(
-        url_for("record")
+        url_for("survey_question")
     )
 
 
@@ -1159,45 +1218,11 @@ def survey_stats():
 
 
 
-@app.route("/survey-intro")
-def survey_intro():
-    student = get_current_student()
-
-    if not student:
-        return redirect(
-            url_for(
-                "students",
-                error=(
-                    "먼저 가입하거나 "
-                    "로그인해 주세요."
-                ),
-            )
-        )
-
-    if student.get("result_type"):
-        return redirect(
-            url_for("survey_result")
-        )
-
-    session.pop(
-        "survey_answers",
-        None,
-    )
-
-    return render_template(
-        "intro.html",
-        student=student,
-        question_count=len(
-            SURVEY_QUESTIONS
-        ),
-    )
-
-
 @app.route(
-    "/survey/<int:question_number>",
+    "/survey",
     methods=["GET", "POST"],
 )
-def survey_question(question_number):
+def survey_question():
     student = get_current_student()
 
     if not student:
@@ -1210,110 +1235,41 @@ def survey_question(question_number):
             url_for("survey_result")
         )
 
-    total_questions = len(
-        SURVEY_QUESTIONS
-    )
-
-    if not (
-        1
-        <= question_number
-        <= total_questions
-    ):
-        return redirect(
-            url_for(
-                "survey_question",
-                question_number=1,
-            )
-        )
-
-    answers = session.get(
-        "survey_answers",
-        [],
-    )
-
     if request.method == "POST":
-        selected_dimension = (
-            request.form.get(
-                "answer"
-            )
-        )
+        answers = []
 
-        valid_dimensions = set(
-            SURVEY_DIMENSIONS.keys()
-        )
-
-        if (
-            selected_dimension
-            not in valid_dimensions
+        for index in range(
+            len(SURVEY_QUESTIONS)
         ):
-            return render_template(
-                "survey_question.html",
-                student=student,
-                question=SURVEY_QUESTIONS[
-                    question_number - 1
-                ],
-                question_number=question_number,
-                total_questions=total_questions,
-                progress=round(
-                    question_number
-                    / total_questions
-                    * 100
-                ),
-                error=(
-                    "선택지를 하나 골라 주세요."
-                ),
+            selected_answer = request.form.get(
+                f"answer_{index}"
             )
 
-        # 이전 문항으로 돌아왔다가 다시 답한 경우를 처리한다.
-        answers = answers[
-            : question_number - 1
-        ]
+            if not selected_answer:
+                return render_template(
+                    "survey_question.html",
+                    student=student,
+                    questions=SURVEY_QUESTIONS,
+                    error="모든 문항에 응답해 주세요.",
+                )
 
-        answers.append(
-            selected_dimension
-        )
+            answers.append(
+                selected_answer
+            )
 
-        session[
-            "survey_answers"
-        ] = answers
-
+        session["survey_answers"] = answers
         session.modified = True
 
-        if (
-            question_number
-            == total_questions
-        ):
-            return redirect(
-                url_for(
-                    "complete_survey"
-                )
-            )
-
         return redirect(
-            url_for(
-                "survey_question",
-                question_number=(
-                    question_number + 1
-                ),
-            )
+            url_for("complete_survey")
         )
 
     return render_template(
         "survey_question.html",
         student=student,
-        question=SURVEY_QUESTIONS[
-            question_number - 1
-        ],
-        question_number=question_number,
-        total_questions=total_questions,
-        progress=round(
-            (question_number - 1)
-            / total_questions
-            * 100
-        ),
+        questions=SURVEY_QUESTIONS,
         error=None,
     )
-
 
 @app.route("/survey/complete")
 def complete_survey():
@@ -1399,6 +1355,7 @@ def survey_result():
         )
 
     character_summary = None
+    result_profile = None
 
     all_profiles = []
 
@@ -1416,15 +1373,14 @@ def survey_result():
             profile["character"]
             == student.get("result_character")
         ):
-            character_summary = profile[
-                "summary"
-            ]
-
+            character_summary = profile["summary"]
+            result_profile = profile
     return render_template(
         "survey_result.html",
         student=student,
         dimensions=SURVEY_DIMENSIONS,
         character_summary=character_summary,
+        result_profile=result_profile,
         all_profiles=all_profiles,
     )
 

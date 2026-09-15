@@ -1026,52 +1026,6 @@ body.students-body::before {
    반별 재학생 명부
    ========================================= */
 
-body.roster-body {
-    min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(255, 255, 255, 0.045),
-            transparent 34%
-        ),
-        linear-gradient(
-            180deg,
-            #101114 0%,
-            #16171a 100%
-        ) !important;
-
-    color: #e8e5df;
-}
-
-
-/* 상단 헤더 */
-
-.roster-body .site-header {
-    background: rgba(15, 16, 19, 0.94);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-}
-
-.roster-body .brand,
-.roster-body .header-link,
-.roster-body .header-code {
-    color: #d7d2c9;
-}
-
-.roster-body .brand-symbol {
-    color: #b7aa91;
-    border-color: #766d5c;
-}
-
-
-/* 페이지 전체 */
-
-.roster-page {
-    width: min(920px, calc(100% - 32px));
-    margin: 0 auto;
-    padding: 70px 0 100px;
-}
-
 
 /* 명부 제목 */
 
@@ -1333,6 +1287,14 @@ body.roster-body {
     .roster-body .student-access-section {
         padding: 24px 18px;
     }
+
+    .profile-score-blocks {
+        gap: 5px;
+}
+
+    .profile-score-block {
+        height: 12px;
+}
 }
 
 .class-register-section {
@@ -1360,6 +1322,83 @@ body.roster-body {
 /* =========================================
    공동체 유형 조사
    ========================================= */
+.survey-all-header {
+    margin-bottom: 34px;
+}
+
+.survey-all-header h1 {
+    margin: 10px 0 12px;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+}
+
+.survey-all-header > p:last-child {
+    margin: 0;
+
+    color: #9e9890;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+.survey-question-block {
+    margin-top: 22px;
+    padding: 24px 20px;
+
+    background: #18191d;
+
+    border:
+        1px solid
+        rgba(220, 212, 198, 0.14);
+}
+
+.survey-question-block:first-of-type {
+    margin-top: 0;
+}
+
+
+.survey-question-number {
+    margin: 0 0 12px;
+
+    color: #b99a64;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+
+.survey-question-block h2 {
+    margin: 0 0 20px;
+
+    color: #f0ebe3;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.65;
+    letter-spacing: -0.025em;
+}
+
+
+
+
+
+
+
 
 body.survey-body {
     min-height: 100vh;
@@ -1375,7 +1414,11 @@ body.survey-body {
     color: #ece8e1;
 }
 
-.survey-intro-page,
+.survey-all-page {
+    width: min(620px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 48px 0 90px;
+}
 .survey-question-page {
     width: min(720px, calc(100% - 28px));
     margin: 0 auto;
@@ -1597,19 +1640,19 @@ body.survey-body {
 
 .survey-option-list {
     display: grid;
-    gap: 11px;
+    gap: 8px;
 }
 
 .survey-option {
     position: relative;
 
     display: grid;
-    grid-template-columns: 32px 1fr;
+    grid-template-columns: 30px 1fr;
     align-items: center;
-    gap: 13px;
+    gap: 12px;
 
-    min-height: 67px;
-    padding: 12px 17px;
+    min-height: 58px;
+    padding: 11px 13px;
 
     background: #202126;
 
@@ -1620,8 +1663,8 @@ body.survey-body {
     cursor: pointer;
 
     transition:
-        border-color 0.15s ease,
         background 0.15s ease,
+        border-color 0.15s ease,
         transform 0.15s ease;
 }
 
@@ -1649,12 +1692,15 @@ body.survey-body {
 
     border:
         1px solid
-        rgba(218, 210, 197, 0.24);
+        rgba(218, 210, 197, 0.28);
 
-    color: #aaa296;
+    border-radius: 50%;
+
+    color: #b9b1a6;
 
     font-family: Arial, sans-serif;
     font-size: 10px;
+    font-weight: 700;
 }
 
 .survey-option-text {
@@ -1759,147 +1805,125 @@ body.survey-body {
 
 body.record-body {
     min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at 10% 8%,
-            rgba(114, 25, 42, 0.16),
-            transparent 25%
-        ),
-        linear-gradient(
-            180deg,
-            #090b10 0%,
-            #0d1015 100%
-        ) !important;
-
-    color: #ece7df;
+    background: #ece8df;
+    color: #2b2927;
 }
 
+
+/* 전체 페이지 */
 .record-page {
     width: min(1080px, calc(100% - 36px));
     margin: 0 auto;
-    padding: 72px 0 96px;
+    padding: 54px 0 90px;
 }
 
+
+/* 종이 본체 */
 .record-sheet {
     position: relative;
+    padding: 18px 34px 30px;
 
-    padding: 16px;
+    background: #fbfaf6;
 
-    border: 1px solid rgba(144, 111, 64, 0.45);
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(22, 18, 26, 0.96) 0%,
-            rgba(14, 12, 18, 0.98) 100%
-        );
+    border: 1px solid #c9c1b6;
+    border-top: 5px solid #6f1d2b;
 
     box-shadow:
-        0 24px 80px rgba(0, 0, 0, 0.42);
+        0 20px 50px rgba(50, 42, 34, .12);
 }
 
+
+/* 기존 안쪽 검은 프레임 제거 */
 .record-sheet::before {
-    content: "";
-
-    position: absolute;
-    inset: 16px;
-
-    border: 1px solid rgba(255, 255, 255, 0.05);
-
-    pointer-events: none;
+    display: none;
 }
 
-.record-sheet-header {
-    position: relative;
-    z-index: 1;
 
+/* 제목 영역 */
+.record-sheet-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
 
-    padding: 26px 24px 30px;
+    padding: 30px 0 28px;
 }
+
 
 .record-title-wrap {
     display: flex;
     align-items: center;
-    gap: 22px;
 }
 
-
-.record-title-block {
-    min-width: 0;
-}
 
 .record-school-en {
     margin: 0 0 10px;
 
-    color: #c8a55d;
+    color: #9b7b42;
 
-    font-size: 11px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: .18em;
 }
+
 
 .record-sheet-header h1 {
     margin: 0;
 
-    color: #f1ebe2;
+    color: #252321;
 
     font-family:
         "Noto Serif KR",
         "Gowun Batang",
         serif;
 
-    font-size: clamp(34px, 4vw, 54px);
+    font-size: clamp(34px, 4vw, 52px);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.05em;
+    letter-spacing: -.04em;
 }
+
 
 .record-confidential {
-    padding-top: 34px;
+    padding-top: 26px;
 
-    color: #d04757;
+    color: #7a1e2d;
 
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: .14em;
 }
 
-.record-meta-line {
-    position: relative;
-    z-index: 1;
 
+/* 문서 코드 */
+.record-meta-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin: 0 24px;
-    padding: 18px 0 16px;
+    margin: 0;
+    padding: 13px 0;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid #aaa39a;
+    border-bottom: 1px solid #aaa39a;
 
-    color: #9f98a4;
+    color: #77716b;
 
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-size: 10px;
+    letter-spacing: .12em;
 }
 
+
+/* 프로필 */
 .record-profile {
-    position: relative;
-    z-index: 1;
-
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 46px;
+    grid-template-columns: 190px 1fr;
+    gap: 42px;
 
-    margin: 34px 24px 0;
-    padding: 30px 0;
+    margin: 34px 0 0;
+    padding: 28px 0 34px;
 }
+
 
 .record-photo-section {
     display: flex;
@@ -1907,99 +1931,94 @@ body.record-body {
     align-items: center;
 }
 
+
 .record-photo-frame {
-    width: 180px;
+    width: 160px;
     aspect-ratio: 3 / 4;
 
     display: grid;
     place-items: center;
 
-    background:
-        linear-gradient(
-            180deg,
-            #201d24 0%,
-            #151318 100%
-        );
+    background: #f0ede7;
 
-    border:
-        1px solid
-        rgba(200, 165, 93, 0.55);
+    border: 1px solid #8f877d;
 }
+
 
 .record-photo-question {
-    color: rgba(200, 165, 93, 0.75);
+    color: #9a783b;
 
     font-family: Georgia, serif;
-    font-size: 72px;
+    font-size: 64px;
     font-weight: 400;
-    line-height: 1;
 }
+
 
 .record-photo-label {
-    margin: 13px 0 0;
+    margin: 11px 0 0;
 
-    color: #8f8895;
+    color: #817a73;
 
     font-size: 9px;
-    letter-spacing: 0.16em;
+    letter-spacing: .14em;
 }
 
+
+/* 학생 정보 */
 .record-information {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+
 .record-info-row {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 180px 1fr;
     align-items: center;
 
-    min-height: 96px;
+    min-height: 82px;
 
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid #c5beb4;
 }
+
 
 .record-info-row:first-child {
-    border-top:
-        1px solid
-        rgba(255, 255, 255, 0.10);
+    border-top: 1px solid #c5beb4;
 }
 
-.record-info-label {
-    
-    color: #b1abb4;
 
-    font-size: 16px;
+.record-info-label {
+    color: #625d57;
+
+    font-size: 14px;
     font-weight: 600;
 }
 
+
 .record-info-value {
-    color: #f0ebe2;
+    color: #262321;
 
     font-family:
-        "Pretendard";
+        "Gowun Dodum",
+        sans-serif;
 
-    font-size: clamp(20px, 2.5vw, 38px);
-    font-weight: 500;
-    letter-spacing: -0.04em;
+    font-size: clamp(21px, 2.5vw, 32px);
+    font-weight: 400;
+    letter-spacing: -.03em;
 }
+
 
 .record-info-result {
-    color: #9fa4ad;
+    color: #6f1d2b;
 }
 
+
+/* 알림 영역 */
 .record-notification {
-    position: relative;
-    z-index: 1;
-
-    margin: 44px 24px 0;
+    margin: 34px 0 0;
 }
 
-
-/* 처음 보이는 얇은 알림 바 */
 
 .record-notification-bar {
     width: 100%;
@@ -2008,17 +2027,16 @@ body.record-body {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
 
-    padding: 0 18px;
+    padding: 0 17px;
 
-    background: rgba(44, 20, 29, 0.72);
+    background: #f7f2ed;
 
-    border:
-        1px solid
-        rgba(119, 22, 41, 0.48);
+    border: 1px solid #b69a91;
+    border-left: 3px solid #6f1d2b;
 
-    color: #c9c4ca;
+    color: #4f4944;
 
     cursor: pointer;
     text-align: left;
@@ -2030,44 +2048,35 @@ body.record-body {
     align-items: center;
     gap: 8px;
 
-    color: #d5c7cb;
+    color: #6f1d2b;
 
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
 }
 
 
 .record-notification-dot {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
 
-    background: #a8263c;
+    background: #6f1d2b;
     border-radius: 50%;
-
-    box-shadow:
-        0 0 7px
-        rgba(168, 38, 60, 0.55);
 }
 
 
 .record-notification-message {
-    color: #918a92;
-
+    color: #77716b;
     font-size: 11px;
 }
 
 
 .record-notification-arrow {
-    color: #8f858c;
+    color: #706960;
+    font-size: 13px;
 
-    font-size: 14px;
-
-    transition: transform 0.25s ease;
+    transition: transform .25s ease;
 }
 
-
-/* 펼쳐지는 내용 */
 
 .record-notification-content {
     display: grid;
@@ -2076,8 +2085,8 @@ body.record-body {
     opacity: 0;
 
     transition:
-        grid-template-rows 0.35s ease,
-        opacity 0.25s ease;
+        grid-template-rows .35s ease,
+        opacity .25s ease;
 }
 
 
@@ -2085,8 +2094,6 @@ body.record-body {
     overflow: hidden;
 }
 
-
-/* 클릭 후 */
 
 .record-notification.is-open
 .record-notification-content {
@@ -2101,31 +2108,19 @@ body.record-body {
 }
 
 
-
+/* 조사 전 / 완료 패널 */
 .record-pending-panel,
 .record-completed-panel {
-    position: relative;
-    z-index: 1;
-
     margin: 0;
-    padding: 40px 28px;
+    padding: 38px 28px;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(55, 11, 24, 0.34) 0%,
-            rgba(32, 11, 21, 0.22) 100%
-        );
+    background: #faf6f1;
 
-    border: 1px solid rgba(119, 22, 41, 0.55);
-
-    animation:
-        record-alert-soft
-        0.65s
-        ease-out
-        0.2s
-        both !important;
+    border:
+        solid #bdb4a9;
+    border-width: 0 1px 1px;
 }
+
 
 .record-alert-badge {
     display: inline-flex;
@@ -2134,168 +2129,179 @@ body.record-body {
 
     margin-bottom: 16px;
 
-    color: #c8a9b0;
+    color: #7d2635;
 
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.08em;
 }
 
+
 .record-alert-dot {
-    width: 7px;
-    height: 7px;
+    width: 6px;
+    height: 6px;
 
     border-radius: 50%;
 
-    background: #b84a5d;
-
-    box-shadow:
-        0 0 8px rgba(184, 74, 93, 0.45);
+    background: #7a1e2d;
 }
-
-
-
 
 
 .record-pending-kicker,
 .record-result-kicker {
-    margin: -10px 0 14px;
+    margin: 0 0 13px;
 
     text-align: center;
 
-    color: #c2a15b;
+    color: #9a783b;
 
-    font-size: 18px;
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: .16em;
 }
+
 
 .record-pending-panel h2 {
     margin: 0;
 
     text-align: center;
 
-    color: #f1ebe2;
+    color: #282522;
 
     font-family:
         "Noto Serif KR",
         "Gowun Batang",
         serif;
 
-    font-size: clamp(20px, 3vw, 40px);
-    font-weight: 600;
-    line-height: 1.22;
-    letter-spacing: -0.05em;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1.35;
 }
 
+
 .record-pending-description {
-    margin: 26px 0 0;
+    margin: 20px 0 0;
 
     text-align: center;
 
-    color: #a79fa8;
+    color: #77716b;
 
-    font-size: 15px;
-    line-height: 1.85;
+    font-size: 13px;
+    line-height: 1.8;
 }
 
+
+/* 조사 버튼 */
 .record-main-button {
-    width: 160px;
+    width: 170px;
     min-height: 50px;
-    margin: 36px auto 0;
+
+    margin: 30px auto 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #a8263c;
+    background: #6f1d2b;
+    border: 1px solid #551620;
 
-    color: #ffffff;
+    color: #fff;
 
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
+
     text-decoration: none;
 
     transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
+        transform .15s ease,
+        background .15s ease;
 }
+
 
 .record-main-button:hover {
     transform: translateY(-1px);
-    opacity: 0.96;
+    background: #5c1723;
 }
 
+
+/* 완료 결과 */
 .record-result-summary {
     margin-bottom: 28px;
-
-    text-align: left;
 }
+
 
 .record-result-summary h2 {
     margin: 0;
 
-    color: #f1ebe2;
+    color: #282522;
 
     font-family:
         "Noto Serif KR",
         "Gowun Batang",
         serif;
 
-    font-size: clamp(30px, 4vw, 52px);
+    font-size: clamp(30px, 4vw, 48px);
     font-weight: 700;
-    letter-spacing: -0.05em;
 }
+
 
 .record-result-character {
-    margin: 14px 0 0;
+    margin: 12px 0 0;
 
-    color: #b3aab5;
+    color: #6f6963;
 
-    font-size: 15px;
+    font-size: 14px;
 }
+
 
 .record-result-character strong {
     margin-left: 8px;
-    color: #d8c1a2;
+    color: #7a1e2d;
 }
 
+
+/* 결과 막대 */
 .record-bars {
     margin-top: 28px;
 }
+
 
 .record-bar-row {
     margin-top: 18px;
 }
 
+
 .record-bar-row:first-child {
     margin-top: 0;
 }
+
 
 .record-bar-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 10px;
+    margin-bottom: 9px;
 
-    color: #ddd7ce;
+    color: #4e4944;
 
-    font-size: 14px;
+    font-size: 13px;
 }
+
 
 .record-bar-top strong {
-    color: #f1ebe2;
+    color: #292624;
 }
+
 
 .record-bar-track {
     width: 100%;
-    height: 10px;
+    height: 8px;
 
     overflow: hidden;
 
-    background: #2d3038;
+    background: #ded8d0;
 }
+
 
 .record-bar-track span {
     display: block;
@@ -2304,34 +2310,36 @@ body.record-body {
     background:
         linear-gradient(
             90deg,
-            #d1c6b7 0%,
-            #8f7f68 100%
+            #6f1d2b 0%,
+            #9b7b42 100%
         );
 }
 
-.record-footer {
-    position: relative;
-    z-index: 1;
 
+/* 하단 */
+.record-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 16px;
 
-    margin: 44px 24px 0;
-    padding: 28px 0 6px;
+    margin: 42px 0 0;
+    padding: 24px 0 4px;
 
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid #bdb6ac;
 }
+
 
 .record-footer-note {
     margin: 0;
 
-    color: #8f8895;
+    color: #817b75;
 
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.6;
 }
+
+
 .record-roster-link {
     flex-shrink: 0;
 
@@ -2339,67 +2347,45 @@ body.record-body {
     align-items: center;
     justify-content: center;
 
-    min-height: 44px;
-    padding: 0 18px;
+    min-height: 42px;
+    padding: 0 16px;
 
-    background: rgba(255, 255, 255, 0.04);
+    background: transparent;
 
-    border:
-        1px solid
-        rgba(210, 195, 159, 0.25);
+    border: 1px solid #9b7b42;
 
-    color: #d2c39f;
+    color: #765f35;
 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    text-decoration: none;
-
-    transition:
-        background 0.15s ease,
-        border-color 0.15s ease;
 }
 
-.record-roster-link:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(210, 195, 159, 0.45);
-}
 
 .record-close-link {
     flex-shrink: 0;
 
-    color: #d2c39f;
+    color: #6f1d2b;
 
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
-    text-decoration: none;
 }
 
-.record-close-link:hover {
-    text-decoration: underline;
-}
 
+/* 모바일 */
 @media (max-width: 760px) {
+
     .record-page {
         width: calc(100% - 18px);
-        padding-top: 36px;
+        padding-top: 28px;
     }
 
     .record-sheet {
-        padding: 10px;
-    }
-
-    .record-sheet::before {
-        inset: 10px;
+        padding: 12px 18px 24px;
     }
 
     .record-sheet-header {
         flex-direction: column;
-        gap: 14px;
-        padding: 20px 14px 22px;
-    }
-
-    .record-title-wrap {
-        gap: 14px;
+        gap: 10px;
     }
 
     .record-confidential {
@@ -2407,63 +2393,31 @@ body.record-body {
         align-self: flex-end;
     }
 
-    .record-meta-line {
-        margin: 0 14px;
-        font-size: 10px;
-    }
-
     .record-profile {
-    grid-template-columns: 1fr;
-    gap: 28px;
-
-    margin: 24px 14px 0;
-}
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
 
     .record-photo-frame {
-        width: 150px;
-    }
-
-    .record-information {
-        width: 100%;
+        width: 145px;
     }
 
     .record-info-row {
-        grid-template-columns: 110px 1fr;
-        min-height: 82px;
+        grid-template-columns: 105px 1fr;
+        min-height: 74px;
     }
 
     .record-info-label {
-        font-size: 14px;
-    }
-
-    .record-info-value {
-        font-size: 26px;
-    }
-
-    .record-pending-panel,
-    .record-result-panel {
-        margin: 30px 14px 0;
-        padding: 28px 18px;
-    }
-
-    .record-pending-panel h2 {
-        font-size: 36px;
-    }
-
-    .record-main-button {
-        width: 100%;
-        min-height: 64px;
-        font-size: 17px;
+        font-size: 12px;
     }
 
     .record-footer {
-        flex-direction: column;
-        align-items: flex-start;
-
-        margin: 30px 14px 0;
-        padding-top: 20px;
+        flex-wrap: wrap;
     }
+
 }
+
+
 
 /* =========================================
    공동체 유형 결과 보고서
@@ -2471,249 +2425,340 @@ body.record-body {
 
 body.survey-result-body {
     min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at 14% 6%,
-            rgba(110, 23, 40, 0.15),
-            transparent 27%
-        ),
-        linear-gradient(
-            180deg,
-            #090b0f,
-            #101118
-        ) !important;
-
-    color: #eee8df;
+    background: #f4f4f2;
+    color: #2b2927;
 }
 
+
+/* 전체 결과 영역 */
 .profile-result-page {
-    width: min(900px, calc(100% - 30px));
+    width: min(680px, calc(100% - 28px));
     margin: 0 auto;
-    padding: 64px 0 100px;
+    padding: 42px 0 80px;
 }
 
+
+/* 결과지 본문 */
 .profile-result-sheet {
-    padding: clamp(25px, 5vw, 48px);
+    background: #ffffff;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(24, 21, 28, 0.98),
-            rgba(15, 14, 20, 0.99)
-        );
-
-    border:
-        1px solid
-        rgba(164, 126, 70, 0.35);
+    border: 1px solid #cbc7c1;
+    border-top: 4px solid #6f1d2b;
 
     box-shadow:
-        0 30px 80px
-        rgba(0, 0, 0, 0.4);
+        0 18px 45px rgba(0, 0, 0, .07);
+
+    padding: 26px 30px 32px;
 }
 
+
+/* 맨 위 문서 헤더 */
 .profile-result-header {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
 
-    padding-bottom: 22px;
+    padding-bottom: 18px;
 
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid #c9c5bf;
 }
 
-.profile-result-code,
-.profile-result-document {
+
+.profile-result-code {
     margin: 0;
+
+    color: #6f1d2b;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .17em;
+}
+
+
+.profile-result-document {
+    margin: 5px 0 0;
+
+    color: #8d857c;
 
     font-family: Arial, sans-serif;
     font-size: 9px;
-    letter-spacing: 0.17em;
+    letter-spacing: .14em;
 }
 
-.profile-result-code {
-    color: #c5a35e;
-    font-weight: 800;
-}
-
-.profile-result-document {
-    margin-top: 8px;
-    color: #7e7881;
-}
 
 .profile-result-header > span {
-    color: #b74354;
+    padding: 5px 8px;
 
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
+    border: 1px solid #9a783b;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .12em;
 }
 
+
+/* 결과 제목 */
 .profile-result-intro {
-    padding: 38px 0 34px;
+    padding: 32px 0 30px;
 
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid #d6d2cc;
 }
+
 
 .profile-result-owner {
-    margin: 0 0 13px;
+    margin: 0 0 9px;
 
-    color: #8f8991;
-    font-size: 12px;
+    color: #77716b;
+
+    font-size: 11px;
 }
+
 
 .profile-result-intro h1 {
     margin: 0;
+
+    color: #292624;
 
     font-family:
         "Noto Serif KR",
         "Gowun Batang",
         serif;
 
-    font-size: clamp(38px, 7vw, 68px);
-    line-height: 1.16;
-    letter-spacing: -0.06em;
+    font-size: clamp(30px, 7vw, 40px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -.04em;
 }
 
+
+/* 등장인물 */
 .profile-character-line {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 
-    margin-top: 22px;
-
-    color: #928b94;
-    font-size: 12px;
+    margin-top: 18px;
 }
 
-.profile-character-line strong {
-    color: #d3b98e;
 
-    font-family:
-        "Noto Serif KR",
-        serif;
-
-    font-size: 19px;
-}
-
-.profile-result-summary {
-    max-width: 650px;
-    margin: 19px 0 0;
-
-    color: #aaa3aa;
-
-    font-size: 14px;
-    line-height: 1.9;
-}
-
-.profile-score-section {
-    padding-top: 34px;
-}
-
-.profile-section-heading p {
-    margin: 0;
-
-    color: #a99068;
-
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-}
-
-.profile-section-heading h2 {
-    margin: 8px 0 0;
-
-    font-family:
-        "Noto Serif KR",
-        serif;
-
-    font-size: 24px;
-}
-
-.profile-score-list {
-    margin-top: 29px;
-}
-
-.profile-score-row {
-    margin-top: 24px;
-}
-
-.profile-score-row:first-child {
-    margin-top: 0;
-}
-
-.profile-score-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 20px;
-}
-
-.profile-score-label strong {
-    display: block;
-
-    color: #e5dfd6;
-    font-size: 13px;
-}
-
-.profile-score-label span {
-    display: block;
-
-    margin-top: 5px;
-
-    color: #77737a;
+.profile-character-line span {
+    color: #8b847c;
 
     font-size: 10px;
 }
 
-.profile-score-label b {
-    color: #d5c4a8;
-    font-size: 14px;
+
+.profile-character-line strong {
+    color: #6f1d2b;
+
+    font-family:
+        "Noto Serif KR",
+        serif;
+
+    font-size: 32px;
 }
 
-.profile-score-track {
-    height: 9px;
-    margin-top: 11px;
 
-    overflow: hidden;
+.profile-result-summary {
+    
 
-    background: #292c33;
+    padding-left: 6px;
+
+    border-left: 2px solid #9a783b;
+
+    color: #514c47;
+
+    font-size: 13px;
+    line-height: 1.8;
 }
 
-.profile-score-track span {
+
+/* 점수 영역 */
+
+
+.profile-section-heading > p {
+    margin: 0 0 7px;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+
+.profile-section-heading h2 {
+    margin: 0;
+
+    color: #2b2927;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 21px;
+}
+
+
+.profile-score-guide {
     display: block;
-    height: 100%;
 
-    background:
-        linear-gradient(
-            90deg,
-            #8f8069,
-            #d4c7b4
-        );
+    margin-top: 8px;
+
+    color: #8b847d;
+
+    font-size: 10px;
+    line-height: 1.6;
 }
 
-.other-profile-button {
-    width: 100%;
-    min-height: 60px;
-    margin-top: 40px;
 
-    background: transparent;
+/* T O A S 한 줄 */
 
-    border:
-        1px solid
-        rgba(211, 188, 148, 0.35);
 
-    color: #d8c8ad;
+.profile-score-code {
+    flex: 0 0 auto;
 
-    font: inherit;
-    font-size: 14px;
+    display: grid;
+    place-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    background: #f7f4ef;
+
+    border: 1px solid #b7afa5;
+
+    color: #6f1d2b;
+
+    font-family: Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+
+
+/* 버튼 영역 */
+.profile-action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+
+    padding-top: 26px;
+
+    border-top: 1px solid #d2cec8;
+}
+
+
+.other-profile-button,
+.profile-stats-button,
+.profile-share-button {
+    display: grid;
+    place-items: center;
+
+    min-height: 44px;
+    padding: 8px 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #9e978f;
+
+    color: #48433f;
+
+    text-decoration: none;
+
+    font-size: 11px;
     font-weight: 700;
 
     cursor: pointer;
+}
+
+
+.other-profile-button:hover,
+.profile-stats-button:hover,
+.profile-share-button:hover {
+    border-color: #6f1d2b;
+    color: #6f1d2b;
+}
+
+
+/* 하단 이동 */
+.profile-result-navigation {
+    display: grid;
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+
+.profile-result-primary-link,
+.profile-result-secondary-link {
+    display: grid;
+    place-items: center;
+
+    min-height: 48px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.profile-result-primary-link {
+    background: #6f1d2b;
+
+    border: 1px solid #561520;
+
+    color: #ffffff;
+}
+
+
+.profile-result-secondary-link {
+    background: transparent;
+
+    border: 1px solid #aaa39b;
+
+    color: #57514c;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .profile-result-page {
+        width: calc(100% - 20px);
+        padding: 20px 0 50px;
+    }
+
+    .profile-result-sheet {
+        padding: 20px 16px 24px;
+    }
+
+    .profile-result-header {
+        gap: 10px;
+    }
+
+    .profile-result-intro {
+        padding: 26px 0 24px;
+    }
+
+    .profile-result-intro h1 {
+        font-size: 30px;
+    }
+
+
+
+    .profile-action-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -3648,4 +3693,1620 @@ body.survey-stats-body {
     color: #aaa39a;
 
     font-size: 12px;
+}
+
+.existing-login-toggle {
+    margin-top: 22px;
+    text-align: center;
+}
+
+.existing-login-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #8f8992;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.existing-login-form {
+    display: none;
+    width: min(420px, 100%);
+    margin: 18px auto 0;
+}
+
+.existing-login-toggle.is-open .existing-login-form {
+    display: block;
+}
+
+.existing-login-form input {
+    width: 100%;
+    min-height: 52px;
+    box-sizing: border-box;
+    padding: 0 16px;
+    background: #111216;
+    border: 1px solid rgba(255,255,255,.12);
+    color: #eee8df;
+    font-size: 15px;
+}
+
+.existing-login-form .secondary-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.nickname-assignment {
+    margin-top: 42px;
+    text-align: center;
+}
+
+.nickname-assignment-label {
+    margin: 0 0 18px;
+    color: #8e8790;
+    font-size: 12px;
+    letter-spacing: .12em;
+}
+
+.suggested-nickname-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.suggested-nickname-value {
+    display: block;
+
+    color: #eee8df;
+    font-family: "Gowun Batang", serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(5px);
+
+    animation: nicknameReveal .8s ease forwards;
+}
+
+.nickname-assignment-note {
+    color: #77717a;
+    font-size: 11px;
+}
+
+.nickname-start-button {
+    width: min(320px, 100%);
+    min-height: 58px;
+    margin: 32px auto 0;
+}
+
+@keyframes nicknameReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* =========================
+   SALEM PAPER THEME
+========================= */
+
+body.roster-body {
+    margin: 0;
+    background: #ece8df;
+    color: #2b2927;
+    font-family: "Noto Serif KR", serif;
+}
+
+
+/* 전체 종이 영역 */
+.roster-page {
+    width: min(920px, calc(100% - 32px));
+    margin: 36px auto 70px;
+    background: #fbfaf6;
+
+    border: 1px solid #cfc8bc;
+
+    box-shadow:
+        0 18px 45px rgba(40, 34, 28, .12);
+
+    position: relative;
+}
+
+
+/* 종이 위쪽 얇은 버건디 선 */
+.roster-page::before {
+    content: "";
+    display: block;
+    height: 5px;
+    background: #6f1d2b;
+}
+
+
+/* =========================
+   상단 명부 영역
+========================= */
+
+.roster-heading {
+    padding: 58px 60px 52px;
+    text-align: center;
+    border-bottom: 1px solid #bdb6ab;
+}
+
+
+.roster-document-code {
+    margin: 0 0 20px;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: .22em;
+}
+
+
+.roster-heading h1 {
+    margin: 0;
+
+    color: #242220;
+
+    font-family: "Gowun Batang", serif;
+
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+
+    letter-spacing: -.03em;
+}
+
+
+.roster-description {
+    margin: 20px 0 0;
+
+    color: #6f6a65;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+.roster-total {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 7px;
+
+    margin-top: 28px;
+
+    color: #5e5954;
+    font-size: 13px;
+}
+
+
+.roster-total strong {
+    color: #6f1d2b;
+    font-size: 22px;
+}
+
+
+/* =========================
+   학생 등록 영역
+========================= */
+
+.student-access-section {
+    padding: 54px 60px 62px;
+}
+
+
+.access-title {
+    padding-bottom: 26px;
+    border-bottom: 1px solid #c9c2b8;
+}
+
+
+.section-code {
+    margin: 0 0 12px;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .18em;
+}
+
+
+.access-title h2 {
+    margin: 0;
+
+    color: #2a2826;
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+
+.access-title > p:last-child {
+    margin: 12px 0 0;
+
+    color: #77716b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   랜덤 닉네임
+========================= */
+
+.nickname-assignment {
+    margin-top: 44px;
+    text-align: center;
+}
+
+
+.nickname-assignment-label {
+    margin: 0 0 18px;
+
+    color: #817a72;
+
+    font-size: 11px;
+    letter-spacing: .12em;
+}
+
+
+.suggested-nickname-box {
+    position: relative;
+
+    padding: 32px 22px 30px;
+
+    border-top: 1px solid #867f76;
+    border-bottom: 1px solid #867f76;
+}
+
+
+/* 좌우 금색 작은 표시 */
+.suggested-nickname-box::before,
+.suggested-nickname-box::after {
+    content: "◆";
+
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #aa8a4a;
+    font-size: 7px;
+}
+
+.suggested-nickname-box::before {
+    left: 10px;
+}
+
+.suggested-nickname-box::after {
+    right: 10px;
+}
+
+
+.suggested-nickname-value {
+    display: block;
+
+    color: #282523;
+
+    font-family: "Gowun Batang", serif;
+
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 700;
+
+    letter-spacing: -.02em;
+}
+
+
+.nickname-assignment-note {
+    display: block;
+
+    margin-top: 12px;
+
+    color: #817b75;
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   시작 버튼
+========================= */
+
+.nickname-start-button {
+    width: min(320px, 100%);
+    min-height: 58px;
+
+    margin: 30px auto 0;
+
+    border: 1px solid #54141f;
+    background: #701e2c;
+
+    color: #fffaf3;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: .04em;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+}
+
+
+.nickname-start-button:hover {
+    background: #5d1723;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   기존 학생 로그인
+========================= */
+
+.existing-login-toggle {
+    margin-top: 28px;
+    text-align: center;
+}
+
+
+.existing-login-link {
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #6f6963;
+
+    font-family: "Noto Serif KR", serif;
+    font-size: 12px;
+
+    text-decoration: underline;
+    text-decoration-color: #a98a50;
+    text-underline-offset: 4px;
+
+    cursor: pointer;
+}
+
+
+.existing-login-form {
+    display: none;
+
+    width: min(380px, 100%);
+    margin: 20px auto 0;
+}
+
+
+.existing-login-toggle.is-open .existing-login-form {
+    display: block;
+}
+
+
+.existing-login-form input {
+    width: 100%;
+    min-height: 50px;
+
+    box-sizing: border-box;
+
+    padding: 0 14px;
+
+    background: #fffefa;
+
+    border: 1px solid #aaa39a;
+
+    color: #2c2926;
+
+    font-family: "Noto Serif KR", serif;
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.existing-login-form input:focus {
+    border-color: #6f1d2b;
+}
+
+
+.existing-login-form .secondary-button {
+    width: 100%;
+    min-height: 48px;
+
+    margin-top: 10px;
+
+    background: transparent;
+
+    border: 1px solid #6f1d2b;
+
+    color: #6f1d2b;
+}
+
+
+/* =========================
+   개인정보 안내
+========================= */
+
+.privacy-notice {
+    margin: 34px 0 0;
+
+    color: #979088;
+
+    font-size: 10px;
+    text-align: center;
+}
+
+
+/* =========================
+   상태 메시지
+========================= */
+
+.error-box,
+.success-box {
+    margin: 26px 0 0;
+    padding: 13px 16px;
+
+    background: transparent;
+
+    font-size: 12px;
+}
+
+
+.error-box {
+    border: 1px solid #8a2433;
+    color: #7a1e2d;
+}
+
+
+.success-box {
+    border: 1px solid #8c8275;
+    color: #5f5952;
+}
+
+/* 학생 등록 영역 - 종이 테마 강제 적용 */
+body.roster-body .student-access-section {
+    background: #fbfaf6 !important;
+    color: #2b2927 !important;
+}
+
+/* 안쪽 요소에는 별도 검정 배경 사용하지 않기 */
+body.roster-body .student-access-form,
+body.roster-body .nickname-assignment,
+body.roster-body .suggested-nickname-box,
+body.roster-body .existing-login-toggle {
+    background: transparent !important;
+}
+
+body.roster-body .student-access-section h2,
+body.roster-body .suggested-nickname-value {
+    color: #242220 !important;
+}
+
+body.roster-body .student-access-section p,
+body.roster-body .nickname-assignment-label,
+body.roster-body .nickname-assignment-note,
+body.roster-body .existing-login-link {
+    color: #6f6963 !important;
+}
+
+body.roster-body .section-code {
+    color: #9a783b !important;
+}
+
+.record-sheet::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(30, 30, 30, 0.025) 0,
+            rgba(30, 30, 30, 0.025) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(30, 30, 30, 0.018) 0,
+            rgba(30, 30, 30, 0.018) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 0, 0, 0.025),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 75% 70%,
+            rgba(0, 0, 0, 0.018),
+            transparent 20%
+        );
+
+    opacity: 0.8;
+}
+
+.survey-submit-wrap {
+    margin-top: 36px;
+    text-align: center;
+}
+
+.survey-submit-button {
+    width: 100%;
+    min-height: 54px;
+
+    background: #761f2e;
+    border: 1px solid #5e1824;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* 전체 페이지 */
+body.survey-body {
+    min-height: 100vh;
+    background: #f4f4f2;
+    color: #2b2927;
+}
+
+
+/* 가운데 좁은 세로형 */
+.survey-all-page {
+    width: min(620px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 42px 0 80px;
+}
+
+
+/* 제목 */
+.survey-all-header {
+    margin-bottom: 34px;
+    padding-bottom: 24px;
+
+    border-bottom: 1px solid #bdb8b1;
+}
+
+.survey-eyebrow {
+    margin: 0 0 10px;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.survey-all-header h1 {
+    margin: 0;
+
+    color: #242220;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(30px, 8vw, 42px);
+    font-weight: 700;
+    letter-spacing: -.04em;
+}
+
+.survey-all-header > p:last-child {
+    margin: 13px 0 0;
+
+    color: #736e68;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* 문항 카드 */
+.survey-question-block {
+    margin-top: 18px;
+    padding: 24px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #d0ccc6;
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, .035);
+}
+
+.survey-question-block:first-of-type {
+    margin-top: 0;
+}
+
+
+/* Q1, Q2... */
+.survey-question-number {
+    margin: 0 0 12px;
+
+    color: #7a1e2d;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+}
+
+
+/* 질문 */
+.survey-question-block h2 {
+    margin: 0 0 20px;
+
+    color: #292624;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.65;
+    letter-spacing: -.025em;
+}
+
+
+/* 선지 영역 */
+.survey-option-list {
+    display: grid;
+    gap: 8px;
+}
+
+
+.survey-option {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 56px;
+    padding: 10px 13px;
+
+    background: #fdfdfc;
+
+    border: 1px solid #cbc7c1;
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        border-color .15s ease,
+        transform .15s ease;
+}
+
+
+.survey-option:hover {
+    background: #faf8f5;
+    border-color: #9d9388;
+}
+
+
+/* 실제 radio 숨기기 */
+.survey-option input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* A B C D */
+.survey-option-marker {
+    display: grid;
+    place-items: center;
+
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid #9d978f;
+    border-radius: 50%;
+
+    color: #5f5a55;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+.survey-option-text {
+    color: #383431;
+
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+
+/* 선택된 선지 */
+.survey-option:has(input:checked) {
+    background: #fbf6f6;
+    border-color: #7a1e2d;
+}
+
+.survey-option:has(input:checked)
+.survey-option-marker {
+    background: #7a1e2d;
+    border-color: #7a1e2d;
+
+    color: #ffffff;
+}
+
+
+/* 제출 */
+.survey-submit-wrap {
+    margin-top: 32px;
+}
+
+.survey-submit-button {
+    width: 100%;
+    min-height: 54px;
+
+    background: #6f1d2b;
+    border: 1px solid #541620;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* 제출 확인 팝업 */
+.survey-confirm {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(40, 38, 35, .38);
+}
+
+.survey-confirm.is-open {
+    display: flex;
+}
+
+.survey-confirm-card {
+    width: min(400px, 100%);
+
+    padding: 30px 26px;
+
+    background: #ffffff;
+
+    border-top: 4px solid #6f1d2b;
+    border-left: 1px solid #c9c5bf;
+    border-right: 1px solid #c9c5bf;
+    border-bottom: 1px solid #c9c5bf;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .12);
+}
+
+.survey-confirm-kicker {
+    margin: 0 0 12px;
+
+    color: #9a783b;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.survey-confirm-card h2 {
+    margin: 0;
+
+    color: #292624;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 24px;
+}
+
+.survey-confirm-card > p:last-of-type {
+    margin: 14px 0 0;
+
+    color: #77716b;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.survey-confirm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+
+    margin-top: 24px;
+}
+
+.survey-confirm-cancel,
+.survey-confirm-submit {
+    min-height: 46px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.survey-confirm-cancel {
+    background: #ffffff;
+
+    border: 1px solid #9c958d;
+
+    color: #514c47;
+}
+
+.survey-confirm-submit {
+    background: #6f1d2b;
+
+    border: 1px solid #541620;
+
+    color: #ffffff;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .survey-all-page {
+        width: calc(100% - 24px);
+        padding: 28px 0 58px;
+    }
+
+    .survey-question-block {
+        margin-top: 14px;
+        padding: 20px 15px;
+    }
+
+    .survey-question-block h2 {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .survey-option {
+        grid-template-columns: 27px 1fr;
+        gap: 10px;
+
+        min-height: 52px;
+        padding: 9px 10px;
+    }
+
+    .survey-option-text {
+        font-size: 12px;
+        line-height: 1.55;
+    }
+}
+
+
+
+@media (max-width: 700px) {
+
+    .profile-result-hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+
+        padding: 24px 0 22px;
+    }
+
+    .profile-result-visual {
+        order: -1;
+        justify-content: center;
+    }
+
+    .profile-result-character-image {
+        max-width: 180px;
+    }
+}
+
+.profile-character-summary {
+    max-width: 420px;
+    margin: 10px 0 0;
+
+    color: #6d6761;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(18px);
+
+    transition:
+        opacity .65s ease,
+        transform .65s ease;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
+   결과 해석 리포트
+   ========================================= */
+
+
+/* 스크롤 등장 효과 */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(14px);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+/* =========================================
+   새로운 결과 리포트
+   ========================================= */
+
+.profile-paper-content {
+    padding: 0 14px 26px;
+}
+
+
+/* 이름 */
+.profile-paper-name {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+
+    padding: 10px 0 12px;
+
+    border-top: 1px solid #b98c94;
+    border-bottom: 1px solid #ddcfd1;
+
+    color: #211e1c;
+
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.profile-paper-name span {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.profile-paper-name strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+
+/* 당신은 / 결과명 */
+.profile-title-zone {
+    padding: 22px 0 12px;
+
+    text-align: center;
+}
+
+.profile-title-kicker {
+    margin: 0 0 8px;
+
+    color: #211e1c;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.profile-main-type {
+    margin: 0;
+
+    color: #181514;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(34px, 7vw, 54px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+}
+
+
+/* 캐릭터 이름 */
+.profile-character-name-wrap {
+    width: min(300px, 75%);
+    margin: 20px auto 0;
+    padding: 12px 0 11px;
+
+    border-top: 1px solid #c78a95;
+    border-bottom: 1px solid #c78a95;
+
+    text-align: center;
+}
+
+.profile-character-name {
+    display: block;
+
+    color: #7d1528;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* 한 줄 설명 */
+.profile-main-summary {
+    max-width: 560px;
+
+    margin: 24px auto 0;
+
+    color: #2b2725;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+
+/* 중앙 큰 사진 */
+.profile-main-photo-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    min-height: 360px;
+
+    margin-top: 18px;
+    padding-top: 10px;
+
+    border-bottom: 1px solid #b54d60;
+
+    overflow: hidden;
+}
+
+.profile-main-photo {
+    display: block;
+
+    width: auto;
+    max-width: 390px;
+    max-height: 430px;
+
+    margin: 0 auto;
+
+    object-fit: contain;
+}
+
+
+/* 점수 */
+.profile-new-score-section {
+    padding: 22px 34px 24px;
+    border-bottom: 1px solid #b54d60;
+    margin-bottom: 30px;
+}
+
+.profile-new-score-row {
+    display: grid;
+
+    grid-template-columns: 95px 1fr;
+
+    gap: 16px;
+    align-items: center;
+
+    margin: 10px 0;
+}
+
+.profile-new-score-label {
+    color: #24201e;
+
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-score-blocks {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 2px;
+
+    width: 100%;
+}
+
+.profile-score-block {
+    height: 21px;
+
+    background: #e8e4e0;
+}
+
+.profile-score-block.is-filled {
+    background: #aa4d62;
+}
+
+
+/* 마녀사냥 속 당신 */
+.profile-insight-panel {
+    margin: 6px 0 0;
+    padding: 19px 26px 20px;
+
+    border: 2px solid #8e1d31;
+    border-radius: 14px;
+
+    background: #fffaf9;
+}
+
+.profile-insight-panel h3 {
+    margin: 0 0 9px;
+
+    color: #82182c;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.profile-insight-panel p {
+    margin: 0;
+
+    color: #292523;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* 원형 3개 */
+/* =========================================
+   원형 3개 - 부채꼴 배치
+   ========================================= */
+
+.profile-triad-section {
+    position: relative;
+    isolation: isolate;
+
+    width: 100%;
+    max-width: 720px;
+    min-height: 430px;
+
+    margin: 56px auto 0;
+}
+
+
+.profile-triad-svg {
+    display: block !important;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 430px;
+
+    z-index: 0;
+
+    pointer-events: none;
+    overflow: visible;
+}
+
+
+.profile-triad-card {
+    z-index: 1;
+}
+
+/* 모바일 */
+@media (max-width: 700px) {
+
+    .profile-triad-section {
+        max-width: 100%;
+        min-height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .profile-triad-card {
+        position: relative;
+        inset: auto;
+
+        width: 190px;
+        height: 190px;
+        padding: 22px 18px 18px;
+    }
+
+    .profile-triad-strength,
+    .profile-triad-shaken,
+    .profile-triad-fear {
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        transform: none;
+    }
+
+    .profile-triad-strength::before,
+    .profile-triad-strength::after {
+        display: none;
+    }
+
+    .profile-triad-icon {
+        font-size: 22px;
+    }
+
+    .profile-triad-card h4 {
+        font-size: 13px;
+    }
+
+    .profile-triad-card p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+}
+
+/* 공연에서 */
+.profile-watch-panel {
+    margin-top: 54px;
+    padding: 20px 26px;
+
+    border: 2px solid #77716c;
+    border-radius: 11px;
+
+    background: #fffdf9;
+}
+
+.profile-watch-panel h4 {
+    margin: 0 0 8px;
+
+    color: #282421;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.profile-watch-panel p {
+    margin: 0;
+
+    color: #4b4541;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* 마지막 질문 */
+.profile-final-question {
+    margin-top: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    text-align: center;
+}
+
+.profile-final-question::before,
+.profile-final-question::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #a82f45;
+}
+
+.profile-final-question p {
+    margin: 0;
+
+    color: #8b1c30;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+    .profile-paper-content {
+        padding: 0 6px 20px;
+    }
+
+    .profile-character-name-wrap::before,
+    .profile-character-name-wrap::after {
+        width: 38px;
+        margin: 0 7px;
+    }
+
+    .profile-main-photo-section {
+        min-height: 300px;
+    }
+
+    .profile-main-photo {
+        max-width: 88%;
+        max-height: 370px;
+    }
+
+    .profile-new-score-section {
+        padding: 20px 6px 22px;
+    }
+
+    .profile-new-score-row {
+        grid-template-columns: 78px 1fr;
+        gap: 10px;
+    }
+
+    .profile-new-score-label {
+        font-size: 16px;
+    }
+
+    .profile-score-block {
+        height: 18px;
+    }
+
+    .profile-triad-section {
+        grid-template-columns: repeat(2, 145px);
+
+        column-gap: 16px;
+        row-gap: 28px;
+
+        margin-top: 44px;
+    }
+
+    .profile-triad-card {
+        width: 145px;
+        height: 145px;
+
+        padding: 16px;
+    }
+
+    .profile-triad-card h4 {
+        font-size: 12px;
+    }
+
+    .profile-triad-card p {
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .profile-watch-panel {
+        margin-top: 48px;
+    }
+
+    .profile-final-question {
+        margin-top: 42px;
+    }
+
+    .profile-final-question p {
+        font-size: 16px;
+    }
+}
+
+
+.profile-triad-section {
+    position: relative;
+
+    width: 100%;
+    max-width: 860px;
+    height: 360px;
+
+    margin: 56px auto 0;
+}
+
+
+.profile-triad-svg {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 320px;
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+.profile-triad-card {
+    position: absolute;
+
+    width: 195px;
+    height: 195px;
+
+    padding: 26px 22px;
+
+    border: 2px solid #9f2237;
+    border-radius: 50%;
+
+    background: #fffdfa;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+    z-index: 2;
+}
+
+
+/* 위 가운데 */
+.profile-triad-strength {
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+/* 왼쪽 아래 */
+.profile-triad-shaken {
+    left: 20px;
+    bottom: 150;
+}
+
+
+/* 오른쪽 아래 */
+.profile-triad-fear {
+    right: 20px;
+    bottom: 1500;
+}
+
+
+.profile-triad-icon {
+    margin-bottom: 10px;
+
+    color: #8d1e32;
+    font-size: 26px;
+}
+
+
+.profile-triad-card h4 {
+    margin: 0 0 10px;
+
+    color: #8d1e32;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.4;
+}
+
+
+.profile-triad-card h4::after {
+    content: "";
+
+    display: block;
+
+    width: 82px;
+    height: 1px;
+
+    margin: 8px auto 0;
+
+    background: #d7a0aa;
+}
+
+
+.profile-triad-card p {
+    margin: 6px 0 0;
+
+    color: #2c2725;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.profile-triad-section {
+    position: relative;
+
+    width: 100%;
+    max-width: 1040px;
+    height: 320px;
+
+    margin: 56px auto 0;
+}
+
+
+/* 모든 원 */
+.profile-triad-card {
+    position: absolute;
+
+    width: 205px;
+    height: 205px;
+
+    z-index: 2;
+}
+
+
+/* 위 가운데 */
+.profile-triad-strength {
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+/* 왼쪽 아래 */
+.profile-triad-shaken {
+    top: 120px;
+    left: -20px;
+
+    transform: none;
+}
+
+
+/* 오른쪽 아래 */
+.profile-triad-fear {
+    top: 120px;
+    right: -20px;
+
+    transform: none;
 }

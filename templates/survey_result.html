@@ -30,102 +30,151 @@ survey-result-body
                 </p>
             </div>
 
-            <span>
-                RECORDED
-            </span>
 
         </header>
+        
+        <section class="profile-paper-content">
 
-
-        <section class="profile-result-intro">
-
-            <p class="profile-result-owner">
-                {{ student.nickname }} 학생의 공동체 유형
-            </p>
-
-            <h1>
-                {{ student.result_type }}
-            </h1>
-
-            <div class="profile-character-line">
-                <span>
-                    유사 등장인물
-                </span>
-
-                <strong>
-                    {{ student.result_character }}
-                </strong>
-            </div>
-
-            {% if character_summary %}
-
-                <p class="profile-result-summary">
-                    {{ character_summary }}
-                </p>
-
-            {% endif %}
-
-        </section>
-
-
-        <!-- 네 가지 비율 -->
-        <section class="profile-score-section">
-
-            <div class="profile-section-heading">
-
-                <p>
-                    COMMUNITY PRIORITIES
-                </p>
-
-                <h2>
-                    공동체 판단 경향
-                </h2>
-
+            <!-- 이름 -->
+            <div class="profile-paper-name">
+                <span>NAME:</span>
+                <strong>{{ student.nickname }}</strong>
             </div>
 
 
-            <div class="profile-score-list">
+            <!-- 결과 유형 -->
+            <section class="profile-title-zone">
+
+                <p class="profile-title-kicker">
+                    당신은:
+                </p>
+
+                <h1 class="profile-main-type">
+                    {{ student.result_type }}
+                </h1>
+
+                <div class="profile-character-name-wrap">
+                    <strong class="profile-character-name">
+                        {{ student.result_character }}
+                    </strong>
+                </div>
+
+                {% if result_profile %}
+                    <p class="profile-main-summary">
+                        {{ result_profile.one_line }}
+                    </p>
+                {% endif %}
+
+            </section>
+
+
+            <!-- 캐릭터 사진 -->
+            <section class="profile-main-photo-section">
+
+                {% if student.result_character == "메어리" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/mary.png') }}"
+                        alt="메어리"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "프록터" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/proctor.png') }}"
+                        alt="프록터"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "자일스" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/giles.png') }}"
+                        alt="자일스"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "애비게일" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/abigail.png') }}"
+                        alt="애비게일"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "엘리자베스" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/elizabeth.png') }}"
+                        alt="엘리자베스"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "패리스" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/parris.png') }}"
+                        alt="패리스"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "치버&헤릭" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/cheever.png') }}"
+                        alt="치버&헤릭"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "댄포스" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/danforth.png') }}"
+                        alt="댄포스"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "헤일" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/hale.png') }}"
+                        alt="헤일"
+                        class="profile-main-photo"
+                    >
+
+                {% elif student.result_character == "레베카" %}
+                    <img
+                        src="{{ url_for('static', filename='characters/rebecca.png') }}"
+                        alt="레베카"
+                        class="profile-main-photo"
+                    >
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- 판단 경향 -->
+            <section class="profile-new-score-section">
 
                 {% for key, dimension in dimensions.items() %}
 
-                    <div class="profile-score-row">
+                    {% set score = student.result_scores.get(key, 0) %}
 
-                        <div class="profile-score-label">
+                    <div class="profile-new-score-row">
 
-                            <div>
-                                <strong>
-                                    {{ dimension.name }}
-                                </strong>
+                        <strong class="profile-new-score-label">
+                            {% if key == "T" %}
+                                Truth
+                            {% elif key == "O" %}
+                                Order
+                            {% elif key == "A" %}
+                                Action
+                            {% elif key == "S" %}
+                                Survival
+                            {% endif %}
+                        </strong>
 
-                                <span>
-                                    {{ dimension.description }}
-                                </span>
-                            </div>
+                        <div class="profile-score-blocks">
 
-                            <b>
-                                {{
-                                    student.result_scores.get(
-                                        key,
-                                        0
-                                    )
-                                }}%
-                            </b>
-
-                        </div>
-
-                        <div class="profile-score-track">
-
-                            <span
-                                style="
-                                    width:
-                                    {{
-                                        student.result_scores.get(
-                                            key,
-                                            0
-                                        )
-                                    }}%;
-                                "
-                            ></span>
+                            {% for number in range(1, 6) %}
+                                <span
+                                    class="profile-score-block
+                                    {% if number <= score %}is-filled{% endif %}"
+                                ></span>
+                            {% endfor %}
 
                         </div>
 
@@ -133,10 +182,90 @@ survey-result-body
 
                 {% endfor %}
 
-            </div>
+            </section>
+
+
+            {% if result_profile %}
+
+            <!-- 마녀사냥 속 당신 -->
+            <section class="profile-insight-panel">
+
+                <h3>
+                    ✦ 마녀사냥 속 당신:
+                </h3>
+
+                <p>
+                    {{ result_profile.summary }}
+                </p>
+
+            </section>
+
+
+            <!-- 원형 3개 -->
+            <section class="profile-triad-section">
+
+                <svg class="profile-triad-svg" viewBox="0 0 1040 320" preserveAspectRatio="none" aria-hidden="true"><line x1="455" y1="155" x2="250" y2="230" stroke="#b3263c" stroke-width="2"/><line x1="585" y1="155" x2="790" y2="230" stroke="#b3263c" stroke-width="2"/></svg>
+
+
+                <article class="profile-triad-card profile-triad-strength">
+
+                    
+
+                    <h4>
+                        당신의 힘
+                    </h4>
+
+                    <p>
+                        {{ result_profile.strength }}
+                    </p>
+
+                </article>
+
+
+                <article class="profile-triad-card profile-triad-shaken">
+
+                    
+
+                    <h4>
+                        당신이 흔들리는 순간
+                    </h4>
+
+                    <p>
+                        {{ result_profile.shaken }}
+                    </p>
+
+                </article>
+
+
+                <article class="profile-triad-card profile-triad-fear">
+
+                    
+
+                    <h4>
+                        당신이 가장 두려워하는 것
+                    </h4>
+
+                    <p>
+                        {{ result_profile.fear }}
+                    </p>
+
+                </article>
+
+            </section>
+
+
+            <!-- 마지막 질문 -->
+            <section class="profile-final-question">
+
+                <p>
+                    마녀사냥 상황에서, 당신은 어디에 서 있습니까?
+                </p>
+
+            </section>
+
+            {% endif %}
 
         </section>
-
 
         <div class="profile-action-row">
 
@@ -384,6 +513,35 @@ survey-result-body
 
     const copyMessage =
         document.getElementById("share-copy-message");
+    
+    const revealItems =
+    document.querySelectorAll(
+        ".reveal-on-scroll"
+    );
+
+    const revealObserver =
+        new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(
+                            "is-visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+                    }
+                });
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+    revealItems.forEach((item) => {
+        revealObserver.observe(item);
+    });
 
 
     openShareButton.addEventListener("click", () => {
