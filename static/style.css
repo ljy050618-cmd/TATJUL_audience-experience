@@ -4835,40 +4835,19 @@ body.survey-body {
     margin-bottom: 30px;
 }
 
-.profile-new-score-row {
-    display: grid;
 
-    grid-template-columns: 95px 1fr;
-
-    gap: 16px;
-    align-items: center;
-
-    margin: 10px 0;
-}
-
-.profile-new-score-label {
-    color: #24201e;
-
-    font-family: Georgia, serif;
-    font-size: 20px;
-    font-weight: 700;
-}
 
 .profile-score-blocks {
     display: grid;
-
     grid-template-columns: repeat(5, 1fr);
-
     gap: 2px;
+    height: 18px;
 
     width: 100%;
+    min-width: 0;
 }
 
-.profile-score-block {
-    height: 21px;
 
-    background: #e8e4e0;
-}
 
 .profile-score-block.is-filled {
     background: #aa4d62;
@@ -4912,38 +4891,7 @@ body.survey-body {
    원형 3개 - 부채꼴 배치
    ========================================= */
 
-.profile-triad-section {
-    position: relative;
-    isolation: isolate;
 
-    width: 100%;
-    max-width: 720px;
-    min-height: 430px;
-
-    margin: 56px auto 0;
-}
-
-
-.profile-triad-svg {
-    display: block !important;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 430px;
-
-    z-index: 0;
-
-    pointer-events: none;
-    overflow: visible;
-}
-
-
-.profile-triad-card {
-    z-index: 1;
-}
 
 /* 모바일 */
 @media (max-width: 700px) {
@@ -5051,8 +4999,7 @@ body.survey-body {
     background: #a82f45;
 }
 
-.profile-final-question p {
-    margin: 0;
+
 
     color: #8b1c30;
 
@@ -5098,12 +5045,9 @@ body.survey-body {
         gap: 10px;
     }
 
-    .profile-new-score-label {
-        font-size: 16px;
-    }
 
     .profile-score-block {
-        height: 18px;
+        height: 16px;
     }
 
     .profile-triad-section {
@@ -5139,23 +5083,26 @@ body.survey-body {
         margin-top: 42px;
     }
 
-    .profile-final-question p {
-        font-size: 16px;
-    }
+   
 }
 
+/* ================================
+   원 3개 영역
+   ================================ */
 
 .profile-triad-section {
     position: relative;
+    isolation: isolate;
 
     width: 100%;
-    max-width: 860px;
-    height: 360px;
+    max-width: 940px;
+    height: 350px;
 
-    margin: 56px auto 0;
+    margin: 10px auto 0;
 }
 
 
+/* 연결선 */
 .profile-triad-svg {
     position: absolute;
     inset: 0;
@@ -5163,20 +5110,21 @@ body.survey-body {
     display: block;
 
     width: 100%;
-    height: 320px;
+    height: 350px;
 
     z-index: 1;
     pointer-events: none;
+    overflow: visible;
 }
 
 
+/* 원 공통 */
 .profile-triad-card {
     position: absolute;
 
-    width: 195px;
-    height: 195px;
-
-    padding: 26px 22px;
+    width: 190px;
+    height: 190px;
+    padding: 18px 16px;
 
     border: 2px solid #9f2237;
     border-radius: 50%;
@@ -5189,7 +5137,6 @@ body.survey-body {
     align-items: center;
 
     text-align: center;
-
     box-sizing: border-box;
 
     z-index: 2;
@@ -5198,7 +5145,7 @@ body.survey-body {
 
 /* 위 가운데 */
 .profile-triad-strength {
-    top: 0;
+    top: 40px;
     left: 50%;
 
     transform: translateX(-50%);
@@ -5207,28 +5154,36 @@ body.survey-body {
 
 /* 왼쪽 아래 */
 .profile-triad-shaken {
-    left: 20px;
-    bottom: 150;
+    top: 160px;
+    left: 30px;
 }
 
 
 /* 오른쪽 아래 */
 .profile-triad-fear {
-    right: 20px;
-    bottom: 1500;
+    top: 160px;
+    right: 30px;
+    
 }
 
 
-.profile-triad-icon {
-    margin-bottom: 10px;
+/* 아이콘 */
+.profile-triad-icon-image {
+    display: block;
 
-    color: #8d1e32;
-    font-size: 26px;
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 7px;
+
+    object-fit: contain;
+    transform: translateY(-12px);
 }
 
 
+/* 원 제목 */
 .profile-triad-card h4 {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
 
     color: #8d1e32;
 
@@ -5236,15 +5191,15 @@ body.survey-body {
     font-size: 14px;
     font-weight: 900;
     line-height: 1.4;
+    transform: translateY(-16px);
 }
-
 
 .profile-triad-card h4::after {
     content: "";
 
     display: block;
 
-    width: 82px;
+    width: 160px;
     height: 1px;
 
     margin: 8px auto 0;
@@ -5253,60 +5208,180 @@ body.survey-body {
 }
 
 
+/* 원 설명 */
 .profile-triad-card p {
     margin: 6px 0 0;
 
     color: #2c2725;
 
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.6;
+    transform: translateY(-14px);
 }
 
-.profile-triad-section {
+
+/* 공연에서 */
+.profile-watch-panel {
+    margin-top: 54px;
+    padding: 20px 26px;
+
+    border: 2px solid #77716c;
+    border-radius: 11px;
+
+    background: #fffdf9;
+}
+
+
+/* 마지막 질문 */
+.profile-final-question {
     position: relative;
 
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 46px;
+
+    text-align: center;
+}
+
+.profile-final-question::before,
+.profile-final-question::after {
+    content: "";
+
+    flex: 1;
+    height: 1px;
+
+    background: #a82f45;
+}
+
+
+.profile-final-question p {
+    margin: 0;
+
+    color: #8b1c30;
+
+    font-family:
+        "Noto Serif KR",
+        "Gowun Batang",
+        serif;
+
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.profile-new-score-section {
+    margin-top: 30px;
+    padding: 20px 0 24px;
+}
+
+.profile-new-score-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+    column-gap: 24px;
+    margin-bottom: 14px;
+}
+
+.profile-new-score-label {
+    display: grid;
+    grid-template-columns: 92px 42px;
+    align-items: baseline;
+    column-gap: 22px;
+    white-space: nowrap;
+}
+
+.score-label-en {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: right;
+    color: #1f1b19;
+}
+
+.score-label-ko {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: left;
+    color: #6d655f;
+}
+
+.profile-score-blocks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    align-items: center;
+}
+
+.profile-score-block {
+    display: block;
     width: 100%;
-    max-width: 1040px;
-    height: 320px;
-
-    margin: 56px auto 0;
+    height: 18px;
+    background: #e7e2dd;
 }
 
-
-/* 모든 원 */
-.profile-triad-card {
-    position: absolute;
-
-    width: 205px;
-    height: 205px;
-
-    z-index: 2;
+.profile-score-block.is-filled {
+    background: #b5526a;
 }
 
+.profile-watch-panel {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    align-items: center;
+    gap: 18px;
 
-/* 위 가운데 */
-.profile-triad-strength {
-    top: 0;
-    left: 50%;
+    width: 100%;
+    margin: 38px auto 0;
+    padding: 18px 22px;
 
-    transform: translateX(-50%);
+    border: 1.5px solid #7f7a76;
+    background: #f5f4f2;
+
+    box-sizing: border-box;
 }
 
+.profile-watch-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-/* 왼쪽 아래 */
-.profile-triad-shaken {
-    top: 120px;
-    left: -20px;
+    min-height: 70px;
+    padding-right: 16px;
 
-    transform: none;
+    border-right: 1px solid #aaa39d;
 }
 
+.profile-watch-icon-image {
+    display: block;
 
-/* 오른쪽 아래 */
-.profile-triad-fear {
-    top: 120px;
-    right: -20px;
+    width: 80px;
+    height: 80px;
 
-    transform: none;
+    object-fit: contain;
+}
+
+.profile-watch-content h4 {
+    margin: 0 0 6px;
+
+    color: #282421;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.4;
+}
+
+.profile-watch-content p {
+    margin: 0;
+
+    color: #4a4541;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 12px;
+    line-height: 1.7;
 }

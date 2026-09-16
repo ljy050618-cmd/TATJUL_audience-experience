@@ -157,13 +157,17 @@ survey-result-body
 
                         <strong class="profile-new-score-label">
                             {% if key == "T" %}
-                                Truth
+                                <span class="score-label-en">Truth</span>
+                                <span class="score-label-ko">진실</span>
                             {% elif key == "O" %}
-                                Order
+                                <span class="score-label-en">Order</span>
+                                <span class="score-label-ko">질서</span>
                             {% elif key == "A" %}
-                                Action
+                                <span class="score-label-en">Action</span>
+                                <span class="score-label-ko">행동</span>
                             {% elif key == "S" %}
-                                Survival
+                                <span class="score-label-en">Survival</span>
+                                <span class="score-label-ko">생존</span>
                             {% endif %}
                         </strong>
 
@@ -209,7 +213,11 @@ survey-result-body
 
                 <article class="profile-triad-card profile-triad-strength">
 
-                    
+                    <img
+                        src="{{ url_for('static', filename='icons/strength.png') }}"
+                        alt=""
+                        class="profile-triad-icon-image"
+                    >
 
                     <h4>
                         당신의 힘
@@ -224,7 +232,11 @@ survey-result-body
 
                 <article class="profile-triad-card profile-triad-shaken">
 
-                    
+                    <img
+                        src="{{ url_for('static', filename='icons/shaken.png') }}"
+                        alt=""
+                        class="profile-triad-icon-image"
+                    >
 
                     <h4>
                         당신이 흔들리는 순간
@@ -239,7 +251,11 @@ survey-result-body
 
                 <article class="profile-triad-card profile-triad-fear">
 
-                    
+                    <img
+                        src="{{ url_for('static', filename='icons/fear.png') }}"
+                        alt=""
+                        class="profile-triad-icon-image"
+                    >
 
                     <h4>
                         당신이 가장 두려워하는 것
@@ -253,8 +269,41 @@ survey-result-body
 
             </section>
 
+            <section class="profile-watch-panel">
 
-            <!-- 마지막 질문 -->
+                <div class="profile-watch-icon-box">
+                    <img
+                        src="{{ url_for('static', filename='icons/mask.png') }}"
+                        alt=""
+                        class="profile-watch-icon-image"
+                    >
+                </div>
+
+                <div class="profile-watch-content">
+
+                    <h4>
+                        공연에서 {{ student.result_character }}를 보세요
+                    </h4>
+
+                    <p>
+                        {{ result_profile.watch }}
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- 마지막 질문 -->
             <section class="profile-final-question">
 
                 <p>
@@ -474,6 +523,11 @@ survey-result-body
         </article>
 
     </section>
+
+
+    
+
+
 
 
     <nav class="profile-result-navigation">
