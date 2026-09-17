@@ -92,13 +92,6 @@ survey-result-body
                         class="profile-main-photo"
                     >
 
-                {% elif student.result_character == "애비게일" %}
-                    <img
-                        src="{{ url_for('static', filename='characters/abigail.png') }}"
-                        alt="애비게일"
-                        class="profile-main-photo"
-                    >
-
                 {% elif student.result_character == "엘리자베스" %}
                     <img
                         src="{{ url_for('static', filename='characters/elizabeth.png') }}"
@@ -141,6 +134,15 @@ survey-result-body
                         class="profile-main-photo"
                     >
 
+                {% elif student.result_character == "에비게일" %}
+
+                    <img
+                        src="{{ url_for('static', filename='characters/abigail.png') }}"
+                        alt="애비게일"
+                        class="profile-main-photo"
+                    >
+
+                        
                 {% endif %}
 
             </section>
@@ -282,7 +284,7 @@ survey-result-body
                 <div class="profile-watch-content">
 
                     <h4>
-                        공연에서 {{ student.result_character }}를 보세요
+                        공연에서 {{ student.result_character }}{{ student.result_character|eul_reul }} 보세요
                     </h4>
 
                     <p>
@@ -307,7 +309,7 @@ survey-result-body
             <section class="profile-final-question">
 
                 <p>
-                    마녀사냥 상황에서, 당신은 어디에 서 있습니까?
+                    마녀사냥에서, 당신은 어디에 서 있습니까?
                 </p>
 
             </section>
@@ -440,6 +442,21 @@ survey-result-body
 
             <div class="profile-card-stage">
 
+
+                {% set character_images = {
+                        "프록터": ["proctor.jpg"],
+                        "자일스": ["giles.jpg"],
+                        "엘리자베스": ["elizabeth1.jpg", "elizabeth2.jpg"],
+                        "패리스": ["parris.jpg"],
+                        "치버&헤릭": ["cheever.jpg", "herrick.png"],
+                        "댄포스": ["danforth.jpg"],
+                        "헤일": ["hale.jpg"],
+                        "레베카": ["rebecca.jpg"],
+                        "애비게일": ["abigail1.jpg", "abigail2.jpg" ],
+                        "메어리": ["mary.jpg"],
+                    } %}
+
+
                 {% for profile in all_profiles %}
 
                     <button
@@ -451,34 +468,95 @@ survey-result-body
                         data-summary="{{ profile.summary }}"
                     >
 
-                        <span class="tarot-card-number">
-                            {{ "%02d" | format(loop.index) }}
-                        </span>
+                        <div class="student-id-card">
 
-                        <span class="tarot-card-symbol">
-                            S
-                        </span>
+                            <div class="student-id-top">
 
-                        <span class="tarot-card-divider"></span>
+                                <div class="student-id-header">
 
-                        <strong class="tarot-card-type">
-                            {{ profile.type }}
-                        </strong>
+                                    <img
+                                        src="{{ url_for('static', filename='salem_logo.png') }}"
+                                        alt="Salem Academy"
+                                        class="student-id-logo"
+                                    >
 
-                        <span class="tarot-card-character">
-                            {{ profile.character }}
-                        </span>
+                                    <div class="student-id-school">
+                                        <strong>SALEM ACADEMY</strong>
+                                        <span>STUDENT IDENTITY CARD</span>
+                                    </div>
 
-                        <span class="tarot-card-footer">
-                            SALEM ACADEMY
-                        </span>
+                                </div>
+                                <div class="student-id-photo-wrap">
+
+                                    {% set images = character_images.get(profile.character, []) %}
+
+                                    {% if images|length == 1 %}
+
+                                        <img
+                                            src="{{ url_for('static', filename='ID/' ~ images[0]) }}"
+                                            alt="{{ profile.character }}"
+                                            class="student-id-photo single-photo"
+                                        >
+
+                                    {% elif images|length >= 2 %}
+
+                                        <div class="student-id-photo-flip">
+
+                                            <div class="student-id-photo-face student-id-photo-front">
+                                                <img
+                                                    src="{{ url_for('static', filename='ID/' ~ images[0]) }}"
+                                                    alt="{{ profile.character }}"
+                                                    class="student-id-photo"
+                                                >
+                                            </div>
+
+                                            <div class="student-id-photo-face student-id-photo-back">
+                                                <img
+                                                    src="{{ url_for('static', filename='ID/' ~ images[1]) }}"
+                                                    alt="{{ profile.character }}"
+                                                    class="student-id-photo"
+                                                >
+                                            </div>
+
+                                        </div>
+
+                                    {% else %}
+
+                                        <div class="student-id-no-photo">
+                                            {{ profile.character }}
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+                                                                
+
+                            </div>
+
+
+                            <div class="student-id-bottom">
+
+                                <strong class="student-id-name">
+                                    {{ profile.character }}
+                                </strong>
+
+                                <span class="student-id-type">
+                                    {{ profile.type }}
+                                </span>
+
+                                <span class="student-id-code">
+                                    ID {{ "%04d" | format(loop.index) }}
+                                </span>
+
+                            </div>
+
+                        </div>
 
                     </button>
 
                 {% endfor %}
 
             </div>
-
 
             <button
                 id="profile-deck-next"
@@ -491,36 +569,214 @@ survey-result-body
 
         </div>
 
+        <!-- 가운데 선택된 카드 상세 설명 -->
+        <div id="selected-profile-detail-area">
 
-        <!-- 가운데 선택된 카드 설명 -->
-        <article
-            id="selected-profile-detail"
-            class="selected-profile-detail"
-        >
+            {% set main_character_images = {
+                "프록터": "characters/proctor.png",
+                "자일스": "characters/giles.png",
+                "애비게일": "characters/abigail.png",
+                "엘리자베스": "characters/elizabeth.png",
+                "메어리": "characters/mary.png",
+                "패리스": "characters/parris.png",
+                "치버&헤릭": "characters/cheever.png",
+                "댄포스": "characters/danforth.png",
+                "헤일": "characters/hale.png",
+                "레베카": "characters/rebecca.png"
+            } %}
 
-            <p class="selected-profile-label">
-                SELECTED ARCHETYPE
-            </p>
+            {% for profile in all_profiles %}
 
-            <h3 id="selected-profile-type">
-                {{ all_profiles[0].type }}
-            </h3>
+                <article
+                    class="selected-profile-full-detail {% if loop.first %}is-active{% endif %}"
+                    data-detail-index="{{ loop.index0 }}"
+                >
 
-            <p class="selected-profile-character">
-                유사 등장인물
-                <strong id="selected-profile-character">
-                    {{ all_profiles[0].character }}
-                </strong>
-            </p>
+                    <section class="profile-paper-content">
 
-            <p
-                id="selected-profile-summary"
-                class="selected-profile-summary"
-            >
-                {{ all_profiles[0].summary }}
-            </p>
+                        <!-- 결과 유형 -->
+                        <section class="profile-title-zone">
 
-        </article>
+                            <p class="profile-title-kicker">
+                                당신은:
+                            </p>
+
+                            <h1 class="profile-main-type">
+                                {{ profile.type }}
+                            </h1>
+
+                            <div class="profile-character-name-wrap">
+                                <strong class="profile-character-name">
+                                    {{ profile.character }}
+                                </strong>
+                            </div>
+
+                            {% if profile.one_line %}
+                                <p class="profile-main-summary">
+                                    {{ profile.one_line }}
+                                </p>
+                            {% endif %}
+
+                        </section>
+
+
+                        <!-- 캐릭터 사진 -->
+                        <section class="profile-main-photo-section">
+
+                            {% set main_image =
+                                main_character_images.get(profile.character)
+                            %}
+
+                            {% if main_image %}
+                                <img
+                                    src="{{ url_for('static', filename=main_image) }}"
+                                    alt="{{ profile.character }}"
+                                    class="profile-main-photo"
+                                >
+                            {% endif %}
+
+                        </section>
+
+
+                        <!-- 마녀사냥 속 당신 -->
+                        <section class="profile-insight-panel">
+
+                            <h3>
+                                ✦ 마녀사냥 속 당신:
+                            </h3>
+
+                            <p>
+                                {{ profile.summary }}
+                            </p>
+
+                        </section>
+
+
+                        <!-- 원형 3개 -->
+                        <section class="profile-triad-section">
+
+                            <svg
+                                class="profile-triad-svg"
+                                viewBox="0 0 1040 320"
+                                preserveAspectRatio="none"
+                                aria-hidden="true"
+                            >
+                                <line
+                                    x1="455"
+                                    y1="155"
+                                    x2="250"
+                                    y2="230"
+                                    stroke="#b3263c"
+                                    stroke-width="2"
+                                />
+
+                                <line
+                                    x1="585"
+                                    y1="155"
+                                    x2="790"
+                                    y2="230"
+                                    stroke="#b3263c"
+                                    stroke-width="2"
+                                />
+                            </svg>
+
+
+                            <article class="profile-triad-card profile-triad-strength">
+
+                                <img
+                                    src="{{ url_for('static', filename='icons/strength.png') }}"
+                                    alt=""
+                                    class="profile-triad-icon-image"
+                                >
+
+                                <h4>
+                                    당신의 힘
+                                </h4>
+
+                                <p>
+                                    {{ profile.strength }}
+                                </p>
+
+                            </article>
+
+
+                            <article class="profile-triad-card profile-triad-shaken">
+
+                                <img
+                                    src="{{ url_for('static', filename='icons/shaken.png') }}"
+                                    alt=""
+                                    class="profile-triad-icon-image"
+                                >
+
+                                <h4>
+                                    당신이 흔들리는 순간
+                                </h4>
+
+                                <p>
+                                    {{ profile.shaken }}
+                                </p>
+
+                            </article>
+
+
+                            <article class="profile-triad-card profile-triad-fear">
+
+                                <img
+                                    src="{{ url_for('static', filename='icons/fear.png') }}"
+                                    alt=""
+                                    class="profile-triad-icon-image"
+                                >
+
+                                <h4>
+                                    당신이 가장 두려워하는 것
+                                </h4>
+
+                                <p>
+                                    {{ profile.fear }}
+                                </p>
+
+                            </article>
+
+                        </section>
+
+
+                        <!-- 공연에서 보기 -->
+                        <section class="profile-watch-panel">
+
+                            <div class="profile-watch-icon-box">
+
+                                <img
+                                    src="{{ url_for('static', filename='icons/mask.png') }}"
+                                    alt=""
+                                    class="profile-watch-icon-image"
+                                >
+
+                            </div>
+
+                            <div class="profile-watch-content">
+
+                                <h4>
+                                    공연에서
+                                    {{ profile.character }}{{ profile.character|eul_reul }}
+                                    보세요
+                                </h4>
+
+                                <p>
+                                    {{ profile.watch }}
+                                </p>
+
+                            </div>
+
+                        </section>
+
+                    </section>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
 
     </section>
 
@@ -533,17 +789,17 @@ survey-result-body
     <nav class="profile-result-navigation">
 
         <a
-            href="{{ url_for('record') }}"
+            href="{{ url_for('students') }}"
             class="profile-result-primary-link"
         >
-            개인 기록지로 돌아가기
+            처음으로
         </a>
 
         <a
-            href="{{ url_for('roster') }}"
+            href="{{ url_for('record') }}"
             class="profile-result-secondary-link"
         >
-            재학생 명부
+            개인 기록지
         </a>
 
     </nav>
@@ -640,5 +896,49 @@ survey-result-body
         copyMessage.textContent =
             "링크가 복사되었습니다.";
     });
+
+    const profileCards =
+    document.querySelectorAll(".profile-tarot-card");
+
+    const detailPanels =
+        document.querySelectorAll(".selected-profile-full-detail");
+
+
+    function syncProfileDetail() {
+        let activeIndex = 0;
+
+        profileCards.forEach((card, index) => {
+            if (card.classList.contains("is-active")) {
+                activeIndex = index;
+            }
+        });
+
+        detailPanels.forEach((panel, index) => {
+            panel.classList.toggle(
+                "is-active",
+                index === activeIndex
+            );
+        });
+    }
+
+
+    const profileDeckObserver =
+        new MutationObserver(() => {
+            syncProfileDetail();
+        });
+
+
+    profileCards.forEach((card) => {
+        profileDeckObserver.observe(
+            card,
+            {
+                attributes: true,
+                attributeFilter: ["class"]
+            }
+        );
+    });
+
+
+syncProfileDetail();
 </script>
 {% endblock %}

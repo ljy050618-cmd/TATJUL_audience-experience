@@ -71,21 +71,10 @@
         </a>
 
 
-        {% if session.get("nickname") %}
-
-            <a
-                href="{{ url_for('record') }}"
-                class="header-link"
-            >
-                내 기록지
-            </a>
-
-        {% else %}
-
+        {% if not session.get("nickname") %}
             <span class="header-code">
                 EST. 1692
             </span>
-
         {% endif %}
 
     </header>
