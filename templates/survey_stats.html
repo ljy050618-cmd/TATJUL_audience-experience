@@ -20,7 +20,7 @@ survey-stats-body
         <header class="survey-stats-header">
 
             <p class="survey-stats-kicker">
-                SALEM COMMUNITY PROFILE
+                salem type profile
             </p>
 
             <h1>
@@ -45,6 +45,75 @@ survey-stats-body
             </strong>
 
         </div>
+
+        <div class="survey-stats-chart-wrap">
+
+            <div class="survey-stats-pie">
+
+                {% set start = namespace(value=0) %}
+
+                {% for item in statistics %}
+
+                    <div
+                        class="survey-stats-pie-slice"
+                        style="
+                            --start: {{ start.value }};
+                            --size: {{ item.percentage }};
+                            --index: {{ loop.index0 }};
+                        "
+                    ></div>
+
+                    {% set start.value = start.value + item.percentage %}
+
+                {% endfor %}
+
+                <div class="survey-stats-pie-center">
+                    <span>전체 분포</span>
+
+                    <strong>
+                        {{ completed_count }}
+                    </strong>
+
+                    <p>
+                        명 참여
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="survey-stats-pie-legend">
+
+                {% for item in statistics %}
+
+                    <div class="survey-stats-pie-legend-item">
+
+                        <span
+                            class="survey-stats-pie-dot"
+                            style="--index: {{ loop.index0 }};"
+                        ></span>
+
+                        <div>
+                            <strong>
+                                {{ item.type }}
+                            </strong>
+
+                            <span>
+                                {{ item.character }}
+                                ·
+                                {{ item.percentage }}%
+                            </span>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
 
 
         <div class="survey-stats-list">
@@ -103,6 +172,90 @@ survey-stats-body
             {% endfor %}
 
         </div>
+
+
+        <section class="survey-character-screen">
+
+            <div class="survey-character-screen-header">
+                <p>SALEM COMMUNITY DISTRIBUTION</p>
+
+                <h2>
+                    유형별 분포
+                </h2>
+
+                <span>
+                    학생들의 유형 비율을 등장인물로 비교해 보세요.
+                </span>
+            </div>
+
+
+            {% set chart_images = {
+                "프록터": "graph/proctor.png",
+                "자일스": "graph/giles.png",
+                "애비게일": "graph/abigail.png",
+                "엘리자베스": "graph/elizabeth.png",
+                "메어리": "graph/mary.png",
+                "패리스": "graph/parris.png",
+                "치버&헤릭": "graph/herrick.png",
+                "댄포스": "graph/danforth.png",
+                "헤일": "graph/hale.png",
+                "레베카": "graph/rebecca.png"
+            } %}
+
+
+            <div class="survey-character-chart">
+
+                <div class="survey-character-chart-y">
+                    <span>100%</span>
+                    <span>75%</span>
+                    <span>50%</span>
+                    <span>25%</span>
+                    <span>0%</span>
+                </div>
+
+
+                <div class="survey-character-chart-plot">
+
+                    {% for item in statistics %}
+
+                        <div class="survey-character-bar">
+
+                            <div
+                                class="survey-character-figure-wrap"
+                                style="height: {{ 32 + (item.percentage * 1.5) }}%;"
+                            >
+                                <img
+                                    src="{{ url_for('static', filename=chart_images[item.character]) }}"
+                                    alt="{{ item.character }}"
+                                    class="survey-character-figure"
+                                >
+                            </div>
+
+                            <div class="survey-character-label">
+
+                                <strong>
+                                    {{ item.type }}
+                                </strong>
+
+                                <span>
+                                    {{ item.character }}
+                                </span>
+
+                                <span class="survey-character-percent">
+                                    {{ item.percentage }}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
 
 
         <footer class="survey-stats-footer">
