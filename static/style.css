@@ -553,10 +553,6 @@ button {
 
 /* 명부 제목 */
 
-.roster-heading {
-    margin-bottom: 36px;
-    text-align: center;
-}
 
 .roster-document-code {
     margin: 0 0 15px;
@@ -3129,7 +3125,7 @@ body.roster-body {
 
     font-family: "Gowun Batang", serif;
 
-    font-size: clamp(36px, 5vw, 56px);
+    font-size: clamp(32px, 5vw, 52px);
     font-weight: 700;
 
     letter-spacing: -.03em;
