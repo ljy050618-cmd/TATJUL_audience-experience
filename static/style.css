@@ -6083,7 +6083,7 @@ body.survey-stats-body {
     .profile-action-row {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 3px !important;
+        gap: 2px !important;
 
         width: 100% !important;
         margin: 0 !important;
@@ -6093,8 +6093,8 @@ body.survey-stats-body {
     .other-profile-button,
     .profile-stats-button,
     .profile-share-button {
-        width: 100% !important;
-        max-width: none !important;
+        width: 60% !important;
+        max-width: 60% !important;
         min-width: 0 !important;
 
         height: 54px !important;
