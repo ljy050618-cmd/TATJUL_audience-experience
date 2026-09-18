@@ -5628,26 +5628,6 @@ body.survey-stats-body {
 }
 
 
-/* 모바일 */
-
-@media (max-width: 750px) {
-
-    .survey-stats-chart-wrap {
-        grid-template-columns: 1fr;
-        gap: 22px;
-    }
-
-    .survey-stats-pie {
-        width: 190px;
-        height: 190px;
-    }
-
-    .survey-stats-pie-legend {
-        grid-template-columns: 1fr;
-    }
-
-}
-
 
 /* =========================================
    두 번째 화면 - 캐릭터 분포
