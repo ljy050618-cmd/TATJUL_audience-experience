@@ -1974,40 +1974,7 @@ body.survey-result-body {
 
 
 /* 버튼 영역 */
-/*.profile-action-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
 
-    padding-top: 26px;
-
-    border-top: 1px solid #d2cec8;
-}
-
-
-.other-profile-button,
-.profile-stats-button,
-.profile-share-button {
-    display: grid;
-    place-items: center;
-
-    min-height: 44px;
-    padding: 8px 10px;
-
-    background: #ffffff;
-
-    border: 1px solid #9e978f;
-
-    color: #48433f;
-
-    text-decoration: none;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    cursor: pointer;
-}
-*/
 
 .other-profile-button:hover,
 .profile-stats-button:hover,
