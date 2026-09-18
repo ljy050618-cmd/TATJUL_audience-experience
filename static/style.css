@@ -6002,11 +6002,6 @@ body.survey-stats-body {
 }
 
 
-/* 모바일용 선은 기본적으로 숨김 */
-.profile-triad-svg-mobile {
-    display: none;
-}
-
 @media (max-width: 600px) {
 
     .profile-triad-section {
