@@ -4632,6 +4632,7 @@ body.survey-body {
 
 
 .student-id-school span {
+    white-space: nowrap;
     display: block;
 
     margin-top: 3px;
@@ -6059,5 +6060,14 @@ body.survey-stats-body {
         font-size: 13px !important;
         line-height: 1.2 !important;
         white-space: nowrap !important;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .student-id-photo-wrap > .single-photo,
+    .student-id-photo-face img {
+        object-position: center 60%;
     }
 }
