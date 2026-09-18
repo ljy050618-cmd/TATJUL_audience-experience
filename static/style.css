@@ -6081,25 +6081,29 @@ body.survey-stats-body {
 @media (max-width: 600px) {
 
     .profile-action-row {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 4px;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 3px !important;
 
-        width: 100%;
-        padding-top: 18px;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 18px 0 !important;
     }
 
     .other-profile-button,
     .profile-stats-button,
     .profile-share-button {
-        width: 100%;
-        min-width: 0;
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
 
-        padding: 12px 2px;
+        height: 54px !important;
 
-        font-size: 10px;
-        line-height: 1.2;
+        padding: 0 2px !important;
 
-        white-space: nowrap;
+        font-size: 10px !important;
+        line-height: 1.1 !important;
+
+        white-space: nowrap !important;
     }
 }
