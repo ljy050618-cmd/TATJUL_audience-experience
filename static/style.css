@@ -6050,7 +6050,7 @@ body.survey-stats-body {
 
 
     .profile-triad-strength {
-        top: 20;
+        top: 30px;
         left: 50%;
 
         transform: translateX(-50%);
