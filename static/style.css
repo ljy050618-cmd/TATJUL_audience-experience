@@ -6071,3 +6071,17 @@ body.survey-stats-body {
         object-position: center 60%;
     }
 }
+
+@media (max-width: 600px) {
+
+    .student-id-header {
+        grid-template-columns: 36px 1fr;
+        gap: 8px;
+    }
+
+    .student-id-school span {
+        white-space: nowrap;
+        font-size: 6px;
+        letter-spacing: 0.08em;
+    }
+}
