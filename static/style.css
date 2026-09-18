@@ -1789,8 +1789,6 @@ body.survey-result-body {
     gap: 20px;
 
     padding-bottom: 18px;
-
-    border-bottom: 1px solid #c9c5bf;
 }
 
 
@@ -3932,8 +3930,8 @@ body.survey-body {
     padding: 12px 0 13px;
 
     border-top: none;
-     border-top: 2px solid #8f5963;
-    border-bottom: 1px solid #d8c8cb;
+    border-top: 2px solid #8f5963;
+    
 
     color: #211e1c;
 
@@ -4539,8 +4537,7 @@ body.survey-body {
 
     padding: 12px 0 13px;
 
-    border-top: none;
-     border-top: 2px solid #8f5963;
+    border-top: 2px solid #8f5963;
     border-bottom: 1px solid #d8c8cb;
 
     color: #211e1c;
