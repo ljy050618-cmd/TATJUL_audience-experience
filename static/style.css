@@ -6045,7 +6045,7 @@ body.survey-stats-body {
 
 
     .profile-triad-strength {
-        top: 30px;
+        top: 20px;
         left: 50%;
 
         right: auto;
@@ -6056,7 +6056,7 @@ body.survey-stats-body {
 
 
     .profile-triad-shaken {
-        top: 105px;
+        top: 95px;
         left: 0;
 
         right: auto;
@@ -6067,7 +6067,7 @@ body.survey-stats-body {
 
 
     .profile-triad-fear {
-        top: 105px;
+        top: 95px;
         right: 0;
 
         left: auto;
