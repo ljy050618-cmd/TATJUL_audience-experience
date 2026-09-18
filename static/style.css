@@ -1974,7 +1974,7 @@ body.survey-result-body {
 
 
 /* 버튼 영역 */
-.profile-action-row {
+/*.profile-action-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
@@ -2007,7 +2007,7 @@ body.survey-result-body {
 
     cursor: pointer;
 }
-
+*/
 
 .other-profile-button:hover,
 .profile-stats-button:hover,
