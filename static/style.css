@@ -6115,25 +6115,21 @@ body.survey-stats-body {
 @media (max-width: 600px) {
 
     .profile-action-row {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 3px !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 4px !important;
 
         width: 100% !important;
         max-width: 100% !important;
 
         margin: 0 !important;
-        padding: 16px 3px !important;
+        padding: 18px 4px !important;
 
         box-sizing: border-box !important;
     }
 
-    .profile-action-row > a,
-    .profile-action-row > button,
-    .profile-action-row > form {
-        flex: 1 1 0 !important;
-
-        width: 0 !important;
+    .profile-action-row > * {
+        width: 100% !important;
         min-width: 0 !important;
         max-width: none !important;
 
@@ -6142,15 +6138,19 @@ body.survey-stats-body {
         box-sizing: border-box !important;
     }
 
-    .profile-action-row > a,
-    .profile-action-row > button,
-    .profile-action-row > form button {
-        width: 100% !important;
+    .profile-action-row a,
+    .profile-action-row button {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
 
-        padding: 13px 1px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+
+        padding: 14px 1px !important;
 
         font-size: 10px !important;
-        line-height: 1.2 !important;
+        line-height: 1.1 !important;
 
         white-space: nowrap !important;
 
