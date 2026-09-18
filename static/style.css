@@ -6112,7 +6112,7 @@ body.survey-stats-body {
 
 @media (max-width: 600px) {
     .profile-final-question p {
-        font-size: 9px;
+        font-size: 7px;
         line-height: 1.4;
         white-space: nowrap;
     }
