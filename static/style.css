@@ -6012,3 +6012,78 @@ body.survey-stats-body {
         box-sizing: border-box !important;
     }
 }
+
+@media (max-width: 600px) {
+
+    .profile-triad-section {
+        position: relative;
+        width: 100%;
+        max-width: 340px;
+        height: 280px;
+        margin: 24px auto 0;
+        display: block;
+    }
+
+    .profile-triad-svg-mobile {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 280px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .profile-triad-card {
+        position: absolute;
+        width: 112px;
+        height: 112px;
+        padding: 9px 8px;
+        border-width: 1.5px;
+        z-index: 2;
+    }
+
+    .profile-triad-strength {
+        top: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .profile-triad-shaken {
+        top: 145px;
+        left: 14px;
+        transform: none;
+    }
+
+    .profile-triad-fear {
+        top: 145px;
+        right: 14px;
+        transform: none;
+    }
+
+    .profile-triad-icon-image {
+        width: 27px;
+        height: 27px;
+        margin: 0 auto 1px;
+        transform: translateY(-3px);
+    }
+
+    .profile-triad-card h4 {
+        margin: 0 0 2px;
+        font-size: 9px;
+        line-height: 1.2;
+        transform: translateY(-3px);
+    }
+
+    .profile-triad-card h4::after {
+        width: 68px;
+        margin: 3px auto 0;
+    }
+
+    .profile-triad-card p {
+        margin: 1px 0 0;
+        font-size: 7.5px;
+        line-height: 1.3;
+        transform: translateY(-2px);
+    }
+}
