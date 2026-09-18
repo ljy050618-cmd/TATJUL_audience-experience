@@ -4295,20 +4295,6 @@ body.survey-body {
 }
 
 
-/* 연결선 */
-.profile-triad-svg {
-    position: absolute;
-    inset: 0;
-
-    display: block;
-
-    width: 100%;
-    height: 350px;
-
-    z-index: 1;
-    pointer-events: none;
-    overflow: visible;
-}
 
 
 /* 원 공통 */
@@ -6004,6 +5990,21 @@ body.survey-stats-body {
     font-weight: 900;
 }
 
+ .profile-triad-svg {
+        position: absolute;
+        inset: 0;
+
+        display: block;
+
+        width: 100%;
+        height: 280px;
+
+        z-index: 1;
+        pointer-events: none;
+    }
+
+
+
 @media (max-width: 600px) {
 
     .profile-triad-section {
@@ -6019,11 +6020,12 @@ body.survey-stats-body {
     }
 
 
-    .profile-triad-svg {
+
+    .profile-triad-svg-mobile {
+        display: block;
+
         position: absolute;
         inset: 0;
-
-        display: block;
 
         width: 100%;
         height: 280px;
@@ -6031,7 +6033,7 @@ body.survey-stats-body {
         z-index: 1;
         pointer-events: none;
     }
-
+}
 
     .profile-triad-card {
         position: absolute;
@@ -6130,7 +6132,7 @@ body.survey-stats-body {
     }
 
     .profile-action-row > * {
-        min-width: 110px;
+        min-width: 20px;
 
         padding: 14px 8px;
 
@@ -6142,3 +6144,5 @@ body.survey-stats-body {
         box-sizing: border-box;
     }
 }
+
+
