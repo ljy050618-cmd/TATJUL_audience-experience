@@ -5973,8 +5973,8 @@ body.survey-stats-body {
 @media (max-width: 600px) {
 
     .profile-action-row {
-        display: flex !important;
-        flex-direction: column !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
 
         gap: 10px !important;
 
@@ -5987,33 +5987,27 @@ body.survey-stats-body {
         box-sizing: border-box !important;
     }
 
-    .profile-action-row > * {
+    .other-profile-button,
+    .profile-stats-button,
+    .profile-share-button {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
         width: 100% !important;
         max-width: 100% !important;
         min-width: 0 !important;
 
-        margin: 0 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    .other-profile-button,
-    .profile-stats-button,
-    .profile-share-button {
-        width: 100% !important;
-
+        height: 52px !important;
         min-height: 52px !important;
 
+        margin: 0 !important;
         padding: 0 14px !important;
 
         font-size: 13px !important;
         line-height: 1.2 !important;
 
         white-space: nowrap !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
 
         box-sizing: border-box !important;
     }
