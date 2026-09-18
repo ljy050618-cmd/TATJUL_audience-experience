@@ -6121,10 +6121,4 @@ body.survey-stats-body {
 
         transform: translateY(-2px);
     }
-
-    .profile-final-question p {
-        font-size: 12px !important;
-        white-space: nowrap !important;
-        line-height: 1.2 !important;
-    }
 }
