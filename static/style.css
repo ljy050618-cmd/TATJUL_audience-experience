@@ -2995,7 +2995,7 @@ body.survey-stats-body {
 
     color: #eee8df;
     font-family: "Gowun Batang", serif;
-    font-size: clamp(24px, 4vw, 38px);
+    font-size: clamp(20px, 2.6vw, 28px);
     font-weight: 700;
 
     opacity: 0;
