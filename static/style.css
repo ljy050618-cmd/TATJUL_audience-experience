@@ -6012,7 +6012,25 @@ body.survey-stats-body {
 
         margin: 24px auto 0;
 
-        display: block;
+    }
+
+    .profile-triad-svg {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 350px;
+
+    z-index: 1;
+    pointer-events: none;
+    overflow: visible;
+}
+
+    /* 모바일용 선은 PC에서 숨김 */
+    .profile-triad-svg-mobile {
+        display: none;
     }
 
     /* 모바일용 선 */
