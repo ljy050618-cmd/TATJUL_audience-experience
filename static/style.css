@@ -3232,7 +3232,7 @@ body.roster-body {
 
     font-family: "Gowun Batang", serif;
 
-    font-size: clamp(30px, 4vw, 42px);
+    font-size: clamp(26px, 2.6vw, 30px);
     font-weight: 700;
 
     letter-spacing: -.02em;
