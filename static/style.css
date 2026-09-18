@@ -6113,3 +6113,38 @@ body.survey-stats-body {
         transform: translateY(-3px);
     }
 }
+
+@media (max-width: 600px) {
+
+    .main-profile-triad {
+        position: relative;
+        width: 340px;
+        max-width: 100%;
+        height: 270px;
+        margin: 24px auto 0;
+    }
+
+    .main-profile-triad .profile-triad-strength {
+        top: 30px;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translateX(-50%);
+    }
+
+    .main-profile-triad .profile-triad-shaken {
+        top: 145px;
+        left: 10px;
+        right: auto;
+        bottom: auto;
+        transform: none;
+    }
+
+    .main-profile-triad .profile-triad-fear {
+        top: 145px;
+        right: 10px;
+        left: auto;
+        bottom: auto;
+        transform: none;
+    }
+}
