@@ -5958,194 +5958,84 @@ body.survey-stats-body {
 }
 
 
-
-@media (max-width: 600px) {
-
-    .profile-action-row {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-
-        gap: 10px !important;
-
-        width: 100% !important;
-        max-width: 100% !important;
-
-        margin: 0 !important;
-        padding: 18px 0 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    .other-profile-button,
-    .profile-stats-button,
-    .profile-share-button {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-
-        height: 52px !important;
-        min-height: 52px !important;
-
-        margin: 0 !important;
-        padding: 0 14px !important;
-
-        font-size: 13px !important;
-        line-height: 1.2 !important;
-
-        white-space: nowrap !important;
-
-        box-sizing: border-box !important;
-    }
-}
-
 @media (max-width: 600px) {
 
     .profile-triad-section {
         position: relative;
-
         width: 100%;
         max-width: 360px;
-        height: 240px;
-
+        height: 260px;
         margin: 18px auto 0;
-
         display: block;
     }
-
 
     .profile-triad-svg {
         display: block;
-
         position: absolute;
         inset: 0;
-
         width: 100%;
-        height: 240px;
-
+        height: 260px;
         z-index: 1;
         pointer-events: none;
+        overflow: visible;
     }
-
 
     .profile-triad-card {
         position: absolute;
-
         width: 115px;
         height: 115px;
-
         padding: 10px 9px;
-
         border-width: 1.5px;
-
         z-index: 2;
     }
 
-
     .profile-triad-strength {
-        top: 20px;
+        top: 25px;
         left: 50%;
-
         right: auto;
         bottom: auto;
-
         transform: translateX(-50%);
     }
 
-
     .profile-triad-shaken {
-        top: 95px;
+        top: 135px;
         left: 0;
-
         right: auto;
         bottom: auto;
-
         transform: none;
     }
-
 
     .profile-triad-fear {
-        top: 95px;
+        top: 135px;
         right: 0;
-
         left: auto;
         bottom: auto;
-
         transform: none;
     }
-
 
     .profile-triad-icon-image {
         width: 32px;
         height: 32px;
-
         margin: 0 auto 3px;
-
         transform: translateY(-5px);
     }
-
 
     .profile-triad-card h4 {
         margin: 0 0 3px;
-
         font-size: 10px;
         line-height: 1.25;
-
         transform: translateY(-5px);
     }
 
-
     .profile-triad-card h4::after {
         width: 78px;
-
         margin: 4px auto 0;
     }
 
-
     .profile-triad-card p {
         margin: 1px 0 0;
-
         font-size: 8px;
         line-height: 1.35;
-
         transform: translateY(-3px);
-    }
-}
-
-@media (max-width: 600px) {
-
-    .main-profile-triad {
-        position: relative;
-        width: 340px;
-        max-width: 100%;
-        height: 270px;
-        margin: 24px auto 0;
-    }
-
-    .main-profile-triad .profile-triad-strength {
-        top: 30px;
-        left: 50%;
-        right: auto;
-        bottom: auto;
-        transform: translateX(-50%);
-    }
-
-    .main-profile-triad .profile-triad-shaken {
-        top: 145px;
-        left: 10px;
-        right: auto;
-        bottom: auto;
-        transform: none;
-    }
-
-    .main-profile-triad .profile-triad-fear {
-        top: 145px;
-        right: 10px;
-        left: auto;
-        bottom: auto;
-        transform: none;
     }
 }
