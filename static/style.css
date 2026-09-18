@@ -6068,7 +6068,7 @@ body.survey-stats-body {
 
     .student-id-photo-wrap > .single-photo,
     .student-id-photo-face img {
-        object-position: center 95%;
+        object-position: center 60%;
     }
 }
 
