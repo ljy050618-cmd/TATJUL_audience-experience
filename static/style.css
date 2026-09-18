@@ -6114,34 +6114,38 @@ body.survey-stats-body {
 /* ===== 모바일 최종 보정 - 반드시 CSS 맨 마지막 ===== */
 @media (max-width: 600px) {
 
-    /* 마지막 질문 */
-    .profile-final-question p {
-        font-size: 8px !important;
-        line-height: 1.25 !important;
-        white-space: nowrap !important;
-    }
-
-
-    /* 하단 버튼 3개 */
-
     .profile-action-row {
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-
-        gap: 2px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 3px !important;
 
         width: 100% !important;
         max-width: 100% !important;
 
         margin: 0 !important;
-        padding: 16px 2px !important;
+        padding: 16px 3px !important;
 
-        box-sizing: border-box;
+        box-sizing: border-box !important;
     }
 
-    .profile-action-row > * {
-        width: 100% !important;
+    .profile-action-row > a,
+    .profile-action-row > button,
+    .profile-action-row > form {
+        flex: 1 1 0 !important;
+
+        width: 0 !important;
         min-width: 0 !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .profile-action-row > a,
+    .profile-action-row > button,
+    .profile-action-row > form button {
+        width: 100% !important;
 
         padding: 13px 1px !important;
 
@@ -6150,6 +6154,6 @@ body.survey-stats-body {
 
         white-space: nowrap !important;
 
-        box-sizing: border-box;
+        box-sizing: border-box !important;
     }
 }
