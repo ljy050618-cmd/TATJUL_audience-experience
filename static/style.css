@@ -2083,12 +2083,11 @@ body.survey-result-body {
         font-size: 30px;
     }
 
-
-
-    .profile-action-row {
-        grid-template-columns: 1fr;
-    }
 }
+
+
+
+
 
 
 /* 카드 덱 */
@@ -2788,13 +2787,6 @@ body.survey-stats-body {
     }
 }
 
-.profile-action-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    margin-top: 55px;
-}
 
 .profile-action-row .other-profile-button,
 .profile-action-row .profile-stats-button {
@@ -2842,32 +2834,6 @@ body.survey-stats-body {
 
 }
 
-.profile-action-row .other-profile-button,
-.profile-action-row .profile-stats-button,
-.profile-action-row .profile-share-button {
-    width: 250px;
-    height: 70px;
-    min-height: 0;
-    margin: 0;
-    padding: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-sizing: border-box;
-
-    border: 1px solid rgba(200, 176, 125, 0.45);
-    background: transparent;
-
-    color: #d7c9a7;
-
-    font-size: 18px;
-    font-weight: 600;
-
-    text-decoration: none;
-    cursor: pointer;
-}
 
 .share-popup {
     position: fixed;
@@ -6115,45 +6081,25 @@ body.survey-stats-body {
 @media (max-width: 600px) {
 
     .profile-action-row {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 4px !important;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
 
-        width: 100% !important;
-        max-width: 100% !important;
-
-        margin: 0 !important;
-        padding: 18px 4px !important;
-
-        box-sizing: border-box !important;
+        width: 100%;
+        padding-top: 18px;
     }
 
-    .profile-action-row > * {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: none !important;
+    .other-profile-button,
+    .profile-stats-button,
+    .profile-share-button {
+        width: 100%;
+        min-width: 0;
 
-        margin: 0 !important;
+        padding: 12px 2px;
 
-        box-sizing: border-box !important;
-    }
+        font-size: 10px;
+        line-height: 1.2;
 
-    .profile-action-row a,
-    .profile-action-row button {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        width: 100% !important;
-        min-width: 0 !important;
-
-        padding: 14px 1px !important;
-
-        font-size: 10px !important;
-        line-height: 1.1 !important;
-
-        white-space: nowrap !important;
-
-        box-sizing: border-box !important;
+        white-space: nowrap;
     }
 }
