@@ -6116,39 +6116,40 @@ body.survey-stats-body {
 
     /* 마지막 질문 */
     .profile-final-question p {
-        font-size: 11px !important;
+        font-size: 8px !important;
         line-height: 1.25 !important;
         white-space: nowrap !important;
     }
 
 
     /* 하단 버튼 3개 */
+
     .profile-action-row {
         display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 5px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+
+        gap: 2px !important;
 
         width: 100% !important;
         max-width: 100% !important;
 
         margin: 0 !important;
-        padding: 16px 5px !important;
+        padding: 16px 2px !important;
 
-        box-sizing: border-box !important;
+        box-sizing: border-box;
     }
 
     .profile-action-row > * {
         width: 100% !important;
         min-width: 0 !important;
-        max-width: 100% !important;
 
-        padding: 12px 2px !important;
+        padding: 13px 1px !important;
 
         font-size: 10px !important;
         line-height: 1.2 !important;
 
         white-space: nowrap !important;
 
-        box-sizing: border-box !important;
+        box-sizing: border-box;
     }
 }
