@@ -6015,11 +6015,6 @@ body.survey-stats-body {
         display: block;
     }
 
-    /* PC용 선 숨김 */
-    .profile-triad-svg {
-        display: none;
-    }
-
     /* 모바일용 선 */
     .profile-triad-svg-mobile {
         display: block;
