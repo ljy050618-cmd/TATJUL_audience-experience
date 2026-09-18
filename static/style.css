@@ -1976,13 +1976,6 @@ body.survey-result-body {
 /* 버튼 영역 */
 
 
-.other-profile-button:hover,
-.profile-stats-button:hover,
-.profile-share-button:hover {
-    border-color: #6f1d2b;
-    color: #6f1d2b;
-}
-
 
 /* 하단 이동 */
 .profile-result-navigation {
