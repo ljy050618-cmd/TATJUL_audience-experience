@@ -6121,9 +6121,7 @@ body.survey-stats-body {
 
         transform: translateY(-2px);
     }
-}
 
-@media (max-width: 600px) {
     .profile-final-question p {
         font-size: 12px !important;
         white-space: nowrap !important;
